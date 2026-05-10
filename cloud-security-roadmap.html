@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Cloud Security Engineer — 5-Month Career Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & BASE ── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#06080D;--s1:#0B0F17;--s2:#111720;--s3:#182030;--s4:#1E2A3A;
+  --bdr:#1E2A3A;--bdr2:#263346;
+  --txt:#DCE8F5;--muted:#6A8099;--dim:#3A5068;
+  --blue:#4E9EF5;--teal:#30C5C5;--green:#45C46A;
+  --amber:#D4A832;--purple:#B088F5;--coral:#F08050;--red:#E05050;
+  --ph1:#4E9EF5;--ph2:#30C5C5;--ph3:#D4A832;--ph4:#45C46A;
+  --font-display:'Syne',system-ui,sans-serif;
+  --font-body:'Figtree',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--txt);
+  font-family:var(--font-body);font-size:15px;line-height:1.65;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(78,158,245,.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(48,197,197,.04) 0%, transparent 50%);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--s1)}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:3px}
+
+/* ── NAV ── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,8,13,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--bdr);
+  padding:0 2rem;display:flex;align-items:center;gap:0;
+  overflow-x:auto;
+}
+.nav-brand{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--blue);padding:14px 20px 14px 0;
+  border-right:1px solid var(--bdr);margin-right:4px;
+  white-space:nowrap;flex-shrink:0;text-transform:uppercase;
+}
+.nav a{
+  font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  padding:14px 12px;text-decoration:none;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:color .15s,border-color .15s;
+}
+.nav a:hover{color:var(--txt);border-bottom-color:var(--bdr2)}
+.nav a.active{color:var(--blue);border-bottom-color:var(--blue)}
+.nav-spacer{flex:1}
+.nav-print{
+  font-family:var(--font-mono);font-size:10px;padding:6px 12px;
+  border:1px solid var(--bdr2);border-radius:4px;background:transparent;
+  color:var(--muted);cursor:pointer;flex-shrink:0;
+  transition:all .15s;text-transform:uppercase;letter-spacing:.04em;
+}
+.nav-print:hover{background:var(--s3);color:var(--txt)}
+
+/* ── LAYOUT ── */
+.page{max-width:1100px;margin:0 auto;padding:0 2rem 4rem}
+
+/* ── SECTIONS ── */
+section{padding:3rem 0;border-bottom:1px solid var(--bdr)}
+section:last-child{border-bottom:none}
+.sec-num{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;
+  color:var(--dim);text-transform:uppercase;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-num::after{content:'';flex:0 0 32px;height:1px;background:var(--bdr2)}
+.sec-title{
+  font-family:var(--font-display);font-size:2rem;font-weight:700;
+  letter-spacing:-.03em;line-height:1.15;margin-bottom:.5rem;color:var(--txt);
+}
+.sec-desc{
+  font-size:14px;color:var(--muted);line-height:1.75;
+  max-width:680px;margin-bottom:2rem;
+}
+
+/* ── HERO ── */
+#hero{
+  padding:4rem 0 3rem;
+  border-bottom:1px solid var(--bdr);
+}
+.hero-label{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  color:var(--blue);text-transform:uppercase;margin-bottom:1.25rem;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-label::before{content:'';width:24px;height:1px;background:var(--blue)}
+.hero-h{
+  font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.75rem);
+  font-weight:800;letter-spacing:-.04em;line-height:1.05;
+  margin-bottom:1.25rem;
+}
+.hero-h span{
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:15px;color:var(--muted);line-height:1.75;
+  max-width:600px;margin-bottom:2.5rem;
+}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  border:1px solid var(--bdr);border-radius:10px;overflow:hidden;
+  max-width:720px;
+}
+.hs{
+  padding:1rem;background:var(--s1);text-align:center;
+  border-right:1px solid var(--bdr);
+}
+.hs:last-child{border-right:none}
+.hs-val{font-family:var(--font-display);font-size:1.5rem;font-weight:700;line-height:1}
+.hs-lbl{font-family:var(--font-mono);font-size:9px;color:var(--muted);margin-top:4px;letter-spacing:.05em;text-transform:uppercase}
+
+/* ── CERT TIMELINE ── */
+.cert-timeline{
+  display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr 24px 1fr;
+  align-items:center;gap:0;margin-bottom:2rem;
+}
+.ct-box{
+  background:var(--s2);border:1px solid var(--bdr);border-radius:8px;
+  padding:10px 8px;text-align:center;
+}
+.ct-cert{font-family:var(--font-mono);font-size:12px;font-weight:500;line-height:1.2}
+.ct-date{font-size:11px;color:var(--muted);margin-top:3px;font-family:var(--font-mono)}
+.ct-cost{font-size:10px;margin-top:2px;opacity:.6;font-family:var(--font-mono)}
+.ct-arr{text-align:center;color:var(--dim);font-size:16px}
+
+/* ── COMPARISON ── */
+.compare{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--bdr);border-radius:10px;overflow:hidden;
+}
+.cmp-col{padding:1.25rem 1.5rem}
+.cmp-col:first-child{background:var(--s2);border-right:1px solid var(--bdr)}
+.cmp-head{
+  font-family:var(--font-mono);font-size:11px;font-weight:500;
+  letter-spacing:.04em;text-transform:uppercase;
+  margin-bottom:1rem;padding-bottom:.75rem;
+  border-bottom:1px solid var(--bdr);
+}
+.cmp-row{
+  display:flex;gap:8px;padding:5px 0;
+  border-bottom:1px solid var(--s3);font-size:13px;color:var(--muted);
+  line-height:1.5;align-items:flex-start;
+}
+.cmp-row:last-child{border-bottom:none}
+.cmp-row i{flex-shrink:0;margin-top:2px;font-size:13px}
+
+/* ── CARDS ── */
+.card{
+  background:var(--s1);border:1px solid var(--bdr);
+  border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem;
+}
+.card-title{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:1rem;display:flex;align-items:center;gap:8px;
+}
+.card-title::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.75rem;margin-bottom:1rem}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}.hero-stats{grid-template-columns:1fr 1fr}.compare{grid-template-columns:1fr}.cert-timeline{grid-template-columns:1fr;gap:4px}.ct-arr{transform:rotate(90deg)}}
+
+/* ── PHASE BADGE ── */
+.phase{
+  display:inline-block;font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;margin-bottom:.75rem;
+}
+.ph1{background:rgba(78,158,245,.12);color:var(--ph1);border:1px solid rgba(78,158,245,.2)}
+.ph2{background:rgba(48,197,197,.12);color:var(--ph2);border:1px solid rgba(48,197,197,.2)}
+.ph3{background:rgba(212,168,50,.12);color:var(--ph3);border:1px solid rgba(212,168,50,.2)}
+.ph4{background:rgba(69,196,106,.12);color:var(--ph4);border:1px solid rgba(69,196,106,.2)}
+
+/* ── WEEK ACCORDION ── */
+.week-block{
+  border:1px solid var(--bdr);border-radius:8px;
+  overflow:hidden;margin-bottom:.625rem;
+}
+.week-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;cursor:pointer;
+  transition:background .15s;user-select:none;
+}
+.week-hdr:hover{background:var(--s2)}
+.week-block.open .week-hdr{background:var(--s2);border-bottom:1px solid var(--bdr)}
+.wk-badge{
+  font-family:var(--font-mono);font-size:10px;font-weight:500;
+  padding:3px 8px;border-radius:4px;flex-shrink:0;
+}
+.wk-title{font-size:13px;font-weight:500;flex:1;line-height:1.3}
+.wk-dates{font-family:var(--font-mono);font-size:11px;color:var(--muted);flex-shrink:0}
+.wk-arr{font-size:10px;color:var(--dim);margin-left:8px;transition:transform .2s;flex-shrink:0}
+.week-block.open .wk-arr{transform:rotate(180deg)}
+.week-body{display:none;padding:10px 14px}
+.week-block.open .week-body{display:block}
+
+/* ── PROP ROWS ── */
+.pr{
+  display:flex;gap:10px;padding:6px 0;
+  border-bottom:1px solid var(--s3);align-items:flex-start;
+}
+.pr:last-child{border-bottom:none}
+.pk{
+  font-family:var(--font-mono);font-size:11px;color:var(--blue);
+  min-width:130px;padding-top:1px;flex-shrink:0;line-height:1.5;
+}
+.pv{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* ── DAY ROWS ── */
+.day{
+  display:flex;gap:10px;padding:6px 0;
+  border-bottom:1px solid var(--s3);font-size:13px;align-items:flex-start;
+}
+.day:last-child{border-bottom:none}
+.dl{
+  font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  min-width:90px;flex-shrink:0;padding-top:1px;
+}
+.dv{color:var(--muted);line-height:1.6;flex:1}
+.dv strong{font-weight:500;color:var(--txt)}
+
+/* ── RESOURCE ROWS ── */
+.res{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--s3);
+}
+.res:last-child{border-bottom:none}
+.rbadge{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.04em;
+  padding:3px 7px;border-radius:3px;flex-shrink:0;margin-top:2px;
+  text-transform:uppercase;
+}
+.r-free{background:rgba(69,196,106,.12);color:var(--green);border:1px solid rgba(69,196,106,.2)}
+.r-paid{background:rgba(212,168,50,.12);color:var(--amber);border:1px solid rgba(212,168,50,.2)}
+.r-ess{background:rgba(78,158,245,.12);color:var(--blue);border:1px solid rgba(78,158,245,.2)}
+.rname{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:2px}
+.rdesc{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ── CHECK ITEMS ── */
+.chk{
+  display:flex;align-items:flex-start;gap:8px;padding:4px 0;
+  font-size:13px;color:var(--muted);line-height:1.5;
+}
+.chk-dot{
+  width:18px;height:18px;border-radius:50%;border:1.5px solid var(--green);
+  flex-shrink:0;margin-top:1px;display:flex;align-items:center;
+  justify-content:center;font-size:9px;color:var(--green);
+}
+
+/* ── CODE / TAGS ── */
+code{
+  font-family:var(--font-mono);font-size:11.5px;
+  background:var(--s3);padding:1px 5px;border-radius:3px;color:var(--teal);
+}
+.tag{
+  display:inline-block;font-family:var(--font-mono);font-size:10px;
+  padding:2px 7px;border-radius:3px;margin:2px 3px 2px 0;
+}
+.t-blue{background:rgba(78,158,245,.12);color:var(--blue)}
+.t-teal{background:rgba(48,197,197,.12);color:var(--teal)}
+.t-green{background:rgba(69,196,106,.12);color:var(--green)}
+.t-amber{background:rgba(212,168,50,.12);color:var(--amber)}
+.t-purple{background:rgba(176,136,245,.12);color:var(--purple)}
+.t-red{background:rgba(224,80,80,.12);color:var(--red)}
+
+/* ── CALLOUT BOXES ── */
+.callout{
+  border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.7;margin:1rem 0;
+}
+.c-blue{background:rgba(78,158,245,.08);border:1px solid rgba(78,158,245,.2);color:#90C4F5}
+.c-green{background:rgba(69,196,106,.08);border:1px solid rgba(69,196,106,.2);color:#90D4A0}
+.c-amber{background:rgba(212,168,50,.08);border:1px solid rgba(212,168,50,.2);color:#D4B870}
+.c-teal{background:rgba(48,197,197,.08);border:1px solid rgba(48,197,197,.2);color:#80D8D8}
+
+/* ── SALARY BARS ── */
+.sal-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--s3)}
+.sal-row:last-child{border-bottom:none}
+.sal-yr{font-family:var(--font-mono);font-size:11px;color:var(--muted);min-width:68px;flex-shrink:0}
+.sal-bar{flex:1;height:20px;background:var(--s3);border-radius:3px;overflow:hidden}
+.sal-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding:0 8px}
+.sal-txt{font-family:var(--font-mono);font-size:11px;font-weight:500;color:white}
+.sal-role{font-family:var(--font-mono);font-size:11px;color:var(--muted);min-width:160px;flex-shrink:0;text-align:right}
+
+/* ── PROJECT CARDS ── */
+.proj{
+  border:1px solid var(--bdr);border-radius:8px;
+  padding:12px 14px;margin-bottom:.625rem;
+}
+.proj-num{
+  font-family:var(--font-mono);font-size:10px;color:var(--teal);
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;
+}
+.proj-title{font-size:13px;font-weight:600;margin-bottom:4px;color:var(--txt)}
+.proj-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── SCHEDULE ── */
+.sched{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:7px 0;border-bottom:1px solid var(--s3);font-size:13px;
+}
+.sched:last-child{border-bottom:none}
+.st{font-family:var(--font-mono);font-size:11px;color:var(--muted);min-width:100px;flex-shrink:0;padding-top:1px}
+.sv{color:var(--muted);line-height:1.6;flex:1}
+.sv strong{color:var(--txt);font-weight:500}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--bdr);margin:1.5rem 0}
+
+/* ── FOOTER ── */
+footer{
+  padding:2rem 0;text-align:center;
+  font-family:var(--font-mono);font-size:11px;color:var(--dim);
+  border-top:1px solid var(--bdr);margin-top:2rem;
+}
+
+/* ── PRINT STYLES ── */
+@media print{
+  .nav,.nav-print{display:none}
+  body{background:white;color:#111;font-size:12px}
+  :root{--txt:#111;--muted:#444;--s1:#f8f8f8;--s2:#f0f0f0;--s3:#e8e8e8;--bdr:#ddd;--bdr2:#ccc;--bg:white;--dim:#888}
+  section{page-break-inside:avoid}
+  .week-body{display:block!important}
+  .wk-arr{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav class="nav">
+  <div class="nav-brand">☁️ Cloud Security Roadmap</div>
+  <a href="#hero">Overview</a>
+  <a href="#decision">Azure vs AWS</a>
+  <a href="#month1">Month 1</a>
+  <a href="#month2">Month 2</a>
+  <a href="#month3">Month 3</a>
+  <a href="#month45">Months 4–5</a>
+  <a href="#schedule">Schedule</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#resources">Resources</a>
+  <div class="nav-spacer"></div>
+  <button class="nav-print" onclick="window.print()">⊞ Print / Save PDF</button>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="hero">
+  <div class="hero-label">Backend Developer → Cloud Security Engineer</div>
+  <h1 class="hero-h">Your <span>5-Month</span> Cloud<br/>Security Roadmap</h1>
+  <p class="hero-sub">A strict, week-by-week career change plan built specifically for experienced backend developers. Start today — land a cloud security role by October 2026. Azure-first for the UK market.</p>
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-val" style="color:var(--blue)">9 May</div><div class="hs-lbl">Start today</div></div>
+    <div class="hs"><div class="hs-val" style="color:var(--green)">9 Oct</div><div class="hs-lbl">Target offer</div></div>
+    <div class="hs"><div class="hs-val" style="color:var(--teal)">4 certs</div><div class="hs-lbl">Azure path</div></div>
+    <div class="hs"><div class="hs-val" style="color:var(--amber)">3 hrs</div><div class="hs-lbl">Per day min</div></div>
+    <div class="hs"><div class="hs-val" style="color:var(--purple)">£490</div><div class="hs-lbl">Exam costs</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DECISION ═══════════════════════ -->
+<section id="decision">
+  <div class="sec-num">Section 01</div>
+  <h2 class="sec-title">Azure vs AWS — <span style="color:var(--blue)">Start with Azure</span></h2>
+  <p class="sec-desc">For the UK job market in 2026, Azure is the clear choice. It dominates UK enterprise, public sector, and financial services. The Azure cert path has the most direct progression into cloud security of any vendor.</p>
+
+  <div class="callout c-green" style="margin-bottom:1.5rem"><strong style="font-weight:600">The verdict:</strong> Start with Azure. Add AWS Security Specialty after landing your first role (year 2). Multi-cloud adds 15–25% salary premium at senior level — build it when you have real-world context to apply it.</div>
+
+  <!-- Cert timeline -->
+  <div class="card">
+    <div class="card-title">Your exact certification path — with target dates</div>
+    <div class="cert-timeline">
+      <div class="ct-box" style="border-color:rgba(78,158,245,.4)"><div class="ct-cert" style="color:var(--blue)">AZ-900</div><div class="ct-date">23 May 2026</div><div class="ct-cost">~£80</div></div>
+      <div class="ct-arr">→</div>
+      <div class="ct-box" style="border-color:rgba(78,158,245,.4)"><div class="ct-cert" style="color:var(--blue)">SC-900</div><div class="ct-date">7 Jun 2026</div><div class="ct-cost">~£80</div></div>
+      <div class="ct-arr">→</div>
+      <div class="ct-box" style="border-color:rgba(48,197,197,.4)"><div class="ct-cert" style="color:var(--teal)">AZ-500</div><div class="ct-date">8 Aug 2026</div><div class="ct-cost">~£165</div></div>
+      <div class="ct-arr">→</div>
+      <div class="ct-box" style="border-color:rgba(212,168,50,.4)"><div class="ct-cert" style="color:var(--amber)">SC-200</div><div class="ct-date">13 Sep 2026</div><div class="ct-cost">~£165</div></div>
+      <div class="ct-arr">→</div>
+      <div class="ct-box" style="border-color:rgba(69,196,106,.4);background:rgba(69,196,106,.05)"><div class="ct-cert" style="color:var(--green)">JOB OFFER</div><div class="ct-date">Oct 2026</div><div class="ct-cost">£55–75k</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--dim);font-family:var(--font-mono);margin-top:6px">Total cert cost: ~£490 · Total study hrs: ~230 · Optional: CompTIA Security+ (£370) run parallel month 3–4</div>
+  </div>
+
+  <div class="compare">
+    <div class="cmp-col">
+      <div class="cmp-head" style="color:var(--blue)">Azure — why it wins for the UK</div>
+      <div class="cmp-row"><i style="color:var(--green)">✓</i><span>Dominates UK public sector — NHS, HMRC, MOD, local councils all run Azure. Government cleared roles pay a significant premium.</span></div>
+      <div class="cmp-row"><i style="color:var(--green)">✓</i><span>Entra ID (formerly Azure AD) is in 90%+ of UK enterprises. You will configure this in your first week.</span></div>
+      <div class="cmp-row"><i style="color:var(--green)">✓</i><span>Microsoft Sentinel is the dominant UK enterprise SIEM. The SC-200 is literally the Sentinel operations exam.</span></div>
+      <div class="cmp-row"><i style="color:var(--green)">✓</i><span>Clearest cert path: AZ-900 → SC-900 → AZ-500 → SC-200. Each exam builds directly on the last.</span></div>
+      <div class="cmp-row"><i style="color:var(--green)">✓</i><span>John Savill's free YouTube content is the best Azure training on the internet. No other cloud vendor has this quality of free resource.</span></div>
+      <div class="cmp-row"><i style="color:var(--green)">✓</i><span>AZ-500 appears in more UK cloud security job ads than any other single certification.</span></div>
+    </div>
+    <div class="cmp-col">
+      <div class="cmp-head" style="color:var(--amber)">AWS — add it later (year 2+)</div>
+      <div class="cmp-row"><i style="color:var(--amber)">→</i><span>Dominant in UK fintech startups and tech-native companies. Valuable but secondary to Azure for the UK job market overall.</span></div>
+      <div class="cmp-row"><i style="color:var(--amber)">→</i><span>AWS Security Specialty (SCS-C02) is the target cert — but Microsoft recommends 2 years AWS experience first.</span></div>
+      <div class="cmp-row"><i style="color:var(--amber)">→</i><span>Start with AWS Cloud Practitioner (CLF-C02) after AZ-500 if you want breadth, then AWS Security Specialty year 2.</span></div>
+      <div class="cmp-row"><i style="color:var(--amber)">→</i><span>Adrian Cantrill's AWS courses are the gold standard for paid content. Bookmark now, use in year 2.</span></div>
+      <div class="cmp-row"><i style="color:var(--amber)">→</i><span>CloudGoat (Rhino Security Labs) — deliberately vulnerable AWS environment. Use from month 4 onwards to understand attacker perspective.</span></div>
+      <div class="cmp-row"><i style="color:var(--amber)">→</i><span>Being multi-cloud literate adds 15–25% salary premium at senior level. Build it after you have the foundation.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ MONTH 1 ═══════════════════════ -->
+<section id="month1">
+  <div class="sec-num">Section 02</div>
+  <div class="phase ph1">Phase 1 — Foundation</div>
+  <h2 class="sec-title">Month 1 — <span style="color:var(--blue)">May 9 to June 8</span></h2>
+  <p class="sec-desc">Two quick certifications to build momentum. AZ-900 and SC-900 are achievable in 2 weeks each. As a backend developer you already understand cloud infrastructure — you will move faster than the average candidate.</p>
+
+  <div class="callout c-amber"><strong style="font-weight:600">Do not skip these because they seem basic.</strong> AZ-900 + SC-900 on your CV alongside AZ-500 signals a structured approach to employers. They also cover compliance and governance concepts that appear directly in AZ-500 and every security interview.</div>
+
+  <div class="week-block open" id="w1">
+    <div class="week-hdr" onclick="toggle('w1')">
+      <div class="wk-badge" style="background:rgba(78,158,245,.12);color:var(--blue)">Week 1</div>
+      <div class="wk-title">AZ-900 Part 1 — Cloud concepts & Azure core services</div>
+      <div class="wk-dates">May 9–15</div><div class="wk-arr">▲</div>
+    </div>
+    <div class="week-body">
+      <div class="day"><span class="dl">Mon 9 May</span><div class="dv"><strong>Start immediately:</strong> Watch John Savill's AZ-900 Study Cram on YouTube (4hr video — watch at 1.25× in 2 sessions). Take notes on cloud service types (IaaS / PaaS / SaaS) and Azure global infrastructure. Create your Azure free account today.</div></div>
+      <div class="day"><span class="dl">Tue 10 May</span><div class="dv"><strong>Microsoft Learn:</strong> Azure Fundamentals path — Module 1 (Cloud concepts). 1.5hrs. Then spend 1hr in the Azure portal exploring resource groups, subscriptions, and regions.</div></div>
+      <div class="day"><span class="dl">Wed 11 May</span><div class="dv"><strong>Microsoft Learn:</strong> Module 2 (Azure architecture and services). Focus on availability zones, virtual machines, storage, and networking basics. 2hrs.</div></div>
+      <div class="day"><span class="dl">Thu 12 May</span><div class="dv"><strong>Microsoft Learn:</strong> Module 3 (Azure management and governance). Cost Management, Azure Policy, resource locks, Blueprints. 2hrs. Start Whizlabs AZ-900 practice test set 1.</div></div>
+      <div class="day"><span class="dl">Fri 13 May</span><div class="dv"><strong>Review session:</strong> Redo every wrong practice question. Build Anki flashcards for missed concepts. Never move forward on a concept you cannot explain in plain English. 2hrs.</div></div>
+      <div class="day"><span class="dl">Sat–Sun</span><div class="dv"><strong>Weekend lab:</strong> Deploy a VM, Storage Account, and Virtual Network in Azure portal. Then tear it all down using Terraform — you know IaC, apply it immediately. 4hrs total. Whizlabs mock exam on Sunday. Target 70%+.</div></div>
+    </div>
+  </div>
+
+  <div class="week-block" id="w2">
+    <div class="week-hdr" onclick="toggle('w2')">
+      <div class="wk-badge" style="background:rgba(78,158,245,.12);color:var(--blue)">Week 2</div>
+      <div class="wk-title">AZ-900 completion + SIT EXAM on 23 May</div>
+      <div class="wk-dates">May 16–23</div><div class="wk-arr">▼</div>
+    </div>
+    <div class="week-body">
+      <div class="day"><span class="dl">Mon–Tue</span><div class="dv"><strong>Microsoft Learn:</strong> Complete remaining AZ-900 modules with heavy focus on Azure security tools — Defender for Cloud, Sentinel, Key Vault, Microsoft Entra ID. These topics preview AZ-500 content. 2.5hrs/day.</div></div>
+      <div class="day"><span class="dl">Wed–Thu</span><div class="dv"><strong>Mock exams:</strong> MeasureUp official AZ-900 practice test (purchase — the closest to the real exam). Target 85%+ before booking. Review every wrong answer against the official Microsoft documentation. 2.5hrs/day.</div></div>
+      <div class="day"><span class="dl">Fri 22 May</span><div class="dv"><strong>Light revision only.</strong> Re-read your notes. No new content. Book the exam for Saturday via Pearson VUE (pearsonvue.com/microsoft). Rest well tonight.</div></div>
+      <div class="day"><span class="dl">Sat 23 May</span><div class="dv" style="color:var(--green)"><strong>🎯 SIT AZ-900.</strong> Pass mark: 700/1000. You will pass. Celebrate briefly, then start SC-900 prep that evening.</div></div>
+      <div class="day"><span class="dl">Sun 24 May</span><div class="dv"><strong>SC-900 begins:</strong> John Savill SC-900 Study Cram (YouTube, 3hrs). Cover identity, security, compliance concepts. Start Microsoft Learn SC-900 learning path.</div></div>
+    </div>
+  </div>
+
+  <div class="week-block" id="w3">
+    <div class="week-hdr" onclick="toggle('w3')">
+      <div class="wk-badge" style="background:rgba(78,158,245,.12);color:var(--blue)">Week 3</div>
+      <div class="wk-title">SC-900 — Security, Compliance & Identity fundamentals</div>
+      <div class="wk-dates">May 25–31</div><div class="wk-arr">▼</div>
+    </div>
+    <div class="week-body">
+      <div class="day"><span class="dl">Mon–Wed</span><div class="dv"><strong>Microsoft Learn SC-900 path</strong> — covers Entra ID, Microsoft security solutions, and compliance concepts. 3 modules across 3 days. 2.5hrs/day. This content overlaps directly with AZ-500 — you are getting double value.</div></div>
+      <div class="day"><span class="dl">Thu–Fri</span><div class="dv"><strong>Practice questions:</strong> Whizlabs SC-900 test bank. Target 80%+ by Friday. Focus on Microsoft Defender product suite, Purview compliance portal, and Sentinel overview. 2.5hrs/day.</div></div>
+      <div class="day"><span class="dl">Sat</span><div class="dv"><strong>Azure lab:</strong> Explore Microsoft Defender for Cloud free tier, create a free Entra ID tenant, enable MFA for test accounts, configure a Conditional Access policy. Hands-on reinforcement of SC-900 concepts. 3hrs.</div></div>
+      <div class="day"><span class="dl">Sun</span><div class="dv"><strong>Full mock exam.</strong> Whizlabs SC-900 complete test. Target 82%+. Review every wrong answer.</div></div>
+    </div>
+  </div>
+
+  <div class="week-block" id="w4">
+    <div class="week-hdr" onclick="toggle('w4')">
+      <div class="wk-badge" style="background:rgba(78,158,245,.12);color:var(--blue)">Week 4</div>
+      <div class="wk-title">SC-900 final prep + SIT EXAM on 7 June</div>
+      <div class="wk-dates">Jun 1–8</div><div class="wk-arr">▼</div>
+    </div>
+    <div class="week-body">
+      <div class="day"><span class="dl">Mon–Tue</span><div class="dv"><strong>Final SC-900 revision.</strong> Microsoft 365 Defender, Compliance Centre, Microsoft Purview, information protection. Must score 85%+ on mock before exam day. 2.5hrs/day.</div></div>
+      <div class="day"><span class="dl">Wed–Thu</span><div class="dv"><strong>Get ahead on AZ-500:</strong> Read the AZ-500 exam skills outline on Microsoft (free). Start Alan Rodrigues AZ-500 Udemy course introduction and Domain 1 overview. You are already ahead of schedule. 2hrs/day.</div></div>
+      <div class="day"><span class="dl">Fri 6 Jun</span><div class="dv"><strong>SC-900 revision only.</strong> Book exam for Saturday 7 June via Pearson VUE. Rest.</div></div>
+      <div class="day"><span class="dl">Sat 7 Jun</span><div class="dv" style="color:var(--green)"><strong>🎯 SIT SC-900.</strong> Two certifications in 4 weeks. AZ-500 starts Monday — this is where the real work begins.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">End-of-month 1 checkpoint</div>
+    <div class="chk"><div class="chk-dot">✓</div><span>AZ-900 passed</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>SC-900 passed</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>Azure free account active with hands-on lab experience (VMs, storage, networking)</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>AZ-500 Udemy course purchased and first 2 modules completed</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>LinkedIn updated: "Azure Certified | Studying AZ-500 | Cloud Security" — recruiters will start messaging</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ MONTH 2 ═══════════════════════ -->
+<section id="month2">
+  <div class="sec-num">Section 03</div>
+  <div class="phase ph2">Phase 2 — Core security</div>
+  <h2 class="sec-title">Month 2 — <span style="color:var(--teal)">June 9 to July 8</span></h2>
+  <p class="sec-desc">The hardest month. AZ-500 is a real security exam. It covers identity, network security, platform protection, and security operations in depth. Treat this like a second full-time commitment. No days off except Sunday afternoons.</p>
+
+  <div class="g2" style="margin-bottom:1rem">
+    <div class="card">
+      <div class="card-title">Weeks 5–6 · Jun 9–22</div>
+      <div class="wk-badge" style="background:rgba(48,197,197,.12);color:var(--teal);display:inline-block;margin-bottom:.75rem">AZ-500 Domain 1 — Identity & Access</div>
+      <div class="day"><span class="dl">Daily (3hrs)</span><div class="dv"><strong>AM 1hr:</strong> Alan Rodrigues AZ-500 Udemy — Identity modules. <strong>PM 2hrs:</strong> Azure portal hands-on matching that day's topic.</div></div>
+      <div class="day"><span class="dl">Topics</span><div class="dv">Entra ID tenants · Conditional Access policies · Privileged Identity Management (PIM) · Custom RBAC roles · Managed Identities · App registrations & service principals · External identities · SSPR</div></div>
+      <div class="day"><span class="dl">Lab 1</span><div class="dv">Configure a Conditional Access policy blocking legacy auth and requiring MFA for privileged roles. Document as a GitHub README — your first portfolio piece.</div></div>
+      <div class="day"><span class="dl">Lab 2</span><div class="dv">Set up PIM for a custom RBAC role with time-bound access and approval workflow. Screenshot the audit log. Add to GitHub portfolio.</div></div>
+      <div class="day"><span class="dl">Weekends</span><div class="dv">John Savill AZ-500 domain deep dives (YouTube). Whizlabs Domain 1 practice questions on Sunday. Target 75%+.</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Weeks 7–8 · Jun 23 – Jul 8</div>
+      <div class="wk-badge" style="background:rgba(48,197,197,.12);color:var(--teal);display:inline-block;margin-bottom:.75rem">AZ-500 Domain 2 — Platform Protection</div>
+      <div class="day"><span class="dl">Topics</span><div class="dv">NSGs (Network Security Groups) · Azure Firewall vs NSG · Application Gateway + WAF · DDoS Protection Standard · Private Endpoints vs Service Endpoints · Azure Bastion · Just-in-time VM access</div></div>
+      <div class="day"><span class="dl">Lab 3</span><div class="dv">Deploy a 3-tier network architecture (DMZ / app / data subnets) with NSG rules blocking all lateral movement. Document with architecture diagram.</div></div>
+      <div class="day"><span class="dl">Lab 4</span><div class="dv">Deploy Azure Application Gateway with WAF in Prevention mode. Test against OWASP rules using DVWA. Document findings in a security assessment report format.</div></div>
+      <div class="day"><span class="dl">Key resource</span><div class="dv"><strong>GitHub: MicrosoftLearning/AZ500-AzureSecurityTechnologies</strong> — 35+ official Microsoft lab exercises. Work through ALL of them. Free. Non-negotiable.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">End-of-month 2 checkpoint</div>
+    <div class="chk"><div class="chk-dot">✓</div><span>AZ-500 Domains 1 & 2 fully studied — 50% of exam content covered</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>4+ documented lab projects on GitHub with professional READMEs</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>Scoring 70%+ on AZ-500 Domains 1 & 2 practice questions (Whizlabs)</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>Working through Microsoft Learning official lab repository (github.com/MicrosoftLearning)</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ MONTH 3 ═══════════════════════ -->
+<section id="month3">
+  <div class="sec-num">Section 04</div>
+  <div class="phase ph2">Phase 2 — Core security</div>
+  <h2 class="sec-title">Month 3 — <span style="color:var(--teal)">July 9 to August 8</span></h2>
+  <p class="sec-desc">Complete all 4 AZ-500 domains and sit the exam on 8 August. Do not postpone the exam date. Booking it early creates the forcing function that makes everything else happen.</p>
+
+  <div class="g2" style="margin-bottom:1rem">
+    <div class="card">
+      <div class="card-title">Weeks 9–10 · Jul 9–22 — Domains 3 & 4</div>
+      <div class="day"><span class="dl">Domain 3</span><div class="dv">Microsoft Sentinel setup · Analytics rules · KQL (Kusto Query Language — essential) · Defender for Cloud secure score · Defender for Servers / SQL / Containers · Azure Monitor + Log Analytics · Security incidents</div></div>
+      <div class="day"><span class="dl">Domain 4</span><div class="dv">Azure Key Vault (secrets, keys, certificates) · Storage encryption · SQL TDE & Always Encrypted · App Service security · Container registry security · GitHub Advanced Security</div></div>
+      <div class="day"><span class="dl">🔑 Critical Lab 5</span><div class="dv"><strong>Deploy Microsoft Sentinel</strong> in your Azure account. Connect Windows + Linux VM data connectors. Write 3 custom KQL analytics rules. Simulate a brute-force attack and investigate the incident end-to-end. This is your most impressive portfolio piece.</div></div>
+      <div class="day"><span class="dl">KQL essentials</span><div class="dv">Memorise these: <code>SecurityEvent | where EventID == 4625</code> (failed logins) · <code>SigninLogs | where ResultType != 0</code> · <code>AzureActivity | where OperationName contains "delete"</code></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Weeks 11–12 · Jul 23 – Aug 8 — Full revision + EXAM</div>
+      <div class="day"><span class="dl">Week 11</span><div class="dv"><strong>Full revision pass across all 4 domains.</strong> Whizlabs full mock exams + MeasureUp official practice test (buy for AZ-500 — £40, the closest to the real exam). Must score 80%+ before booking.</div></div>
+      <div class="day"><span class="dl">Every wrong answer</span><div class="dv">Open Microsoft documentation and read the relevant page. Do not just accept the correct answer — understand the reasoning. This is how you score 85%+ not just pass.</div></div>
+      <div class="day"><span class="dl">Mon–Wed W12</span><div class="dv"><strong>Mock exams only. No new content.</strong> Three full timed practice papers. Review wrong answers only.</div></div>
+      <div class="day"><span class="dl">Thu Aug 7</span><div class="dv"><strong>Rest day.</strong> Light review of your personal notes. No mock exams. Sleep 8 hours.</div></div>
+      <div class="day"><span class="dl">Sat 8 Aug</span><div class="dv" style="color:var(--teal)"><strong>🎯 SIT AZ-500.</strong> Pass mark: 700/1000. You are an Azure Security Engineer Associate. Update LinkedIn immediately — recruiters will contact you within 48 hours.</div></div>
+    </div>
+  </div>
+
+  <div class="callout c-teal">
+    <strong style="font-weight:600">After passing AZ-500:</strong> You are now qualified for Cloud Security Engineer, Azure Security Analyst, and Security Operations Engineer roles. Start applying immediately — do not wait for SC-200. Many UK employers will hire on AZ-500 alone at this stage.
+  </div>
+
+  <div class="card">
+    <div class="card-title">End-of-month 3 checkpoint</div>
+    <div class="chk"><div class="chk-dot">✓</div><span>AZ-500 PASSED — Microsoft Certified: Azure Security Engineer Associate</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>Microsoft Sentinel lab fully documented on GitHub with KQL detection rules</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>6+ portfolio projects on GitHub with professional documentation</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>LinkedIn updated with AZ-500 certification badge</span></div>
+    <div class="chk"><div class="chk-dot">✓</div><span>Active job applications started — 3 applications per day minimum</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ MONTHS 4-5 ═══════════════════════ -->
+<section id="month45">
+  <div class="sec-num">Section 05</div>
+  <div class="phase ph3">Phase 3 — Specialise & Job Ready</div>
+  <h2 class="sec-title">Months 4–5 — <span style="color:var(--amber)">Aug 9 to Oct 8</span></h2>
+  <p class="sec-desc">SC-200 makes you a SOC-capable cloud security engineer, not just a configuration specialist. Job applications run in parallel from the first day of this phase. Do not wait until you have every cert — start applying now.</p>
+
+  <div class="week-block open" id="wm4">
+    <div class="week-hdr" onclick="toggle('wm4')">
+      <div class="wk-badge" style="background:rgba(212,168,50,.12);color:var(--amber)">Month 4</div>
+      <div class="wk-title">SC-200 — Microsoft Security Operations Analyst</div>
+      <div class="wk-dates">Aug 9 – Sep 13</div><div class="wk-arr">▲</div>
+    </div>
+    <div class="week-body">
+      <div class="day"><span class="dl">What SC-200 covers</span><div class="dv">Microsoft Sentinel threat detection and response · Defender XDR · Defender for Endpoint · Defender for Cloud Apps · KQL advanced threat hunting · Incident investigation and remediation · Threat intelligence integration · MITRE ATT&CK framework applied</div></div>
+      <div class="day"><span class="dl">Weeks 1–2</span><div class="dv"><strong>Course:</strong> Alan Rodrigues SC-200 on Udemy. Microsoft Learn SC-200 path (free, 30hrs). John Savill SC-200 YouTube playlist. 2.5hrs/day theory + 30 mins practical.</div></div>
+      <div class="day"><span class="dl">Weeks 3–4</span><div class="dv"><strong>Deep KQL:</strong> Rod Trent's "Must Learn KQL" series (free on GitHub — github.com/rod-trent/MustLearnKQL, 30 chapters). Build 5 custom threat hunting notebooks in Sentinel. This is what separates candidates in interviews.</div></div>
+      <div class="day"><span class="dl">Sat 13 Sep</span><div class="dv" style="color:var(--amber)"><strong>🎯 SIT SC-200.</strong> AZ-500 + SC-200 = the gold standard entry qualification for UK cloud security roles.</div></div>
+      <div class="day"><span class="dl">Applications</span><div class="dv"><strong>From 9 August — apply daily:</strong> Cloud Security Engineer · Azure Security Analyst · Security Operations Engineer · DevSecOps Engineer. CWJobs, LinkedIn, Reed, Indeed. 3–5 applications per day. Do not be selective at this stage — apply broadly.</div></div>
+    </div>
+  </div>
+
+  <div class="week-block" id="wm5">
+    <div class="week-hdr" onclick="toggle('wm5')">
+      <div class="wk-badge" style="background:rgba(69,196,106,.12);color:var(--green)">Month 5</div>
+      <div class="wk-title">Portfolio polish, interview prep & job offer</div>
+      <div class="wk-dates">Sep 14 – Oct 8</div><div class="wk-arr">▼</div>
+    </div>
+    <div class="week-body">
+      <div class="day"><span class="dl">Portfolio</span><div class="dv">GitHub portfolio must include: Azure security architecture diagram · Sentinel detection rules with KQL · Terraform security baseline · Conditional Access policy templates · Zero Trust implementation guide. Each with professional README.</div></div>
+      <div class="day"><span class="dl">Interview prep</span><div class="dv">Practise these out loud until fluent: "Walk me through securing a new Azure subscription from scratch" · "NSG vs Azure Firewall — when to use each?" · "Investigate a compromised Azure VM — step by step" · "What is PIM and why?" · "Explain zero trust in 60 seconds." Use STAR format for every answer.</div></div>
+      <div class="day"><span class="dl">Optional cert</span><div class="dv"><strong>CompTIA Security+ (SY0-701):</strong> Vendor-neutral, widely recognised. Study parallel in month 4 using Professor Messer free YouTube course. Sit in month 5. Cost: ~£370. Adds credibility with non-Microsoft-stack employers.</div></div>
+      <div class="day"><span class="dl">Target</span><div class="dv" style="color:var(--green)"><strong>Job offer by October 2026.</strong> Starting salary: £55–75k. London: £65–85k. Accept the offer — real-world experience beats additional certifications at this stage every time.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Entry-level UK roles to target — salary range</div>
+    <div class="sal-row"><span class="sal-yr">Yr 1–2</span><div class="sal-bar"><div class="sal-fill" style="width:35%;background:var(--blue)"><span class="sal-txt">£45–65k</span></div></div><span class="sal-role">Cloud Security Analyst</span></div>
+    <div class="sal-row"><span class="sal-yr">Yr 2–3</span><div class="sal-bar"><div class="sal-fill" style="width:50%;background:var(--blue)"><span class="sal-txt">£65–85k</span></div></div><span class="sal-role">Cloud Security Engineer</span></div>
+    <div class="sal-row"><span class="sal-yr">Yr 4–5</span><div class="sal-bar"><div class="sal-fill" style="width:65%;background:var(--teal)"><span class="sal-txt">£85–110k</span></div></div><span class="sal-role">Senior Security Engineer</span></div>
+    <div class="sal-row"><span class="sal-yr">Yr 6–8</span><div class="sal-bar"><div class="sal-fill" style="width:80%;background:var(--amber)"><span class="sal-txt">£110–140k</span></div></div><span class="sal-role">Principal / Architect</span></div>
+    <div class="sal-row"><span class="sal-yr">Yr 9–10</span><div class="sal-bar"><div class="sal-fill" style="width:95%;background:var(--green)"><span class="sal-txt">£140–180k+</span></div></div><span class="sal-role">CISO / Security Director</span></div>
+    <div style="font-size:12px;color:var(--dim);margin-top:8px;font-family:var(--font-mono)">London premium: +15–25% · Contract rates: multiply by ~1.7× · Azure + AWS multi-cloud: +15–25% at senior level</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SCHEDULE ═══════════════════════ -->
+<section id="schedule">
+  <div class="sec-num">Section 06</div>
+  <h2 class="sec-title">Daily Study Schedule</h2>
+  <p class="sec-desc">This schedule is for someone currently employed. It totals 25 hrs/week — aggressive but essential. The morning block is non-negotiable. Protect it like a critical client meeting.</p>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Weekday schedule — Monday to Friday</div>
+      <div class="sched"><span class="st">6:00–7:00 AM</span><div class="sv"><strong>Theory block.</strong> Video course or Microsoft Learn. Phone on silent. Before the day starts. This single hour is where most of your learning happens.</div></div>
+      <div class="sched"><span class="st">7:00–7:30 AM</span><div class="sv"><strong>Consolidation.</strong> Write 3–5 bullet points in your own words summarising what you just learned. If you cannot explain it simply, you have not understood it.</div></div>
+      <div class="sched"><span class="st">7:00–9:00 PM</span><div class="sv"><strong>Labs + practice questions.</strong> Alternate: Mon/Wed/Fri = Azure portal hands-on labs. Tue/Thu = Whizlabs mock questions and exam prep review.</div></div>
+      <div class="sched"><span class="st">9:00–9:30 PM</span><div class="sv"><strong>Anki flashcard review.</strong> 15 minutes of spaced repetition. Create cards throughout the day for anything you struggle with. Free Anki app.</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Weekend schedule — Saturday & Sunday</div>
+      <div class="sched"><span class="st">Sat 9 AM–12</span><div class="sv"><strong>Deep lab session.</strong> 3 continuous hours in Azure. Build something real. Document it as a GitHub portfolio piece while you work.</div></div>
+      <div class="sched"><span class="st">Sat 2–4 PM</span><div class="sv"><strong>Full timed mock exam.</strong> No pausing, no notes. Simulate real exam conditions. Review every wrong answer against official Microsoft documentation.</div></div>
+      <div class="sched"><span class="st">Sun 9–11 AM</span><div class="sv"><strong>Weak area focus.</strong> Review the lowest-scoring domain from Saturday's mock. 2 hours of targeted, deep study on problem areas only.</div></div>
+      <div class="sched"><span class="st">Sun afternoon</span><div class="sv"><strong>Complete rest.</strong> No studying. This is part of the plan — cognitive consolidation happens during rest. Non-negotiable. Do not feel guilty.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Weekly hours by phase</div>
+    <div class="pr"><span class="pk">Month 1</span><span class="pv"><strong>20 hrs/week.</strong> AZ-900 and SC-900 are lighter exams. Use the manageable pace to build solid study habits and set up your Azure lab environment properly.</span></div>
+    <div class="pr"><span class="pk">Month 2</span><span class="pv"><strong>25 hrs/week.</strong> AZ-500 is the hardest exam of this plan. Protect every study session. This month determines whether you pass in August.</span></div>
+    <div class="pr"><span class="pk">Month 3</span><span class="pv"><strong>25 hrs/week.</strong> Complete Domains 3 & 4 in weeks 9–10, then 100% mock exams weeks 11–12. Sit AZ-500 on schedule — do not postpone.</span></div>
+    <div class="pr"><span class="pk">Month 4</span><span class="pv"><strong>20 hrs/week studying + 1hr/day job applications.</strong> From week 3 of month 4: 60% study, 40% applying and interview prep.</span></div>
+    <div class="pr"><span class="pk">Month 5</span><span class="pv"><strong>10 hrs/week studying + full-time job hunt.</strong> Study only to fill gaps exposed by interviews. Portfolio and interview prep take full priority.</span></div>
+  </div>
+
+  <div class="callout c-blue"><strong style="font-weight:600">The one rule that matters most:</strong> Never miss the 6 AM morning block two days in a row. Miss it once — fine, catch up in the evening. Miss it twice — your pace collapses and the exam dates slip. Pick a fixed time and treat it as a non-negotiable appointment with your future career.</div>
+</section>
+
+<!-- ═══════════════════════ PORTFOLIO ═══════════════════════ -->
+<section id="portfolio">
+  <div class="sec-num">Section 07</div>
+  <h2 class="sec-title">Portfolio Projects — Your Backend Dev Advantage</h2>
+  <p class="sec-desc">No pure security candidate coming from a non-engineering background can build a secure CI/CD pipeline from scratch. These four projects demonstrate skills that most security applicants simply cannot produce.</p>
+
+  <div class="proj">
+    <div class="proj-num">Project 01 — Month 2</div>
+    <div class="proj-title">Azure Security Baseline (Terraform IaC)</div>
+    <div class="proj-desc">Deploy a fully hardened Azure subscription using Terraform. Include: NSGs with least-privilege rules, Azure Key Vault with access policies, Defender for Cloud enabled and configured, Diagnostic Settings forwarding all logs to Log Analytics, Microsoft Sentinel connected. Run it, capture the Defender for Cloud Secure Score, document every security decision made and why. This demonstrates both cloud security knowledge AND engineering capability — a combination most security candidates lack.</div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-num">Project 02 — Month 3</div>
+    <div class="proj-title">Microsoft Sentinel Detection Lab</div>
+    <div class="proj-desc">Working Sentinel workspace with 5 custom KQL analytics rules targeting real-world attack patterns (brute force, impossible travel, privilege escalation, data exfiltration, lateral movement). Build 2 Sentinel workbooks visualising the security posture. Simulate each attack, capture the generated incident, document your investigation following the PICERL incident response framework. Publish all KQL queries on GitHub with line-by-line explanations of the detection logic.</div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-num">Project 03 — Month 4</div>
+    <div class="proj-title">Zero Trust Architecture Implementation Guide</div>
+    <div class="proj-desc">A 5-page written architecture document showing how you would implement zero trust for a mid-size organisation on Azure. Cover: Conditional Access policy set, PIM configuration for privileged roles, network micro-segmentation design, Defender for Endpoint deployment, Sentinel monitoring strategy, and compliance reporting. Include architecture diagrams created in draw.io or Excalidraw. This demonstrates strategic security thinking, not just technical configuration skills.</div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-num">Project 04 — Month 5 · The differentiator</div>
+    <div class="proj-title">Secure CI/CD Pipeline (your killer advantage)</div>
+    <div class="proj-desc">GitHub Actions pipeline incorporating: Checkov and tfsec for IaC security scanning, CodeQL for static application security testing, Trivy for container image vulnerability scanning, GitLeaks for secrets detection, and automated SBOM (Software Bill of Materials) generation. Add a policy gate that fails the pipeline if critical vulnerabilities are found. This is the project no pure security candidate can produce. It demonstrates exactly why your backend engineering background makes you more effective as a security engineer.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ RESOURCES ═══════════════════════ -->
+<section id="resources">
+  <div class="sec-num">Section 08</div>
+  <h2 class="sec-title">Complete Resource Library</h2>
+  <p class="sec-desc">Every resource ranked by priority. Start with Essential items. Add Recommended when time allows. Never let resource hunting become procrastination — pick one course and go deep.</p>
+
+  <div class="card">
+    <div class="card-title">YouTube — Free · Watch every week throughout the plan</div>
+    <div class="res"><span class="rbadge r-ess">Essential</span><div><div class="rname">John Savill's Technical Training</div><div class="rdesc">The single best Azure content anywhere. Has dedicated study crammer videos for every exam (AZ-900, SC-900, AZ-500, SC-200). Watch his AZ-500 cram the week before your exam. Search: "John Savill AZ-500 study cram" on YouTube. Free.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">Microsoft Security Community (YouTube)</div><div class="rdesc">Official Microsoft channel. Sentinel deployment walkthroughs, Defender for Cloud demos, advanced KQL tutorials. Search "Microsoft Sentinel KQL" for threat hunting content. Watch 2–3 videos per week from month 2 onwards.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">Professor Messer — CompTIA Security+ (SY0-701)</div><div class="rdesc">professormesser.com — full free video course for Security+. Use this if you decide to add CompTIA Security+ in months 4–5. Vendor-neutral coverage complements Azure certs well.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Microsoft Learn — Free · Use alongside every certification</div>
+    <div class="res"><span class="rbadge r-ess">Essential</span><div><div class="rname">Microsoft Learn — AZ-900 Learning Path</div><div class="rdesc">learn.microsoft.com → search "AZ-900 Azure Fundamentals". Free. Official. Complete every module and every knowledge check. Estimated time: 10–12 hours.</div></div></div>
+    <div class="res"><span class="rbadge r-ess">Essential</span><div><div class="rname">Microsoft Learn — SC-900 Learning Path</div><div class="rdesc">learn.microsoft.com → search "SC-900". Free. Complete the full security fundamentals path. Covers Entra ID, Defender products, Sentinel, and Purview at intro level. ~8 hours.</div></div></div>
+    <div class="res"><span class="rbadge r-ess">Essential</span><div><div class="rname">Microsoft Learn — AZ-500 Learning Path</div><div class="rdesc">Free, 35+ hours of structured content. Use alongside Udemy course — Microsoft Learn is authoritative, Udemy is more exam-focused. Use both for maximum exam readiness.</div></div></div>
+    <div class="res"><span class="rbadge r-ess">Essential</span><div><div class="rname">GitHub: MicrosoftLearning/AZ500-AzureSecurityTechnologies</div><div class="rdesc">github.com/MicrosoftLearning/AZ500-AzureSecurityTechnologies — Official Microsoft AZ-500 hands-on labs (35 step-by-step exercises). Free. Work through every single one. This is closer to the real exam than any practice test.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">Microsoft Free Practice Assessments</div><div class="rdesc">Microsoft now provides free official practice assessments on learn.microsoft.com for most certs. Search "AZ-500 practice assessment". Do these before buying any paid practice tests — they are surprisingly close to the real exam format.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Paid courses — Buy on Udemy sale (sales run every 2 weeks — never pay full price)</div>
+    <div class="res"><span class="rbadge r-paid">~£12–15</span><div><div class="rname">AZ-500: Alan Rodrigues on Udemy</div><div class="rdesc">"AZ-500: Microsoft Azure Security Technologies" — the most comprehensive and regularly updated AZ-500 course. Clear explanations, good structure, exam-focused. This is your primary AZ-500 resource alongside Microsoft Learn.</div></div></div>
+    <div class="res"><span class="rbadge r-paid">~£12–15</span><div><div class="rname">SC-200: Alan Rodrigues on Udemy</div><div class="rdesc">"SC-200: Microsoft Security Operations Analyst" — same instructor, same quality. Buy both courses at the same time during a Udemy sale to maximise savings.</div></div></div>
+    <div class="res"><span class="rbadge r-paid">~£12–15</span><div><div class="rname">AZ-500: Scott Duffy on Udemy (backup)</div><div class="rdesc">Different teaching style. If Alan Rodrigues explanation of a concept does not click, check Scott Duffy's version. Not essential if the primary course works for you.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Practice exams — Buy before each exam</div>
+    <div class="res"><span class="rbadge r-paid">£15–20 each</span><div><div class="rname">Whizlabs — All four certifications</div><div class="rdesc">whizlabs.com — best value practice exam bank with explanations for every answer. Buy per-certification (not subscription). Use from week 1 of each cert study period. Consistently good question quality.</div></div></div>
+    <div class="res"><span class="rbadge r-paid">~£40</span><div><div class="rname">MeasureUp Official Practice Tests — AZ-500 specifically</div><div class="rdesc">measureup.com — Microsoft's official practice exam partner. More expensive but the closest format to the real AZ-500 exam. Worth buying for AZ-500 only — it is the hardest exam of the four and merits the investment.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Hands-on labs & practice platforms</div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">Azure Free Account ($200 credit)</div><div class="rdesc">portal.azure.com — sign up on day 1. $200 credit lasts months if you tear down resources after each lab. Set a budget alert at $10/month to avoid surprise charges. Essential.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">Rod Trent — Must Learn KQL (GitHub)</div><div class="rdesc">github.com/rod-trent/MustLearnKQL — 30-chapter free series on Kusto Query Language. Work through all chapters in months 3–4. KQL proficiency is what employers test for in SC-200 interviews.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">TryHackMe — Cloud Security Path</div><div class="rdesc">tryhackme.com — has Azure and AWS cloud security attack/defence scenarios. Good supplementary practice from month 2 onwards. Free tier has sufficient content for this plan.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">CloudGoat — Rhino Security Labs</div><div class="rdesc">github.com/RhinoSecurityLabs/cloudgoat — deliberately vulnerable AWS environment for practising cloud attacks from the attacker perspective. Use from month 4 onwards. Understanding how attackers exploit cloud misconfigurations makes you a better defender.</div></div></div>
+    <div class="res"><span class="rbadge r-free">Free</span><div><div class="rname">Microsoft Defender for Cloud Labs (GitHub)</div><div class="rdesc">github.com/Azure/Microsoft-Defender-for-Cloud — official Microsoft lab exercises for Defender for Cloud. Includes simulated attack scenarios and hands-on detection exercises. Use during month 3 AZ-500 Domains 3–4.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Books — Optional but valuable reference</div>
+    <div class="res"><span class="rbadge r-paid">~£35</span><div><div class="rname">Exam Ref AZ-500 — Microsoft Press (Official)</div><div class="rdesc">Official Microsoft AZ-500 study guide. Dense but authoritative. Use as a reference when practice questions expose gaps — do not read cover to cover. Chapter-by-chapter reference when you need depth.</div></div></div>
+    <div class="res"><span class="rbadge r-paid">~£40</span><div><div class="rname">Penetration Testing Azure for Ethical Hackers — David Okeyode (Packt)</div><div class="rdesc">Teaches you how attackers approach Azure — makes you a far more effective defender. Read during month 4. Your backend engineering background makes this immediately actionable. One of the best cloud security books written.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">UK job boards & community — Where to find roles and network</div>
+    <div class="g2">
+      <div>
+        <div class="pr"><span class="pk" style="min-width:110px">CWJobs.co.uk</span><span class="pv">Best UK-specific IT job board. Set daily email alerts for "cloud security" + city.</span></div>
+        <div class="pr"><span class="pk" style="min-width:110px">LinkedIn Jobs</span><span class="pv">Set alerts for "Azure Security Engineer" + "Cloud Security" in your target location.</span></div>
+        <div class="pr"><span class="pk" style="min-width:110px">Reed.co.uk</span><span class="pv">Strong for early-career roles. Many employers post exclusively here.</span></div>
+        <div class="pr"><span class="pk" style="min-width:110px">Indeed.co.uk</span><span class="pv">Highest volume. Use for broad coverage alongside specialist boards.</span></div>
+      </div>
+      <div>
+        <div class="pr"><span class="pk" style="min-width:110px">NCSC CyberFirst</span><span class="pv">Government-backed schemes. High quality employers. Apply directly.</span></div>
+        <div class="pr"><span class="pk" style="min-width:110px">BSides London</span><span class="pv">Annual security conference. Best networking event in UK cybersecurity.</span></div>
+        <div class="pr"><span class="pk" style="min-width:110px">OWASP London</span><span class="pv">Monthly meetups. Free. Attend from month 3 onwards to build connections.</span></div>
+        <div class="pr"><span class="pk" style="min-width:110px">r/AzureCertification</span><span class="pv">Reddit community for exam tips, study advice, job hunt stories.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Total investment summary</div>
+    <div class="pr"><span class="pk">Exam fees</span><span class="pv">AZ-900 (~£80) + SC-900 (~£80) + AZ-500 (~£165) + SC-200 (~£165) = <strong style="color:var(--txt)">~£490</strong></span></div>
+    <div class="pr"><span class="pk">Udemy courses</span><span class="pv">AZ-500 + SC-200 Alan Rodrigues during sale = <strong style="color:var(--txt)">~£30</strong></span></div>
+    <div class="pr"><span class="pk">Practice exams</span><span class="pv">Whizlabs 4 certs (~£70) + MeasureUp AZ-500 (~£40) = <strong style="color:var(--txt)">~£110</strong></span></div>
+    <div class="pr"><span class="pk">Optional book</span><span class="pv">Penetration Testing Azure (~£40) = <strong style="color:var(--txt)">~£40</strong></span></div>
+    <div class="pr" style="border-top:1px solid var(--bdr2);padding-top:8px"><span class="pk" style="color:var(--green)">Total</span><span class="pv" style="font-size:14px;color:var(--txt);font-weight:500">~£670 total investment for a career earning £65k+ from year 1. Highest ROI investment available in UK tech.</span></div>
+  </div>
+
+  <div class="callout c-green">
+    <strong style="font-weight:600">Final word:</strong> The most important thing you can do today is not buy a course. It is to open learn.microsoft.com, start the AZ-900 path, and book your AZ-900 exam for 23 May. The exam date creates the forcing function. Without a booked date, study drifts. With one, everything focuses. You have the engineering foundation. You have the motivation. The rest is execution.
+  </div>
+</section>
+
+</div><!-- end .page -->
+
+<footer>Cloud Security Engineer Roadmap · Built May 2026 · Azure-first for the UK market · Start today — offer by October 2026</footer>
+
+<script>
+/* ── ACCORDION ── */
+function toggle(id){
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+/* ── NAV ACTIVE STATE ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const id = e.target.getAttribute('id');
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, {rootMargin:'-20% 0px -70% 0px'});
+
+sections.forEach(s => observer.observe(s));
+
+/* ── KEYBOARD SHORTCUT TO OPEN ALL ACCORDIONS FOR PRINT ── */
+window.addEventListener('keydown', e => {
+  if(e.key === 'p' && (e.ctrlKey || e.metaKey)){
+    document.querySelectorAll('.week-block').forEach(w => w.classList.add('open'));
+  }
+});
+</script>
+</body>
+</html>
