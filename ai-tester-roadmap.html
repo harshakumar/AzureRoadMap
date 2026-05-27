@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0a0c10">
+<title>AI Tester Roadmap — Free Resources Only</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:#0a0c10;color:#e8edf5;font-family:'DM Sans',system-ui,sans-serif;font-weight:400;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#0a0c10;--s1:#12151c;--s2:#1a1f2b;--border:#232a38;
+  --green:#00e5a0;--blue:#0099ff;--orange:#ff6b35;--red:#ff5252;
+  --text:#e8edf5;--muted:#6b7a94;
+  --pad:clamp(16px,4vw,32px);--r:14px;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,229,160,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,.025) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;
+}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:1}
+
+/* ── PROGRESS ── */
+#bar{position:fixed;top:0;left:0;height:2px;background:var(--green);z-index:300;width:0%;transition:width .1s}
+
+/* ── SIDE NAV desktop ── */
+.snav{display:none;position:fixed;top:50%;right:16px;transform:translateY(-50%);flex-direction:column;gap:10px;z-index:200}
+@media(min-width:880px){.snav{display:flex}}
+.sdot{width:9px;height:9px;border-radius:50%;background:var(--border);border:none;cursor:pointer;transition:all .25s;padding:0}
+.sdot.on,.sdot:hover{background:var(--green);transform:scale(1.4)}
+
+/* ── BOTTOM NAV mobile ── */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(10,12,16,.96);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding:6px 0 env(safe-area-inset-bottom,6px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+@media(min-width:880px){.bnav{display:none}}
+.bni{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:4px 6px;min-width:44px;min-height:44px;justify-content:center;transition:color .2s}
+.bni.on{color:var(--green)}
+.bni-icon{font-size:16px;line-height:1}
+
+/* ── HEADER ── */
+header{padding:clamp(36px,7vw,68px) 0 clamp(28px,5vw,48px);border-bottom:1px solid var(--border);margin-bottom:clamp(28px,5vw,48px)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--green);font-family:'DM Mono',monospace;font-size:clamp(9px,2.2vw,11px);letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:clamp(18px,4vw,26px)}
+.bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,11vw,104px);line-height:.88;letter-spacing:.02em;margin-bottom:clamp(12px,3vw,18px);word-break:break-word}
+h1 span{color:var(--green);display:block}
+.hsub{font-size:clamp(13px,3.2vw,15px);color:var(--muted);line-height:1.75;margin-bottom:clamp(18px,3.5vw,26px);max-width:560px}
+.hsub strong{color:var(--text);font-weight:600}
+.hmeta{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 24px}
+@media(min-width:460px){.hmeta{grid-template-columns:repeat(4,auto);justify-content:start}}
+.mi{display:flex;flex-direction:column;gap:3px}
+.ml{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mv{font-size:13px;font-weight:600;color:var(--green)}
+
+/* ── FREE-ONLY NOTICE ── */
+.free-notice{background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);border-radius:12px;padding:14px 18px;margin-bottom:clamp(28px,5vw,44px);display:flex;align-items:flex-start;gap:12px}
+.free-notice-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.free-notice p{font-size:clamp(12px,3vw,13.5px);color:var(--text);line-height:1.6}
+.free-notice p span{color:var(--green);font-weight:600}
+
+/* ── PILLS ── */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(32px,5vw,50px)}
+.pill{display:flex;align-items:center;gap:7px;background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:clamp(11.5px,2.8vw,13px)}
+.pill strong{color:var(--blue);font-weight:600}
+
+/* ── SECTION HEADING ── */
+.slabel{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,5.5vw,40px);letter-spacing:.04em;margin-bottom:clamp(18px,3.5vw,28px)}
+
+/* ── MONTH CARD ── */
+.month{margin-bottom:clamp(18px,3.5vw,24px)}
+.mcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.mcard.m1{border-top:3px solid var(--green)}
+.mcard.m2{border-top:3px solid var(--blue)}
+.mcard.m3{border-top:3px solid var(--orange)}
+
+.mhd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:clamp(16px,3.5vw,26px) clamp(14px,3.5vw,28px);border-bottom:1px solid var(--border);cursor:pointer;user-select:none;position:relative}
+.mhdl{flex:1;min-width:0}
+.mhd h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4vw,26px);letter-spacing:.04em;margin-bottom:4px;line-height:1.1}
+.m1 .mhd h2{color:var(--green)}.m2 .mhd h2{color:var(--blue)}.m3 .mhd h2{color:var(--orange)}
+.msub{font-size:clamp(11px,2.7vw,13px);color:var(--muted);line-height:1.5}
+.mtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:5px;border:1px solid var(--border);color:var(--muted);background:var(--s2);white-space:nowrap}
+
+.chev{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--s2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;margin-top:2px}
+.chev svg{transition:transform .3s}
+.mcard.open .chev{background:rgba(0,229,160,.1);border-color:rgba(0,229,160,.3)}
+.mcard.open .chev svg{transform:rotate(180deg)}
+
+.mbody{display:none;border-bottom:1px solid var(--border)}
+.mcard.open .mbody{display:block}
+
+/* weeks grid */
+.wgrid{display:grid;grid-template-columns:1fr}
+@media(min-width:520px){.wgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:860px){.wgrid{grid-template-columns:repeat(4,1fr)}}
+
+.wb{padding:clamp(14px,3vw,20px) clamp(14px,3vw,24px);border-bottom:1px solid var(--border)}
+@media(min-width:520px){
+  .wb{border-bottom:none;border-right:1px solid var(--border)}
+  .wb:nth-child(2n){border-right:none}
+  .wb:nth-child(n+3){border-top:1px solid var(--border)}
+}
+@media(min-width:860px){
+  .wb{border-top:none!important;border-right:1px solid var(--border)!important}
+  .wb:last-child{border-right:none!important}
+}
+.wblabel{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.wb h3{font-size:clamp(12px,2.8vw,13px);font-weight:600;color:var(--text);margin-bottom:9px}
+.tlist{list-style:none;display:flex;flex-direction:column;gap:6px}
+.tlist li{font-size:clamp(11px,2.6vw,12px);color:var(--muted);padding-left:14px;position:relative;line-height:1.55}
+.tlist li::before{content:'→';position:absolute;left:0;top:1px;font-size:10px}
+.m1 .tlist li::before{color:var(--green)}.m2 .tlist li::before{color:var(--blue)}.m3 .tlist li::before{color:var(--orange)}
+
+/* resource row */
+.resrow{background:var(--s2);padding:clamp(12px,2.5vw,16px) clamp(14px,3.5vw,24px) clamp(14px,3vw,18px)}
+.reslabel{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:clamp(10.5px,2.5vw,12px);font-weight:500;padding:7px 12px;border-radius:8px;text-decoration:none;border:1px solid transparent;transition:all .2s;min-height:38px;line-height:1.2}
+.chip:active{transform:scale(.97)}
+@media(hover:hover){.chip:hover{transform:translateY(-2px);opacity:.85;box-shadow:0 4px 14px rgba(0,0,0,.35)}}
+.chip.course{background:rgba(0,229,160,.09);color:var(--green);border-color:rgba(0,229,160,.22)}
+.chip.video{background:rgba(255,82,82,.09);color:var(--red);border-color:rgba(255,82,82,.22)}
+.chip.docs{background:rgba(0,153,255,.09);color:var(--blue);border-color:rgba(0,153,255,.22)}
+.chip.tool{background:rgba(255,107,53,.09);color:var(--orange);border-color:rgba(255,107,53,.22)}
+.chip.read{background:rgba(180,120,255,.09);color:#b47aff;border-color:rgba(180,120,255,.22)}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(20px,4vw,32px)}
+.leg{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
+.leg-dot{width:8px;height:8px;border-radius:3px;flex-shrink:0}
+
+/* ── RESOURCE TABLE ── */
+.restable-section{margin-bottom:clamp(40px,7vw,64px)}
+.rcat-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.res-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:28px}
+@media(min-width:520px){.res-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:860px){.res-grid{grid-template-columns:repeat(3,1fr)}}
+
+.rcard{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:clamp(14px,3vw,18px) clamp(14px,3vw,20px);text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:border-color .2s}
+@media(hover:hover){.rcard:hover{border-color:var(--green)}}
+.rcard:active{opacity:.85}
+.rcard-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.rtype{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:4px}
+.rtype.course{background:rgba(0,229,160,.1);color:var(--green)}
+.rtype.video{background:rgba(255,82,82,.1);color:var(--red)}
+.rtype.docs{background:rgba(0,153,255,.1);color:var(--blue)}
+.rtype.tool{background:rgba(255,107,53,.1);color:var(--orange)}
+.rtype.read{background:rgba(180,120,255,.1);color:#b47aff}
+.rby{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace}
+.rname{font-size:clamp(12.5px,3vw,14px);font-weight:600;color:var(--text);line-height:1.3}
+.rdesc{font-size:clamp(11px,2.6vw,12px);color:var(--muted);line-height:1.6}
+.rurl{font-size:10.5px;color:var(--blue);font-family:'DM Mono',monospace;margin-top:2px}
+
+/* ── TOOLS ── */
+.tools-section{margin-bottom:clamp(40px,7vw,64px)}
+.tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:520px){.tgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:720px){.tgrid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.tgrid{grid-template-columns:repeat(4,1fr)}}
+.tcard{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:clamp(12px,2.5vw,16px) clamp(12px,2.5vw,16px);text-decoration:none;display:block;transition:all .2s}
+@media(hover:hover){.tcard:hover{border-color:var(--green);background:var(--s2);transform:translateY(-2px)}}
+.tcard:active{transform:scale(.98)}
+.tcat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:5px}
+.tname{font-size:clamp(12px,2.8vw,13.5px);font-weight:600;color:var(--text);margin-bottom:3px}
+.tdesc{font-size:clamp(10px,2.3vw,11px);color:var(--muted);line-height:1.5;margin-bottom:5px}
+.turl{font-size:10px;color:var(--blue);font-family:'DM Mono',monospace}
+.tfree{display:inline-block;font-size:9px;font-family:'DM Mono',monospace;background:rgba(0,229,160,.1);color:var(--green);padding:2px 6px;border-radius:4px;margin-bottom:5px}
+
+/* ── MILESTONES ── */
+.ms-section{margin-bottom:clamp(40px,7vw,64px)}
+.timeline{display:flex;flex-direction:column;position:relative}
+.timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:var(--border)}
+.ms{display:flex;gap:clamp(14px,3.5vw,22px);padding:clamp(12px,2.5vw,18px) 0}
+.msdot{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:var(--s2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;position:relative;z-index:1}
+.msbody h4{font-size:clamp(12px,2.8vw,13px);font-weight:600;color:var(--text);margin-bottom:4px;padding-top:6px;line-height:1.4}
+.msbody p{font-size:clamp(10.5px,2.4vw,11.5px);color:var(--muted);line-height:1.65}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:clamp(24px,4vw,36px) 0 clamp(48px,9vw,72px);display:flex;flex-direction:column;gap:14px}
+@media(min-width:560px){footer{flex-direction:row;justify-content:space-between;align-items:center}}
+footer p{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
+.ftags{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.rev.vis{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- DESKTOP SIDE NAV -->
+<nav class="snav" aria-label="Page sections">
+  <button class="sdot on" onclick="scrollTo({top:0,behavior:'smooth'})" title="Top"></button>
+  <button class="sdot" onclick="goTo('m1')" title="Month 1"></button>
+  <button class="sdot" onclick="goTo('m2')" title="Month 2"></button>
+  <button class="sdot" onclick="goTo('m3')" title="Month 3"></button>
+  <button class="sdot" onclick="goTo('resources')" title="Resources"></button>
+  <button class="sdot" onclick="goTo('tools')" title="Tools"></button>
+  <button class="sdot" onclick="goTo('milestones')" title="Milestones"></button>
+</nav>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bnav" aria-label="Quick navigation">
+  <button class="bni on"  onclick="scrollTo({top:0,behavior:'smooth'})"><span class="bni-icon">🏠</span>Top</button>
+  <button class="bni" onclick="goTo('m1')"><span class="bni-icon">1️⃣</span>Month 1</button>
+  <button class="bni" onclick="goTo('m2')"><span class="bni-icon">2️⃣</span>Month 2</button>
+  <button class="bni" onclick="goTo('m3')"><span class="bni-icon">3️⃣</span>Month 3</button>
+  <button class="bni" onclick="goTo('resources')"><span class="bni-icon">📚</span>Resources</button>
+  <button class="bni" onclick="goTo('tools')"><span class="bni-icon">🛠</span>Tools</button>
+</nav>
+
+<div class="wrap">
+
+  <!-- ── HEADER ── -->
+  <header class="rev">
+    <div class="badge"><div class="bdot"></div>Free Resources Only · 2025 Edition</div>
+    <h1>AI Tester<span>Roadmap</span></h1>
+    <p class="hsub">Built for testers with <strong>5 years of manual QA</strong> experience. Every single link below is <strong>100% free</strong> — no paywalls, no trials, no credit cards.</p>
+    <div class="hmeta">
+      <div class="mi"><span class="ml">Duration</span><span class="mv">12 Weeks</span></div>
+      <div class="mi"><span class="ml">Study</span><span class="mv">8–10 hrs/week</span></div>
+      <div class="mi"><span class="ml">Cost</span><span class="mv">$0 to start</span></div>
+      <div class="mi"><span class="ml">Goal</span><span class="mv">AI QA Engineer</span></div>
+    </div>
+  </header>
+
+  <!-- FREE NOTICE -->
+  <div class="free-notice rev">
+    <div class="free-notice-icon">✅</div>
+    <p>Every resource on this page is <span>completely free to access</span>. Courses marked "free to audit" let you watch all videos and do all labs — only the shareable certificate costs money (optional). Tools listed are open source or have a fully functional free tier.</p>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend rev">
+    <span class="leg"><span class="leg-dot" style="background:rgba(0,229,160,.5)"></span>📖 Course / Tutorial</span>
+    <span class="leg"><span class="leg-dot" style="background:rgba(255,82,82,.5)"></span>▶ Video</span>
+    <span class="leg"><span class="leg-dot" style="background:rgba(0,153,255,.5)"></span>📄 Docs / Syllabus</span>
+    <span class="leg"><span class="leg-dot" style="background:rgba(255,107,53,.5)"></span>🔧 Open-Source Tool</span>
+    <span class="leg"><span class="leg-dot" style="background:rgba(180,120,255,.5)"></span>📰 Article / Guide</span>
+  </div>
+
+  <!-- ── MONTH 1 ── -->
+  <section id="m1" class="month rev">
+    <div class="mcard m1 open">
+      <div class="mhd" onclick="tog(this)" role="button" aria-expanded="true">
+        <div class="mhdl">
+          <h2>Month 1 — AI Foundations &amp; Prompt Engineering</h2>
+          <p class="msub">Understand how LLMs work, why they fail, and start writing prompts that surface bugs</p>
+          <div class="mtags"><span class="tag">Weeks 1–4</span><span class="tag">~8 hrs/week</span><span class="tag">100% Free</span></div>
+        </div>
+        <div class="chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="#6b7a94" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="mbody">
+        <div class="wgrid">
+          <div class="wb">
+            <div class="wblabel">Week 1</div><h3>AI &amp; ML Fundamentals</h3>
+            <ul class="tlist">
+              <li>What is AI, ML, LLMs — plain English, no math</li>
+              <li>How neural networks learn from data</li>
+              <li>Generative vs classification vs recommendation AI</li>
+              <li>AI product lifecycle vs traditional software lifecycle</li>
+              <li>Key terms: training data, model, inference, hallucination, bias, tokens</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 2</div><h3>Prompt Engineering</h3>
+            <ul class="tlist">
+              <li>Anatomy of a prompt: role, context, instruction, format</li>
+              <li>Zero-shot vs few-shot vs chain-of-thought prompting</li>
+              <li>System prompts vs user prompts — why it matters for testing</li>
+              <li>Prompt injection &amp; jailbreaking concepts</li>
+              <li>Practice: rewrite 20 prompts, compare outputs side by side</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 3</div><h3>How LLMs Fail</h3>
+            <ul class="tlist">
+              <li>Hallucinations — types and what triggers them</li>
+              <li>Bias in outputs: gender, race, recency bias</li>
+              <li>Context window limits and truncation bugs</li>
+              <li>Non-determinism: same input → different outputs</li>
+              <li>Map each failure mode to your manual testing mental models</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 4</div><h3>AI Testing Mindset</h3>
+            <ul class="tlist">
+              <li>Traditional testing vs AI testing — the key differences</li>
+              <li>Probabilistic outputs: what does "pass" even mean?</li>
+              <li>Metrics: accuracy, precision, recall, F1 — what testers need to know</li>
+              <li>Write your first 10 AI test cases for a chatbot</li>
+              <li>Read the ISTQB CT-AI syllabus overview (free PDF)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="resrow">
+          <div class="reslabel">📚 Free Resources for Month 1 — tap to open</div>
+          <div class="chips">
+            <a class="chip course" href="https://www.coursera.org/learn/ai-for-everyone" target="_blank" rel="noopener">📖 AI For Everyone — Andrew Ng (audit free)</a>
+            <a class="chip video"  href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">▶ Intro to LLMs — Andrej Karpathy (YouTube)</a>
+            <a class="chip course" href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/" target="_blank" rel="noopener">📖 Prompt Engineering for Developers — DeepLearning.AI</a>
+            <a class="chip course" href="https://learnprompting.org/docs/intro" target="_blank" rel="noopener">📖 Learn Prompting — Full Free Textbook</a>
+            <a class="chip docs"   href="https://developers.google.com/machine-learning/crash-course" target="_blank" rel="noopener">📄 Google ML Crash Course</a>
+            <a class="chip course" href="https://huggingface.co/learn/nlp-course/chapter1/1" target="_blank" rel="noopener">📖 HuggingFace NLP Course (free)</a>
+            <a class="chip video"  href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener">▶ Build GPT from Scratch — Karpathy (YouTube)</a>
+            <a class="chip docs"   href="https://www.istqb.org/certifications/certified-tester-ai-testing" target="_blank" rel="noopener">📄 ISTQB CT-AI Syllabus (free download)</a>
+            <a class="chip course" href="https://www.coursera.org/learn/generative-ai-in-software-testing-training" target="_blank" rel="noopener">📖 Generative AI in Software Testing — Simplilearn (audit free)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MONTH 2 ── -->
+  <section id="m2" class="month rev">
+    <div class="mcard m2">
+      <div class="mhd" onclick="tog(this)" role="button" aria-expanded="false">
+        <div class="mhdl">
+          <h2>Month 2 — AI Testing Techniques &amp; Tools</h2>
+          <p class="msub">The real craft: eval frameworks, Python basics, red teaming, safety testing</p>
+          <div class="mtags"><span class="tag">Weeks 5–8</span><span class="tag">~10 hrs/week</span><span class="tag">100% Free</span></div>
+        </div>
+        <div class="chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="#6b7a94" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="mbody" style="display:none">
+        <div class="wgrid">
+          <div class="wb">
+            <div class="wblabel">Week 5</div><h3>Functional AI Testing</h3>
+            <ul class="tlist">
+              <li>Testing AI search, recommendations, autocomplete features</li>
+              <li>Writing test cases for non-deterministic outputs</li>
+              <li>The oracle problem: how to judge "correct" AI output</li>
+              <li>Building a golden dataset — your reference answer set</li>
+              <li>Equivalence partitioning applied to prompt inputs</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 6</div><h3>LLM Evaluation Frameworks</h3>
+            <ul class="tlist">
+              <li>Ragas — evaluate RAG pipelines (open source, free)</li>
+              <li>Promptfoo — unit testing discipline for prompts (MIT license)</li>
+              <li>DeepEval — open source LLM eval framework</li>
+              <li>BLEU, ROUGE, LLM-as-a-judge scoring explained</li>
+              <li>Build a simple eval harness in Google Colab (free GPUs)</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 7</div><h3>Python for AI Testers</h3>
+            <ul class="tlist">
+              <li>Variables, loops, functions — bare minimum to get started</li>
+              <li>Calling OpenAI / Anthropic / Gemini APIs in Python</li>
+              <li>Parsing JSON API responses and writing assertions</li>
+              <li>pytest basics: write 5 LLM test cases with assertions</li>
+              <li>Use Cursor / GitHub Copilot (free tier) to write tests faster</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 8</div><h3>Safety &amp; Responsible AI</h3>
+            <ul class="tlist">
+              <li>AI safety testing: harmful content, PII leakage, toxicity</li>
+              <li>Bias testing across protected attributes in outputs</li>
+              <li>GDPR / data privacy implications for AI features</li>
+              <li>OWASP LLM Top 10 — all 10 risk categories (free guide)</li>
+              <li>Write a 1-page AI risk test plan for a sample chatbot</li>
+            </ul>
+          </div>
+        </div>
+        <div class="resrow">
+          <div class="reslabel">📚 Free Resources for Month 2 — tap to open</div>
+          <div class="chips">
+            <a class="chip docs"   href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">📄 OWASP LLM Top 10 (official, free)</a>
+            <a class="chip course" href="https://www.deeplearning.ai/short-courses/evaluating-debugging-generative-ai/" target="_blank" rel="noopener">📖 Evaluating &amp; Debugging Gen AI — DeepLearning.AI</a>
+            <a class="chip docs"   href="https://docs.ragas.io/en/latest/" target="_blank" rel="noopener">📄 Ragas Docs (open source)</a>
+            <a class="chip docs"   href="https://www.promptfoo.dev/docs/intro/" target="_blank" rel="noopener">📄 Promptfoo Docs (MIT license, free)</a>
+            <a class="chip docs"   href="https://docs.confident-ai.com/" target="_blank" rel="noopener">📄 DeepEval Docs (open source)</a>
+            <a class="chip docs"   href="https://docs.pytest.org/en/stable/" target="_blank" rel="noopener">📄 pytest Official Docs</a>
+            <a class="chip video"  href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank" rel="noopener">▶ Python for Everybody — freeCodeCamp (YouTube)</a>
+            <a class="chip tool"   href="https://github.com/openai/evals" target="_blank" rel="noopener">🔧 OpenAI Evals Framework (GitHub, open source)</a>
+            <a class="chip tool"   href="https://colab.research.google.com/" target="_blank" rel="noopener">🔧 Google Colab (free GPU notebooks)</a>
+            <a class="chip tool"   href="https://github.com/NVIDIA/garak" target="_blank" rel="noopener">🔧 Garak LLM Vulnerability Scanner (open source)</a>
+            <a class="chip course" href="https://www.deeplearning.ai/short-courses/red-teaming-llm-applications/" target="_blank" rel="noopener">📖 Red Teaming LLM Apps — DeepLearning.AI</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MONTH 3 ── -->
+  <section id="m3" class="month rev" style="margin-bottom:clamp(36px,6vw,56px)">
+    <div class="mcard m3">
+      <div class="mhd" onclick="tog(this)" role="button" aria-expanded="false">
+        <div class="mhdl">
+          <h2>Month 3 — Portfolio, Specialisation &amp; Job Prep</h2>
+          <p class="msub">Ship real projects, pick a niche, position yourself as an AI QA Engineer</p>
+          <div class="mtags"><span class="tag">Weeks 9–12</span><span class="tag">~10 hrs/week</span><span class="tag">100% Free</span></div>
+        </div>
+        <div class="chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5L7 9.5L12 4.5" stroke="#6b7a94" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="mbody" style="display:none">
+        <div class="wgrid">
+          <div class="wb">
+            <div class="wblabel">Week 9</div><h3>AI Test Automation Project</h3>
+            <ul class="tlist">
+              <li>Pick a public LLM app: ChatGPT, Claude, Gemini (all free tiers)</li>
+              <li>Write 30+ automated eval tests via pytest + API</li>
+              <li>Cover: accuracy, safety, latency, edge cases, adversarial inputs</li>
+              <li>Publish to GitHub (free) with a quality README</li>
+              <li>Document bugs found with severity classification</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 10</div><h3>Pick a Specialisation</h3>
+            <ul class="tlist">
+              <li>Path A: Conversational AI / Chatbot testing</li>
+              <li>Path B: Computer Vision / image AI app testing</li>
+              <li>Path C: AI-assisted test automation (Playwright + AI)</li>
+              <li>Find 3 open source tools in your niche and learn them</li>
+              <li>Publish a LinkedIn article on your chosen specialisation</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 11</div><h3>Portfolio &amp; Personal Brand</h3>
+            <ul class="tlist">
+              <li>GitHub: 2–3 AI testing repos, well documented (free)</li>
+              <li>LinkedIn: reframe 5 years as "AI-ready QA" experience</li>
+              <li>Write a case study: "How I'd test [AI product X]"</li>
+              <li>Contribute to an open source AI testing tool</li>
+              <li>Join Ministry of Testing community (free membership)</li>
+            </ul>
+          </div>
+          <div class="wb">
+            <div class="wblabel">Week 12</div><h3>Interview Prep &amp; Networking</h3>
+            <ul class="tlist">
+              <li>Prep top 20 AI testing interview questions (use ChatGPT free)</li>
+              <li>Practice: "How would you test a RAG chatbot?" — mock answer</li>
+              <li>Apply to 5+ AI QA roles — tailor CV with AI keywords</li>
+              <li>Explore ISTQB CT-AI exam (the one investment worth making)</li>
+              <li>Review Anthropic + OpenAI developer docs (both free)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="resrow">
+          <div class="reslabel">📚 Free Resources for Month 3 — tap to open</div>
+          <div class="chips">
+            <a class="chip docs"   href="https://playwright.dev/docs/intro" target="_blank" rel="noopener">📄 Playwright Official Docs (open source)</a>
+            <a class="chip tool"   href="https://github.com/" target="_blank" rel="noopener">🔧 GitHub — free public repositories</a>
+            <a class="chip course" href="https://www.ministryoftesting.com/" target="_blank" rel="noopener">📖 Ministry of Testing Community (free)</a>
+            <a class="chip docs"   href="https://docs.anthropic.com/en/docs/intro-to-claude" target="_blank" rel="noopener">📄 Anthropic Developer Docs (free)</a>
+            <a class="chip docs"   href="https://platform.openai.com/docs/overview" target="_blank" rel="noopener">📄 OpenAI Platform Docs (free)</a>
+            <a class="chip docs"   href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener">📄 Google Gemini API Docs (free tier)</a>
+            <a class="chip course" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" rel="noopener">📖 Building &amp; Evaluating Advanced RAG — DeepLearning.AI</a>
+            <a class="chip read"   href="https://cloud.google.com/learn/training/machinelearning-ai" target="_blank" rel="noopener">📰 Google AI Training Hub (free badges)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ALL FREE RESOURCES BY CATEGORY ── -->
+  <section id="resources" class="restable-section">
+    <div class="slabel">Complete Library</div>
+    <div class="stitle rev">All Free Resources by Category</div>
+
+    <!-- COURSES -->
+    <div class="rcat-label rev">📖 Courses &amp; Tutorials — All Free to Access</div>
+    <div class="res-grid">
+
+      <a class="rcard rev" href="https://www.coursera.org/learn/ai-for-everyone" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">DeepLearning.AI · Coursera</span></div>
+        <div class="rname">AI For Everyone — Andrew Ng</div>
+        <div class="rdesc">Best starting point for non-technical learners. Covers AI strategy, capabilities, limitations, and use cases. Free to audit — watch all videos without paying.</div>
+        <div class="rurl">coursera.org/learn/ai-for-everyone</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">DeepLearning.AI</span></div>
+        <div class="rname">ChatGPT Prompt Engineering for Developers</div>
+        <div class="rdesc">The definitive free course on prompt engineering. Interactive Jupyter notebooks, real examples. 1–2 hours. Directly applicable to AI testing work.</div>
+        <div class="rurl">deeplearning.ai/short-courses</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.deeplearning.ai/short-courses/evaluating-debugging-generative-ai/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">DeepLearning.AI · W&amp;B</span></div>
+        <div class="rname">Evaluating &amp; Debugging Generative AI</div>
+        <div class="rdesc">The most directly relevant free course for AI testers. Covers evaluation metrics, tracing, debugging, and systematic quality assessment of LLM outputs.</div>
+        <div class="rurl">deeplearning.ai/short-courses</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.deeplearning.ai/short-courses/red-teaming-llm-applications/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">DeepLearning.AI · Giskard</span></div>
+        <div class="rname">Red Teaming LLM Applications</div>
+        <div class="rdesc">Hands-on adversarial testing of LLMs. Learn to find vulnerabilities like prompt injection, jailbreaks, and harmful content generation. Free, ~1 hour.</div>
+        <div class="rurl">deeplearning.ai/short-courses</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">DeepLearning.AI · TruEra</span></div>
+        <div class="rname">Building &amp; Evaluating Advanced RAG</div>
+        <div class="rdesc">How to test retrieval-augmented generation systems — increasingly common in enterprise AI. Covers pipeline evals, context relevance, faithfulness metrics.</div>
+        <div class="rurl">deeplearning.ai/short-courses</div>
+      </a>
+
+      <a class="rcard rev" href="https://learnprompting.org/docs/intro" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">Learn Prompting</span></div>
+        <div class="rname">Learn Prompting — Full Free Textbook</div>
+        <div class="rdesc">The most comprehensive free resource on prompt engineering. Covers basics to advanced techniques, jailbreaking, injection, and AI safety. Community-maintained and regularly updated.</div>
+        <div class="rurl">learnprompting.org</div>
+      </a>
+
+      <a class="rcard rev" href="https://huggingface.co/learn/nlp-course/chapter1/1" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">HuggingFace</span></div>
+        <div class="rname">HuggingFace NLP Course</div>
+        <div class="rdesc">Free, comprehensive NLP course from the makers of Transformers. Understand the technology behind the AI systems you'll be testing. Interactive notebooks included.</div>
+        <div class="rurl">huggingface.co/learn/nlp-course</div>
+      </a>
+
+      <a class="rcard rev" href="https://developers.google.com/machine-learning/crash-course" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">Google</span></div>
+        <div class="rname">Google Machine Learning Crash Course</div>
+        <div class="rdesc">Google's own ML course — free, well-structured, with interactive exercises. Covers supervised learning, neural networks, and ML fundamentals without heavy math.</div>
+        <div class="rurl">developers.google.com/machine-learning</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.coursera.org/learn/generative-ai-in-software-testing-training" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype course">Course</span><span class="rby">Simplilearn · Coursera</span></div>
+        <div class="rname">Generative AI in Software Testing</div>
+        <div class="rdesc">Beginner-friendly course exploring how Gen AI is transforming the QA lifecycle — test planning, execution, defect prediction, and reporting. Free to audit.</div>
+        <div class="rurl">coursera.org</div>
+      </a>
+
+    </div>
+
+    <!-- VIDEOS -->
+    <div class="rcat-label rev">▶ Videos — All Free on YouTube</div>
+    <div class="res-grid">
+
+      <a class="rcard rev" href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype video">Video</span><span class="rby">Andrej Karpathy · YouTube</span></div>
+        <div class="rname">Intro to Large Language Models</div>
+        <div class="rdesc">1-hour masterclass from one of the world's top AI researchers. The single best free video to understand how LLMs work, their capabilities, and their failure modes.</div>
+        <div class="rurl">youtube.com/watch?v=zjkBMFhNj_g</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.youtube.com/watch?v=kCc8FmEb1nY" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype video">Video</span><span class="rby">Andrej Karpathy · YouTube</span></div>
+        <div class="rname">Let's Build GPT From Scratch</div>
+        <div class="rdesc">2-hour deep dive building a GPT model from scratch in code. Gives you an unmatched intuition for how transformers work internally — invaluable for testing them.</div>
+        <div class="rurl">youtube.com/watch?v=kCc8FmEb1nY</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype video">Video</span><span class="rby">freeCodeCamp · YouTube</span></div>
+        <div class="rname">Python for Everybody — Full Course</div>
+        <div class="rdesc">14-hour complete Python course — free on YouTube. Start here if you have zero Python experience. You only need the first 4–5 hours for AI tester work.</div>
+        <div class="rurl">youtube.com — search "Python for Everybody freeCodeCamp"</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.youtube.com/watch?v=JEBDfGqrAUA" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype video">Video</span><span class="rby">3Blue1Brown · YouTube</span></div>
+        <div class="rname">But What is a Neural Network?</div>
+        <div class="rdesc">The most elegant visual explanation of how neural networks learn. 19 minutes. No math anxiety. Everyone in AI testing should watch this once — it rewires your intuition.</div>
+        <div class="rurl">youtube.com — 3Blue1Brown Neural Networks playlist</div>
+      </a>
+
+    </div>
+
+    <!-- OFFICIAL DOCS -->
+    <div class="rcat-label rev">📄 Official Docs &amp; Guides — All Free</div>
+    <div class="res-grid">
+
+      <a class="rcard rev" href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype docs">Docs</span><span class="rby">OWASP</span></div>
+        <div class="rname">OWASP LLM Top 10</div>
+        <div class="rdesc">The official security risk framework for LLM applications. Covers prompt injection, insecure output handling, training data poisoning, and 7 more. Essential reading for all AI testers.</div>
+        <div class="rurl">owasp.org/www-project-top-10-for-llm</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.istqb.org/certifications/certified-tester-ai-testing" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype docs">Docs</span><span class="rby">ISTQB</span></div>
+        <div class="rname">ISTQB CT-AI Syllabus (Free PDF)</div>
+        <div class="rdesc">Download the official syllabus for the AI Testing certification. Even if you don't sit the exam, reading this gives you the complete framework for professional AI testing. Free to download.</div>
+        <div class="rurl">istqb.org/certifications/certified-tester-ai-testing</div>
+      </a>
+
+      <a class="rcard rev" href="https://docs.anthropic.com/en/docs/intro-to-claude" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype docs">Docs</span><span class="rby">Anthropic</span></div>
+        <div class="rname">Anthropic Developer Docs</div>
+        <div class="rdesc">Complete free docs for Claude API — prompting guide, safety guidance, model capabilities and limitations. Essential reading for testing any Claude-powered product.</div>
+        <div class="rurl">docs.anthropic.com</div>
+      </a>
+
+      <a class="rcard rev" href="https://platform.openai.com/docs/overview" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype docs">Docs</span><span class="rby">OpenAI</span></div>
+        <div class="rname">OpenAI Platform Docs</div>
+        <div class="rdesc">Complete free docs for GPT APIs. Includes prompt engineering guide, safety best practices, function calling, and fine-tuning. Covers most AI products you'll encounter in your job.</div>
+        <div class="rurl">platform.openai.com/docs</div>
+      </a>
+
+      <a class="rcard rev" href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/red-teaming" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype docs">Docs</span><span class="rby">Microsoft</span></div>
+        <div class="rname">Introduction to Red Teaming LLMs</div>
+        <div class="rdesc">Microsoft's official guide to red-teaming AI systems. Covers threat models, adversarial testing methodologies, and practical exercises for finding AI vulnerabilities.</div>
+        <div class="rurl">learn.microsoft.com — Azure AI red teaming</div>
+      </a>
+
+      <a class="rcard rev" href="https://pair.withgoogle.com/guidebook/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype docs">Docs</span><span class="rby">Google PAIR</span></div>
+        <div class="rname">People + AI Research Guidebook</div>
+        <div class="rdesc">Google's guide to human-AI interaction design. Understand what good AI UX looks like — which makes your test cases more user-centric and product-aligned. Completely free.</div>
+        <div class="rurl">pair.withgoogle.com/guidebook</div>
+      </a>
+
+    </div>
+
+    <!-- ARTICLES -->
+    <div class="rcat-label rev">📰 Must-Read Free Articles &amp; Research</div>
+    <div class="res-grid">
+
+      <a class="rcard rev" href="https://lilianweng.github.io/posts/2023-06-23-agent/" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype read">Article</span><span class="rby">Lilian Weng · OpenAI</span></div>
+        <div class="rname">LLM Powered Autonomous Agents</div>
+        <div class="rdesc">The definitive deep-dive on AI agent architectures — planning, memory, and tool use. Understanding agents is critical because agentic AI products are what you'll increasingly be testing.</div>
+        <div class="rurl">lilianweng.github.io</div>
+      </a>
+
+      <a class="rcard rev" href="https://www.ibm.com/think/topics/ai-hallucinations" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype read">Article</span><span class="rby">IBM</span></div>
+        <div class="rname">AI Hallucinations Explained</div>
+        <div class="rdesc">Thorough explainer on why hallucinations happen, their types, and detection techniques. Core knowledge for every AI tester — bookmark and return to it throughout your study.</div>
+        <div class="rurl">ibm.com/think/topics/ai-hallucinations</div>
+      </a>
+
+      <a class="rcard rev" href="https://github.com/openai/evals" target="_blank" rel="noopener">
+        <div class="rcard-top"><span class="rtype read">Article</span><span class="rby">OpenAI · GitHub</span></div>
+        <div class="rname">OpenAI Evals Framework &amp; Examples</div>
+        <div class="rdesc">Real eval test cases used by OpenAI to evaluate GPT models. Study these as professional examples of AI testing in production. The README alone is a masterclass.</div>
+        <div class="rurl">github.com/openai/evals</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── FREE TOOLS ── -->
+  <section id="tools" class="tools-section">
+    <div class="slabel">Open Source Toolkit</div>
+    <div class="stitle rev">Free &amp; Open Source Tools to Master</div>
+    <div class="tgrid">
+
+      <a class="tcard rev" href="https://www.promptfoo.dev/docs/intro/" target="_blank" rel="noopener">
+        <div class="tfree">MIT License</div>
+        <div class="tcat">LLM Testing</div><div class="tname">Promptfoo</div>
+        <div class="tdesc">Unit testing for LLM prompts. Define test cases in YAML, run evals, catch regressions before they reach production. Used by 300k+ developers.</div>
+        <div class="turl">promptfoo.dev</div>
+      </a>
+
+      <a class="tcard rev" href="https://docs.ragas.io/en/latest/" target="_blank" rel="noopener">
+        <div class="tfree">Open Source</div>
+        <div class="tcat">RAG Evaluation</div><div class="tname">Ragas</div>
+        <div class="tdesc">Evaluate RAG pipeline quality — faithfulness, answer relevance, context precision. The go-to free tool for testing enterprise AI search features.</div>
+        <div class="turl">docs.ragas.io</div>
+      </a>
+
+      <a class="tcard rev" href="https://docs.confident-ai.com/" target="_blank" rel="noopener">
+        <div class="tfree">Open Source</div>
+        <div class="tcat">LLM Evaluation</div><div class="tname">DeepEval</div>
+        <div class="tdesc">Open source LLM evaluation framework. pytest-like syntax for LLM tests. Covers hallucination, bias, summarization, Q&amp;A, and custom metrics.</div>
+        <div class="turl">confident-ai.com/docs</div>
+      </a>
+
+      <a class="tcard rev" href="https://github.com/NVIDIA/garak" target="_blank" rel="noopener">
+        <div class="tfree">Open Source</div>
+        <div class="tcat">Security / Red Team</div><div class="tname">Garak</div>
+        <div class="tdesc">LLM vulnerability scanner by NVIDIA. Automatically probes for jailbreaks, prompt injections, hallucinations, and data leakage. Run it against any LLM API.</div>
+        <div class="turl">github.com/NVIDIA/garak</div>
+      </a>
+
+      <a class="tcard rev" href="https://github.com/openai/evals" target="_blank" rel="noopener">
+        <div class="tfree">MIT License</div>
+        <div class="tcat">Eval Framework</div><div class="tname">OpenAI Evals</div>
+        <div class="tdesc">OpenAI's own framework for evaluating LLM outputs. Study the existing evals as professional examples, and contribute your own. Free and open source.</div>
+        <div class="turl">github.com/openai/evals</div>
+      </a>
+
+      <a class="tcard rev" href="https://colab.research.google.com/" target="_blank" rel="noopener">
+        <div class="tfree">Free</div>
+        <div class="tcat">Dev Environment</div><div class="tname">Google Colab</div>
+        <div class="tdesc">Free GPU notebooks in the browser. Zero setup. Run Python, call LLM APIs, and build eval harnesses without installing anything on your machine.</div>
+        <div class="turl">colab.research.google.com</div>
+      </a>
+
+      <a class="tcard rev" href="https://docs.pytest.org/en/stable/" target="_blank" rel="noopener">
+        <div class="tfree">MIT License</div>
+        <div class="tcat">Test Framework</div><div class="tname">pytest</div>
+        <div class="tdesc">The Python testing framework. Write LLM eval tests, assert on API responses, and run automated test suites. The backbone of AI test automation.</div>
+        <div class="turl">docs.pytest.org</div>
+      </a>
+
+      <a class="tcard rev" href="https://playwright.dev/docs/intro" target="_blank" rel="noopener">
+        <div class="tfree">MIT License</div>
+        <div class="tcat">UI Automation</div><div class="tname">Playwright</div>
+        <div class="tdesc">Browser automation by Microsoft. AI-powered locators, cross-browser support. Most in-demand UI automation skill in AI QA roles right now.</div>
+        <div class="turl">playwright.dev</div>
+      </a>
+
+      <a class="tcard rev" href="https://huggingface.co/datasets" target="_blank" rel="noopener">
+        <div class="tfree">Free</div>
+        <div class="tcat">Test Data</div><div class="tname">HuggingFace Datasets</div>
+        <div class="tdesc">Thousands of free, curated datasets for building golden test sets, eval benchmarks, and bias testing suites. The world's largest free AI dataset repository.</div>
+        <div class="turl">huggingface.co/datasets</div>
+      </a>
+
+      <a class="tcard rev" href="https://www.postman.com/" target="_blank" rel="noopener">
+        <div class="tfree">Free tier</div>
+        <div class="tcat">API Testing</div><div class="tname">Postman</div>
+        <div class="tdesc">Apply your existing API testing skills to LLM endpoints. Free tier covers everything you need for AI API testing — collections, environments, test scripts.</div>
+        <div class="turl">postman.com</div>
+      </a>
+
+      <a class="tcard rev" href="https://github.com/" target="_blank" rel="noopener">
+        <div class="tfree">Free</div>
+        <div class="tcat">Portfolio</div><div class="tname">GitHub</div>
+        <div class="tdesc">Host your AI testing projects, contribute to open source tools, and build the portfolio that gets you hired. Public repos are completely free.</div>
+        <div class="turl">github.com</div>
+      </a>
+
+      <a class="tcard rev" href="https://locust.io/" target="_blank" rel="noopener">
+        <div class="tfree">Open Source</div>
+        <div class="tcat">Performance</div><div class="tname">Locust</div>
+        <div class="tdesc">Load test AI APIs in Python. LLMs are slow and expensive to run — latency and throughput testing is critical and often neglected by AI teams.</div>
+        <div class="turl">locust.io</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── MILESTONES ── -->
+  <section id="milestones" class="ms-section">
+    <div class="slabel">Progress</div>
+    <div class="stitle rev">Weekly Milestones</div>
+    <div class="timeline">
+      <div class="ms rev"><div class="msdot">🎯</div><div class="msbody"><h4>Week 1 — You can explain how LLMs work to a non-technical colleague</h4><p>You understand tokens, training, inference, and hallucinations. You can map each to testing risks.</p></div></div>
+      <div class="ms rev"><div class="msdot">✍️</div><div class="msbody"><h4>Week 2 — You've written 20 varied prompts and analyzed all outputs</h4><p>You spot flaky, biased, or inconsistent AI outputs. Your manual testing instincts are activating on probabilistic systems.</p></div></div>
+      <div class="ms rev"><div class="msdot">📄</div><div class="msbody"><h4>Week 4 — Your first AI test plan exists in writing</h4><p>10+ test cases for a chatbot. Includes adversarial inputs, context window tests, and consistency checks.</p></div></div>
+      <div class="ms rev"><div class="msdot">🛠️</div><div class="msbody"><h4>Week 6 — You've run a Promptfoo or Ragas evaluation and have a score</h4><p>You have a numeric quality score for an AI system. You can explain what it means to a developer in a standup.</p></div></div>
+      <div class="ms rev"><div class="msdot">🐍</div><div class="msbody"><h4>Week 7 — You've written Python that calls an LLM API and asserts on the output</h4><p>5+ automated test cases running with pytest. You've removed the "no code" ceiling from your AI QA career.</p></div></div>
+      <div class="ms rev"><div class="msdot">🔴</div><div class="msbody"><h4>Week 8 — You've red-teamed a public AI app using Garak or manual prompts</h4><p>OWASP LLM Top 10 is no longer abstract — you've reproduced at least one real vulnerability class in the wild.</p></div></div>
+      <div class="ms rev"><div class="msdot">🚀</div><div class="msbody"><h4>Week 10 — Your GitHub has a real AI testing project with 30+ test cases</h4><p>Documented README, results logged, bugs found. This is the portfolio piece that gets you interview callbacks.</p></div></div>
+      <div class="ms rev"><div class="msdot">🏆</div><div class="msbody"><h4>Week 12 — Applied to 5+ AI QA roles, ISTQB CT-AI on your radar</h4><p>Your LinkedIn reflects an AI QA identity. You can answer "how would you test a RAG chatbot?" fluently in any interview.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>// ai-tester-roadmap · all resources free · 5-yr manual QA → AI QA Engineer · 2025</p>
+    <div class="ftags">
+      <span class="tag">100% Free</span><span class="tag">AI Testing</span><span class="tag">LLM Eval</span><span class="tag">Open Source</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* Toggle month cards */
+function tog(hd){
+  const card=hd.parentElement,body=card.querySelector('.mbody'),open=card.classList.contains('open');
+  card.classList.toggle('open',!open);
+  body.style.display=open?'none':'block';
+  hd.setAttribute('aria-expanded',!open);
+}
+
+/* Scroll reveal */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')}),{threshold:.05});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+
+/* Progress bar */
+const bar=document.getElementById('bar');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+/* Nav */
+function goTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* Active dot state */
+const sids=['m1','m2','m3','resources','tools','milestones'];
+const sdots=document.querySelectorAll('.sdot');
+const bnis=document.querySelectorAll('.bni');
+window.addEventListener('scroll',()=>{
+  let cur=-1;
+  sids.forEach((id,i)=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-260)cur=i;});
+  sdots.forEach((d,i)=>d.classList.toggle('on',cur===-1?i===0:i===cur+1));
+  bnis.forEach((b,i)=>b.classList.toggle('on',cur===-1?i===0:i===cur+1));
+},{passive:true});
+</script>
+</body>
+</html>
