@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-900 Azure Fundamentals – Study Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090f;
+    --surface:#0e1117;
+    --surface2:#141924;
+    --surface3:#1a2133;
+    --border:#1f2d44;
+    --border2:#2a3d5a;
+    --accent:#2f80ff;
+    --accent2:#5ba3ff;
+    --accent3:#a8c8ff;
+    --text:#e8eef8;
+    --text2:#9aadcc;
+    --text3:#5c7499;
+    --green:#22c55e;
+    --yellow:#f59e0b;
+    --red:#ef4444;
+    --tag-bg:#0f1e38;
+    --sidebar-w:280px;
+    --header-h:60px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope',sans-serif;
+    font-size:15px;
+    line-height:1.7;
+    min-height:100vh;
+  }
+
+  /* HEADER */
+  .top-bar{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    height:var(--header-h);
+    background:rgba(7,9,15,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:16px;padding:0 20px;
+  }
+  .top-bar-logo{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Syne',sans-serif;font-weight:700;font-size:17px;
+    color:var(--text);text-decoration:none;white-space:nowrap;
+  }
+  .logo-icon{
+    width:32px;height:32px;border-radius:8px;
+    background:linear-gradient(135deg,#1d4ed8,#2f80ff);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;color:#fff;flex-shrink:0;
+  }
+  .top-bar-badge{
+    font-size:11px;padding:3px 9px;border-radius:20px;
+    background:var(--tag-bg);border:1px solid var(--border2);
+    color:var(--accent2);font-weight:600;letter-spacing:.4px;
+  }
+  .search-wrap{
+    flex:1;max-width:360px;margin-left:auto;position:relative;
+  }
+  .search-wrap input{
+    width:100%;padding:8px 14px 8px 36px;
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:8px;color:var(--text);font-family:'Manrope',sans-serif;
+    font-size:13px;outline:none;transition:.2s;
+  }
+  .search-wrap input:focus{border-color:var(--accent);background:var(--surface3)}
+  .search-wrap input::placeholder{color:var(--text3)}
+  .search-icon{
+    position:absolute;left:11px;top:50%;transform:translateY(-50%);
+    color:var(--text3);font-size:14px;pointer-events:none;
+  }
+  .menu-btn{
+    display:none;background:none;border:1px solid var(--border);
+    border-radius:7px;padding:6px 10px;color:var(--text2);
+    cursor:pointer;font-size:18px;flex-shrink:0;
+  }
+
+  /* LAYOUT */
+  .layout{display:flex;padding-top:var(--header-h);min-height:100vh}
+
+  /* SIDEBAR */
+  .sidebar{
+    width:var(--sidebar-w);flex-shrink:0;
+    position:fixed;top:var(--header-h);bottom:0;left:0;
+    overflow-y:auto;overflow-x:hidden;
+    background:var(--surface);
+    border-right:1px solid var(--border);
+    padding:20px 0 40px;
+    transition:transform .3s;
+  }
+  .sidebar::-webkit-scrollbar{width:4px}
+  .sidebar::-webkit-scrollbar-track{background:transparent}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+  .sidebar-section-label{
+    font-size:10px;font-weight:700;letter-spacing:1.2px;
+    color:var(--text3);text-transform:uppercase;
+    padding:12px 20px 4px;
+  }
+  .toc-link{
+    display:flex;align-items:center;gap:10px;
+    padding:7px 20px;text-decoration:none;
+    color:var(--text2);font-size:13px;font-weight:500;
+    border-left:2px solid transparent;
+    transition:.15s;
+  }
+  .toc-link:hover{color:var(--accent2);background:var(--surface2);border-left-color:var(--accent)}
+  .toc-link.active{color:var(--accent2);background:var(--tag-bg);border-left-color:var(--accent)}
+  .toc-num{
+    width:20px;height:20px;border-radius:5px;
+    background:var(--surface3);border:1px solid var(--border2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0;
+  }
+  .progress-bar-wrap{padding:16px 20px 0;}
+  .progress-label{font-size:11px;color:var(--text3);margin-bottom:6px;font-weight:500}
+  .progress-track{height:5px;background:var(--surface3);border-radius:10px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#1d4ed8,var(--accent2));border-radius:10px;transition:.4s}
+  .progress-pct{font-size:11px;color:var(--accent2);font-weight:600;float:right;margin-top:-14px}
+
+  /* MAIN */
+  .main{
+    flex:1;margin-left:var(--sidebar-w);
+    padding:40px 48px 80px;
+    max-width:900px;
+  }
+
+  /* HERO */
+  .hero{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:32px 36px;margin-bottom:44px;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;top:-60px;right:-60px;
+    width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,rgba(47,128,255,.12),transparent 70%);
+    pointer-events:none;
+  }
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+    color:var(--accent2);background:var(--tag-bg);border:1px solid var(--border2);
+    padding:4px 12px;border-radius:20px;margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Syne',sans-serif;font-size:2.1rem;font-weight:800;
+    color:#fff;line-height:1.2;margin-bottom:12px;
+  }
+  .hero h1 span{color:var(--accent2)}
+  .hero-sub{color:var(--text2);font-size:14px;max-width:560px;line-height:1.6}
+  .hero-stats{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;
+  }
+  .hero-stat{
+    display:flex;align-items:center;gap:8px;
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:8px;padding:8px 14px;
+  }
+  .hero-stat-icon{font-size:16px}
+  .hero-stat-text{font-size:12px;color:var(--text2);font-weight:500}
+  .hero-stat-val{color:var(--text);font-weight:700}
+
+  /* SECTION */
+  .section{margin-bottom:56px}
+  .section-header{
+    display:flex;align-items:center;gap:14px;margin-bottom:28px;
+    padding-bottom:16px;border-bottom:1px solid var(--border);
+  }
+  .section-num{
+    width:40px;height:40px;border-radius:10px;flex-shrink:0;
+    background:linear-gradient(135deg,#1d4ed8,var(--accent));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;
+  }
+  .section h2{
+    font-family:'Syne',sans-serif;font-size:1.45rem;font-weight:700;color:#fff;
+  }
+
+  h3{
+    font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;
+    color:var(--accent3);margin:28px 0 12px;display:flex;align-items:center;gap:8px;
+  }
+  h3::before{content:'';display:inline-block;width:4px;height:16px;
+    background:var(--accent);border-radius:2px;flex-shrink:0}
+
+  p{color:var(--text2);margin-bottom:12px}
+  strong{color:var(--text);font-weight:600}
+
+  /* CALLOUT */
+  .callout{
+    display:flex;gap:12px;padding:14px 18px;border-radius:10px;
+    margin:16px 0;border-left:3px solid;
+  }
+  .callout-info{background:rgba(47,128,255,.07);border-color:var(--accent)}
+  .callout-warn{background:rgba(245,158,11,.07);border-color:var(--yellow)}
+  .callout-tip{background:rgba(34,197,94,.07);border-color:var(--green)}
+  .callout-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+  .callout-body{font-size:13.5px;color:var(--text2)}
+  .callout-body strong{color:var(--text);font-weight:600}
+
+  /* CODE BLOCK */
+  pre{
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:10px;padding:16px 20px;margin:12px 0;
+    overflow-x:auto;font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;line-height:1.7;color:#cdd9f0;
+  }
+  code{
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    background:var(--surface3);border:1px solid var(--border);
+    padding:1px 6px;border-radius:4px;color:var(--accent3);
+  }
+  pre code{background:none;border:none;padding:0;font-size:inherit}
+
+  /* TABLES */
+  .table-wrap{overflow-x:auto;margin:14px 0;border-radius:10px;border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead{background:var(--surface2)}
+  th{
+    text-align:left;padding:11px 16px;
+    font-family:'Syne',sans-serif;font-weight:600;font-size:12px;
+    letter-spacing:.5px;color:var(--text2);
+    border-bottom:1px solid var(--border);text-transform:uppercase;
+  }
+  td{
+    padding:11px 16px;border-bottom:1px solid var(--border);
+    color:var(--text2);vertical-align:top;
+  }
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(47,128,255,.04)}
+  .tag{
+    display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px;
+  }
+  .tag-blue{background:rgba(47,128,255,.15);color:var(--accent2)}
+  .tag-green{background:rgba(34,197,94,.12);color:#4ade80}
+  .tag-yellow{background:rgba(245,158,11,.12);color:#fbbf24}
+  .tag-red{background:rgba(239,68,68,.12);color:#f87171}
+  .tag-purple{background:rgba(168,85,247,.12);color:#c084fc}
+
+  /* CHECKLIST */
+  .checklist{list-style:none;padding:0}
+  .checklist li{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:9px 14px;border-radius:8px;margin-bottom:4px;
+    cursor:pointer;transition:.15s;border:1px solid transparent;
+  }
+  .checklist li:hover{background:var(--surface2);border-color:var(--border)}
+  .checklist li.done{opacity:.55}
+  .checklist li.done .check-text{text-decoration:line-through;color:var(--text3)}
+  .check-box{
+    width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border2);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:2px;transition:.2s;background:transparent;
+  }
+  .checklist li.done .check-box{background:var(--accent);border-color:var(--accent)}
+  .check-text{font-size:13.5px;color:var(--text2)}
+
+  /* GRID CARDS */
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:14px 0}
+  .card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:12px;padding:18px;transition:.2s;
+  }
+  .card:hover{border-color:var(--border2);background:var(--surface2)}
+  .card-title{
+    font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+    color:var(--text);margin-bottom:6px;
+  }
+  .card-body{font-size:13px;color:var(--text2);line-height:1.6}
+  .card-icon{font-size:22px;margin-bottom:10px}
+
+  /* PILL BADGES */
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .pill{
+    font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;
+    background:var(--tag-bg);border:1px solid var(--border2);color:var(--accent3);
+  }
+
+  /* SLA BADGE */
+  .sla{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;
+    color:var(--green);background:rgba(34,197,94,.1);
+    padding:2px 8px;border-radius:5px;white-space:nowrap;
+  }
+
+  /* SEARCH HIGHLIGHT */
+  mark{background:rgba(47,128,255,.3);color:var(--accent2);border-radius:2px;padding:0 2px}
+
+  /* SEARCH RESULTS */
+  #search-overlay{
+    display:none;position:fixed;top:var(--header-h);left:0;right:0;bottom:0;
+    background:rgba(7,9,15,.95);z-index:90;overflow-y:auto;padding:20px;
+  }
+  .search-result-item{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:16px 20px;margin-bottom:8px;cursor:pointer;
+  }
+  .search-result-item:hover{border-color:var(--accent);background:var(--surface2)}
+  .search-result-section{font-size:11px;color:var(--accent2);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+  .search-result-title{font-family:'Syne',sans-serif;font-weight:700;color:var(--text);font-size:15px;margin-bottom:4px}
+  .search-result-snippet{font-size:13px;color:var(--text2);line-height:1.5}
+
+  /* BACK TO TOP */
+  #back-top{
+    position:fixed;bottom:28px;right:28px;
+    width:40px;height:40px;border-radius:10px;
+    background:var(--accent);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:18px;opacity:0;transition:.3s;pointer-events:none;z-index:50;
+  }
+  #back-top.visible{opacity:1;pointer-events:auto}
+
+  /* MOBILE */
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0;padding:28px 20px 60px}
+    .menu-btn{display:flex;align-items:center;justify-content:center}
+    .hero h1{font-size:1.6rem}
+    .hero{padding:24px 20px}
+    .sidebar-overlay{display:block}
+  }
+  @media(max-width:560px){
+    .hero-stats{gap:8px}
+    .hero-stat{padding:7px 12px}
+    .card-grid{grid-template-columns:1fr}
+    .top-bar-badge{display:none}
+    .search-wrap{max-width:140px}
+  }
+
+  .sidebar-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;
+  }
+  .sidebar-overlay.show{display:block}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  <a class="top-bar-logo" href="#">
+    <div class="logo-icon">AZ</div>
+    AZ-900 Notes
+  </a>
+  <span class="top-bar-badge">Apr 2025 · John Savill</span>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="Search notes…" autocomplete="off">
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="progress-bar-wrap">
+    <div class="progress-label">Checklist Progress <span class="progress-pct" id="pct">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <div style="height:16px"></div>
+  <div class="sidebar-section-label">Contents</div>
+  <a class="toc-link" href="#s1" data-sec="s1"><span class="toc-num">1</span> Cloud Concepts</a>
+  <a class="toc-link" href="#s2" data-sec="s2"><span class="toc-num">2</span> Azure Architecture</a>
+  <a class="toc-link" href="#s3" data-sec="s3"><span class="toc-num">3</span> Compute Services</a>
+  <a class="toc-link" href="#s4" data-sec="s4"><span class="toc-num">4</span> Networking</a>
+  <a class="toc-link" href="#s5" data-sec="s5"><span class="toc-num">5</span> Storage Services</a>
+  <a class="toc-link" href="#s6" data-sec="s6"><span class="toc-num">6</span> Identity &amp; Security</a>
+  <a class="toc-link" href="#s7" data-sec="s7"><span class="toc-num">7</span> Cost &amp; Governance</a>
+  <a class="toc-link" href="#s8" data-sec="s8"><span class="toc-num">8</span> Monitoring &amp; Tools</a>
+  <a class="toc-link" href="#s9" data-sec="s9"><span class="toc-num">9</span> Cheat Sheet</a>
+</nav>
+
+<!-- MAIN -->
+<main class="layout">
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">☁️ Microsoft Azure</div>
+    <h1>AZ-900 <span>Azure Fundamentals</span><br>Study Notes</h1>
+    <p class="hero-sub">Complete exam preparation notes from John Savill's Technical Training playlist. Covers all three exam domains with tables, key comparisons, and an interactive checklist.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-icon">📺</span><span class="hero-stat-text"><span class="hero-stat-val">65</span> videos</span></div>
+      <div class="hero-stat"><span class="hero-stat-icon">⏱️</span><span class="hero-stat-text"><span class="hero-stat-val">~9 hrs</span> content</span></div>
+      <div class="hero-stat"><span class="hero-stat-icon">📋</span><span class="hero-stat-text"><span class="hero-stat-val">3</span> exam domains</span></div>
+      <div class="hero-stat"><span class="hero-stat-icon">🎯</span><span class="hero-stat-text"><span class="hero-stat-val">700</span> passing score</span></div>
+    </div>
+  </div>
+
+  <!-- S1: CLOUD CONCEPTS -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Cloud Concepts <span style="font-size:.8rem;color:var(--text3);font-family:'Manrope',sans-serif;font-weight:400;margin-left:8px">25–30% of exam</span></h2>
+    </div>
+
+    <h3>1.1 What Is Cloud Computing?</h3>
+    <p>Cloud computing delivers computing services over the internet — servers, storage, databases, networking, software — enabling faster innovation and flexible, pay-as-you-go resources.</p>
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>NIST 5 characteristics:</strong> On-demand self-service · Broad network access · Resource pooling (multi-tenancy) · Rapid elasticity · Measured service (metered billing)</div>
+    </div>
+
+    <h3>1.2 Cloud Service Models</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Model</th><th>You Manage</th><th>Provider Manages</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IaaS</strong> — Infrastructure as a Service</td><td>OS, middleware, runtime, apps, data</td><td>Hardware, network, virtualization</td><td>Azure VMs, Azure Disks</td></tr>
+          <tr><td><strong>PaaS</strong> — Platform as a Service</td><td>Apps, data</td><td>Everything underneath</td><td>Azure App Service, Azure SQL</td></tr>
+          <tr><td><strong>SaaS</strong> — Software as a Service</td><td>Nothing (just use it)</td><td>Everything</td><td>Microsoft 365, Dynamics 365</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>Shared Responsibility Model:</strong> As you move IaaS → PaaS → SaaS, more shifts to Microsoft. Security <em>of</em> the cloud = Microsoft's. Security <em>in</em> the cloud = yours (varies by model).</div>
+    </div>
+
+    <h3>1.3 Deployment Models</h3>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">🌐</div><div class="card-title">Public Cloud</div><div class="card-body">Resources owned by a third-party, shared over the internet. Best for startups and variable workloads.</div></div>
+      <div class="card"><div class="card-icon">🏢</div><div class="card-title">Private Cloud</div><div class="card-body">Exclusive to one organization; on-prem or hosted. Best for regulated industries and sensitive data.</div></div>
+      <div class="card"><div class="card-icon">🔀</div><div class="card-title">Hybrid Cloud</div><div class="card-body">Combines public + private, connected by tech. Used for cloud bursting and phased migrations.</div></div>
+      <div class="card"><div class="card-icon">☁️</div><div class="card-title">Multi-Cloud</div><div class="card-body">Multiple cloud providers. Avoids vendor lock-in; enables best-of-breed service selection.</div></div>
+    </div>
+
+    <h3>1.4 CapEx vs OpEx</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>CapEx</th><th>OpEx</th></tr></thead>
+        <tbody>
+          <tr><td><strong>What</strong></td><td>Capital Expenditure — upfront hardware investment</td><td>Operational Expenditure — pay-as-you-go</td></tr>
+          <tr><td><strong>Cloud link</strong></td><td>Traditional on-premises model</td><td>Cloud model</td></tr>
+          <tr><td><strong>Tax treatment</strong></td><td>Depreciated over time</td><td>Deducted in same year</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>1.5 Key Cloud Benefits</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Benefit</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>High Availability</strong></td><td>Services remain accessible despite failures (backed by SLAs)</td></tr>
+          <tr><td><strong>Scalability</strong></td><td>Increase resources to handle greater load (vertical = scale up, horizontal = scale out)</td></tr>
+          <tr><td><strong>Elasticity</strong></td><td>Automatically scale up/down based on demand</td></tr>
+          <tr><td><strong>Agility</strong></td><td>Quickly provision new resources to meet changing needs</td></tr>
+          <tr><td><strong>Geo-distribution</strong></td><td>Deploy to datacenters worldwide, reducing latency</td></tr>
+          <tr><td><strong>Disaster Recovery</strong></td><td>Replicate data/services across regions</td></tr>
+          <tr><td><strong>Economies of Scale</strong></td><td>Cloud providers pass cost savings to customers</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S2: ARCHITECTURE -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Azure Architecture &amp; Infrastructure</h2>
+    </div>
+
+    <h3>2.1 Global Infrastructure Hierarchy</h3>
+    <pre>Azure Global Infrastructure
+├── Geographies  (e.g. United States, Europe, Asia Pacific)
+│   └── Regions  (e.g. East US, West Europe, Southeast Asia)
+│       ├── Region Pairs  (paired for disaster recovery, ≥300 mi apart)
+│       └── Availability Zones
+│           └── Zone 1 / Zone 2 / Zone 3  (physically separate datacenters)
+│               └── Datacenters</pre>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Concept</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Geography</strong></td><td>Discrete market with 2+ regions; preserves data residency and compliance</td></tr>
+          <tr><td><strong>Region</strong></td><td>Set of datacenters within a latency-defined perimeter; every resource lives in a region</td></tr>
+          <tr><td><strong>Region Pair</strong></td><td>Each region paired with another ≥300 mi away in same geography for replication/recovery</td></tr>
+          <tr><td><strong>Availability Zone</strong></td><td>Physically separate datacenters within a region — independent power, cooling, networking</td></tr>
+          <tr><td><strong>Sovereign Regions</strong></td><td>Isolated instances for compliance: Azure Government (US), Azure China (21Vianet)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>2.2 Availability Zones vs Availability Sets</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Availability Zones</th><th>Availability Sets</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Scope</strong></td><td>Different datacenters within a region</td><td>Different racks within a datacenter</td></tr>
+          <tr><td><strong>Protects against</strong></td><td>Entire datacenter failure</td><td>Rack-level (power/network) failure</td></tr>
+          <tr><td><strong>SLA</strong></td><td class="sla">99.99%</td><td class="sla">99.95%</td></tr>
+          <tr><td><strong>Concepts</strong></td><td>Zonal, Zone-redundant, Non-regional</td><td>Fault Domains (FD) + Update Domains (UD)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <div class="callout-body"><strong>Availability Sets:</strong> Fault Domains = separate physical racks (max 2–3). Update Domains = groups restarted together during maintenance (default 5, max 20).</div>
+    </div>
+
+    <h3>2.3 Resource Organization Hierarchy</h3>
+    <pre>Azure AD Tenant  (identity boundary)
+└── Management Groups  (policy at scale; up to 6 levels)
+    └── Subscriptions  (billing + access control boundary)
+        └── Resource Groups  (logical container; must belong to 1 subscription)
+            └── Resources  (VMs, storage, databases, etc.)</pre>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Level</th><th>Key Facts</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Management Groups</strong></td><td>Container for subscriptions; apply Policy &amp; RBAC at scale; root group at top</td></tr>
+          <tr><td><strong>Subscriptions</strong></td><td>Billing boundary AND access control boundary. Common splits: per environment / per dept</td></tr>
+          <tr><td><strong>Resource Groups</strong></td><td>Every resource in exactly one RG; can span regions; delete RG = delete all resources inside</td></tr>
+          <tr><td><strong>Resources</strong></td><td>Actual Azure services: VMs, storage accounts, SQL DBs, etc.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>2.4 Azure Resource Manager (ARM)</h3>
+    <p>ARM is the <strong>deployment and management layer</strong> for all Azure services. Every tool (portal, CLI, PowerShell, REST) goes through ARM.</p>
+    <div class="pill-row">
+      <span class="pill">Consistent management layer</span>
+      <span class="pill">Declarative templates (ARM/Bicep)</span>
+      <span class="pill">RBAC built-in</span>
+      <span class="pill">Tagging support</span>
+      <span class="pill">Dependency management</span>
+    </div>
+  </div>
+
+  <!-- S3: COMPUTE -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>Compute Services</h2>
+    </div>
+
+    <h3>3.1 Azure Virtual Machines (IaaS)</h3>
+    <p>Full control over OS and configuration. You are responsible for OS patching, software, and security.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Availability Option</th><th>Protects Against</th><th>SLA</th></tr></thead>
+        <tbody>
+          <tr><td>Single VM + Premium SSD</td><td>Hardware failure</td><td><span class="sla">99.9%</span></td></tr>
+          <tr><td>Availability Set (FDs + UDs)</td><td>Rack-level failure</td><td><span class="sla">99.95%</span></td></tr>
+          <tr><td>Availability Zones</td><td>Datacenter failure</td><td><span class="sla">99.99%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>VM Scale Sets (VMSS):</strong> Auto-create/delete VMs based on demand or schedule. Ideal for stateless workloads. <br><strong>Azure Dedicated Hosts:</strong> Physical server dedicated to your org — useful for compliance/licensing requirements.</div>
+    </div>
+
+    <h3>3.2 Azure App Service (PaaS)</h3>
+    <p>Fully managed platform for web apps, REST APIs, and mobile backends. No server management required.</p>
+    <div class="pill-row">
+      <span class="pill">.NET / Java / Node.js / Python / PHP / Ruby</span>
+      <span class="pill">Built-in autoscale</span>
+      <span class="pill">CI/CD integration</span>
+      <span class="pill">Deployment slots</span>
+      <span class="pill">Custom domains + SSL</span>
+    </div>
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <div class="callout-body"><strong>Deployment Slots:</strong> Separate environments (staging/prod) that can be <em>swapped</em> for zero-downtime deployments.</div>
+    </div>
+
+    <h3>3.3 Containers &amp; Serverless</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>Type</th><th>Key Feature</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Azure Container Instances (ACI)</strong></td><td>Serverless containers</td><td>No cluster mgmt; per-second billing</td><td>Simple tasks, burst workloads, CI/CD</td></tr>
+          <tr><td><strong>Azure Kubernetes Service (AKS)</strong></td><td>Managed Kubernetes</td><td>Microsoft manages control plane</td><td>Microservices, complex containerised apps</td></tr>
+          <tr><td><strong>Azure Functions</strong></td><td>Serverless (FaaS)</td><td>Event-driven; pay only when code runs</td><td>Short-running, event-triggered code</td></tr>
+          <tr><td><strong>Azure Logic Apps</strong></td><td>Low-code workflow</td><td>200+ connectors, visual designer</td><td>Integration &amp; workflow automation</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>3.4 Compute Decision Guide</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>Best Service</th></tr></thead>
+        <tbody>
+          <tr><td>Lift-and-shift, need full OS control</td><td><span class="tag tag-blue">Azure VM</span></td></tr>
+          <tr><td>Managed web/API hosting, no containers</td><td><span class="tag tag-green">App Service</span></td></tr>
+          <tr><td>Containerised microservices at scale</td><td><span class="tag tag-purple">AKS</span></td></tr>
+          <tr><td>Simple single container, fast spin-up</td><td><span class="tag tag-yellow">ACI</span></td></tr>
+          <tr><td>Event-driven, short-running code</td><td><span class="tag tag-blue">Azure Functions</span></td></tr>
+          <tr><td>No-code workflow/integration</td><td><span class="tag tag-green">Logic Apps</span></td></tr>
+          <tr><td>Virtual desktop for remote workers</td><td><span class="tag tag-purple">Azure Virtual Desktop</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S4: NETWORKING -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Networking Services</h2>
+    </div>
+
+    <h3>4.1 Azure Virtual Network (VNet)</h3>
+    <p>Foundation of Azure networking — a private network scoped to one region and subscription. Resources in the same VNet communicate by default.</p>
+    <div class="pill-row">
+      <span class="pill">Isolation &amp; segmentation via subnets</span>
+      <span class="pill">Internet communication</span>
+      <span class="pill">Service/Private Endpoints</span>
+      <span class="pill">On-prem connectivity</span>
+      <span class="pill">NSGs &amp; route tables</span>
+    </div>
+
+    <h3>4.2 Connectivity Options</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>Travels Over</th><th>Speed</th><th>Use When</th></tr></thead>
+        <tbody>
+          <tr><td><strong>VPN Gateway</strong></td><td>Public internet (encrypted)</td><td>Up to ~10 Gbps</td><td>Cost-effective, moderate bandwidth, remote access</td></tr>
+          <tr><td><strong>ExpressRoute</strong></td><td>Private dedicated circuit</td><td>50 Mbps – 100 Gbps</td><td>High bandwidth, consistent latency, compliance</td></tr>
+          <tr><td><strong>VNet Peering</strong></td><td>Microsoft backbone (private)</td><td>Full bandwidth</td><td>Connect two VNets in same or different regions</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>VNet Peering is non-transitive by default.</strong> A↔B and B↔C does NOT mean A↔C. You need explicit peering A↔C or a hub/spoke with Azure Firewall.</div>
+    </div>
+
+    <h3>4.3 Load Balancing Comparison</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>Layer</th><th>Scope</th><th>Key Feature</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Load Balancer</strong></td><td>Layer 4 (TCP/UDP)</td><td>Regional</td><td>Basic load balancing; public or internal</td></tr>
+          <tr><td><strong>Application Gateway</strong></td><td>Layer 7 (HTTP/S)</td><td>Regional</td><td>URL-based routing, SSL termination, <strong>WAF</strong></td></tr>
+          <tr><td><strong>Traffic Manager</strong></td><td>DNS (Layer 7)</td><td>Global</td><td>DNS-based routing; Performance/Priority/Geo methods</td></tr>
+          <tr><td><strong>Azure Front Door</strong></td><td>Layer 7</td><td>Global edge</td><td>CDN + WAF + Anycast routing; fastest failover</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>4.4 Network Security Groups (NSGs)</h3>
+    <p>Filter inbound/outbound traffic at the <strong>subnet</strong> or <strong>NIC</strong> level. Rules have priority (lower number = processed first), source/dest, port, protocol, and allow/deny action.</p>
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body">Default rules: allow inbound from VNet + Azure Load Balancer, <strong>deny all other inbound internet</strong>. You must explicitly open ports you need.</div>
+    </div>
+  </div>
+
+  <!-- S5: STORAGE -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>Storage Services</h2>
+    </div>
+
+    <h3>5.1 Azure Storage Account Services</h3>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">📦</div><div class="card-title">Blob Storage</div><div class="card-body">Object storage for unstructured data: images, videos, logs, backups. Block, Append, and Page blob types.</div></div>
+      <div class="card"><div class="card-icon">📁</div><div class="card-title">Azure Files</div><div class="card-body">Managed cloud file shares via SMB / NFS. Mount on Windows, Linux, macOS simultaneously.</div></div>
+      <div class="card"><div class="card-icon">📬</div><div class="card-title">Queue Storage</div><div class="card-body">Async message queue. Messages up to 64 KB. Decouples application components (producer/consumer).</div></div>
+      <div class="card"><div class="card-icon">🗃️</div><div class="card-title">Table Storage</div><div class="card-body">NoSQL key-attribute schemaless store. Low cost for large structured datasets.</div></div>
+    </div>
+
+    <h3>5.2 Blob Access Tiers</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tier</th><th>Access Pattern</th><th>Min Retention</th><th>Storage Cost</th><th>Access Cost</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag tag-blue">Hot</span></td><td>Frequently accessed</td><td>None</td><td>Highest</td><td>Lowest</td></tr>
+          <tr><td><span class="tag tag-green">Cool</span></td><td>Infrequently accessed</td><td>30 days</td><td>Lower</td><td>Higher</td></tr>
+          <tr><td><span class="tag tag-yellow">Cold</span></td><td>Rarely accessed</td><td>90 days</td><td>Lower</td><td>Higher</td></tr>
+          <tr><td><span class="tag tag-red">Archive</span></td><td>Offline / near-zero access</td><td>180 days</td><td>Lowest</td><td>Highest + rehydrate time</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.3 Storage Redundancy Options</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Option</th><th>Copies</th><th>Protects Against</th></tr></thead>
+        <tbody>
+          <tr><td><strong>LRS</strong> — Locally Redundant</td><td>3 in 1 datacenter</td><td>Hardware failure</td></tr>
+          <tr><td><strong>ZRS</strong> — Zone-Redundant</td><td>3 across 3 AZs, 1 region</td><td>Availability Zone failure</td></tr>
+          <tr><td><strong>GRS</strong> — Geo-Redundant</td><td>3 LRS primary + 3 LRS secondary region</td><td>Regional disaster</td></tr>
+          <tr><td><strong>GZRS</strong> — Geo-Zone-Redundant</td><td>ZRS primary + LRS secondary</td><td>AZ failure + regional disaster</td></tr>
+          <tr><td><strong>RA-GRS / RA-GZRS</strong></td><td>Same as above</td><td>Same + read access to secondary</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <div class="callout-body">Rule of thumb: <strong>More redundancy = higher availability = higher cost.</strong> LRS is cheapest; GZRS is most resilient.</div>
+    </div>
+
+    <h3>5.4 Azure Disk Types</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Disk Type</th><th>Media</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td>Ultra Disk</td><td>SSD</td><td>IO-intensive: SAP HANA, SQL, Oracle</td></tr>
+          <tr><td>Premium SSD v2</td><td>SSD</td><td>Production, high performance</td></tr>
+          <tr><td>Premium SSD</td><td>SSD</td><td>Production, I/O intensive workloads</td></tr>
+          <tr><td>Standard SSD</td><td>SSD</td><td>Web servers, dev/test, lightly used apps</td></tr>
+          <tr><td>Standard HDD</td><td>HDD</td><td>Backup, non-critical, infrequent access</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S6: IDENTITY & SECURITY -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Identity, Access &amp; Security</h2>
+    </div>
+
+    <h3>6.1 Microsoft Entra ID (Azure AD)</h3>
+    <p>Microsoft's cloud-based identity and access management service. <strong>Not</strong> the same as on-premises Windows Active Directory.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Traditional AD (on-prem)</th><th>Microsoft Entra ID (cloud)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Protocol</strong></td><td>LDAP, Kerberos, NTLM</td><td>SAML, OAuth 2.0, OpenID Connect</td></tr>
+          <tr><td><strong>Structure</strong></td><td>Domains, OUs, GPOs</td><td>Flat — no OUs or GPOs</td></tr>
+          <tr><td><strong>Location</strong></td><td>Your datacenters</td><td>Microsoft's cloud</td></tr>
+          <tr><td><strong>Primary Use</strong></td><td>Corp network resources</td><td>Cloud/web applications</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>6.2 Authentication vs Authorization</h3>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">🔑</div><div class="card-title">Authentication (AuthN)</div><div class="card-body">Verifying <em>who</em> you are. Methods: password, MFA, certificate, biometrics.</div></div>
+      <div class="card"><div class="card-icon">🛡️</div><div class="card-title">Authorization (AuthZ)</div><div class="card-body">Verifying <em>what</em> you can do. Controlled via RBAC, policies, and permissions.</div></div>
+    </div>
+
+    <h3>6.3 Multi-Factor Authentication (MFA)</h3>
+    <p>Requires two or more of: <strong>something you know</strong> (password/PIN), <strong>something you have</strong> (phone/authenticator app), <strong>something you are</strong> (fingerprint/face).</p>
+
+    <h3>6.4 Conditional Access</h3>
+    <p>Enforce policies <em>after</em> first-factor authentication. Uses an <strong>If–Then</strong> model: <em>IF</em> user comes from untrusted location, <em>THEN</em> require MFA.</p>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body">Conditional Access requires <strong>Microsoft Entra ID P1</strong> or higher (included in Microsoft 365 E3/E5).</div>
+    </div>
+
+    <h3>6.5 Role-Based Access Control (RBAC)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Built-in Role</th><th>Permissions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag tag-red">Owner</span></td><td>Full access + manage access assignments</td></tr>
+          <tr><td><span class="tag tag-yellow">Contributor</span></td><td>Full access, cannot manage access</td></tr>
+          <tr><td><span class="tag tag-green">Reader</span></td><td>View only — no modifications</td></tr>
+          <tr><td><span class="tag tag-blue">User Access Admin</span></td><td>Manage access only — no resource changes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>RBAC is additive</strong> — multiple role assignments combine. <strong>Deny assignments</strong> (from Policy) override RBAC allows. Apply at management group, subscription, RG, or resource scope — inherited downward.</div>
+    </div>
+
+    <h3>6.6 Zero Trust Model</h3>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">🔍</div><div class="card-title">Verify Explicitly</div><div class="card-body">Always authenticate and authorise based on all available data points — identity, location, device, service, workload.</div></div>
+      <div class="card"><div class="card-icon">🎯</div><div class="card-title">Least Privilege Access</div><div class="card-body">Limit access with Just-In-Time (JIT) and Just-Enough-Access (JEA). Minimise blast radius.</div></div>
+      <div class="card"><div class="card-icon">💥</div><div class="card-title">Assume Breach</div><div class="card-body">Segment access, verify end-to-end encryption, use analytics to detect and respond to anomalies.</div></div>
+    </div>
+
+    <h3>6.7 Defence in Depth</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Layer (outer → inner)</th><th>Controls</th></tr></thead>
+        <tbody>
+          <tr><td>Physical Security</td><td>Datacentre access controls, guards, CCTV</td></tr>
+          <tr><td>Identity &amp; Access</td><td>Entra ID, MFA, RBAC, Conditional Access</td></tr>
+          <tr><td>Perimeter</td><td>DDoS Protection, Azure Firewall</td></tr>
+          <tr><td>Network</td><td>NSGs, VNet segmentation, VPN</td></tr>
+          <tr><td>Compute</td><td>OS patches, endpoint protection, AV</td></tr>
+          <tr><td>Application</td><td>Secure coding, WAF, no hardcoded secrets</td></tr>
+          <tr><td>Data</td><td>Encryption at rest and in transit, Key Vault</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>6.8 Key Security Services</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Microsoft Defender for Cloud</strong></td><td>CSPM (Secure Score + recommendations) + CWPP (threat protection for VMs, containers, DBs)</td></tr>
+          <tr><td><strong>Azure Key Vault</strong></td><td>Centralised store for secrets, cryptographic keys, and TLS certificates (HSM backing available)</td></tr>
+          <tr><td><strong>Microsoft Sentinel</strong></td><td>SIEM/SOAR — collect, detect, investigate, respond to security threats</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S7: COST & GOVERNANCE -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>Cost Management &amp; Governance <span style="font-size:.8rem;color:var(--text3);font-family:'Manrope',sans-serif;font-weight:400;margin-left:8px">30–35% of exam</span></h2>
+    </div>
+
+    <h3>7.1 Factors Affecting Azure Cost</h3>
+    <div class="pill-row">
+      <span class="pill">Resource type &amp; tier</span>
+      <span class="pill">Amount consumed (hours, GB, operations)</span>
+      <span class="pill">Region (prices vary)</span>
+      <span class="pill">Outbound data transfer</span>
+      <span class="pill">Subscription type (PAYG vs EA vs CSP)</span>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>Inbound data is free.</strong> Outbound (egress) data incurs charges after a free allowance per region.</div>
+    </div>
+
+    <h3>7.2 Cost Reduction Strategies</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Strategy</th><th>Savings</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Azure Reservations</strong></td><td>Up to <span class="tag tag-green">72%</span></td><td>Commit to 1 or 3 years upfront; available for VMs, SQL, Cosmos DB, storage</td></tr>
+          <tr><td><strong>Azure Hybrid Benefit</strong></td><td>Up to <span class="tag tag-green">40%</span></td><td>Use existing Windows Server / SQL Server licenses with Software Assurance</td></tr>
+          <tr><td><strong>Spot VMs</strong></td><td>Up to <span class="tag tag-green">90%</span></td><td>Unused Azure capacity; VMs evicted with 30s notice — use for interruptible workloads</td></tr>
+          <tr><td><strong>Dev/Test Pricing</strong></td><td>Varies</td><td>Discounted rates for non-production (requires Visual Studio subscription)</td></tr>
+          <tr><td><strong>Right-Sizing</strong></td><td>Varies</td><td>Match VM size to actual workload; Azure Advisor provides recommendations</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>7.3 Cost Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>URL</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pricing Calculator</strong></td><td>azure.microsoft.com/pricing/calculator</td><td>Estimate cost of Azure services before deploying</td></tr>
+          <tr><td><strong>TCO Calculator</strong></td><td>azure.microsoft.com/pricing/tco</td><td>Compare on-premises vs Azure cost over 3–5 years</td></tr>
+          <tr><td><strong>Cost Management + Billing</strong></td><td>Azure portal</td><td>Analyse spending, set budgets, alerts, download invoices</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>7.4 Governance Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Azure Tags</strong></td><td>Name-value pairs on resources for cost allocation, automation, ownership. Not inherited by default.</td></tr>
+          <tr><td><strong>Azure Policy</strong></td><td>Enforce standards at scale. Effects: Deny, Audit, Append, Modify, DeployIfNotExists. Compliance dashboard included.</td></tr>
+          <tr><td><strong>Resource Locks</strong></td><td><code>CanNotDelete</code> (read + modify, no delete) or <code>ReadOnly</code> (read only). Inherited by child resources.</td></tr>
+          <tr><td><strong>Azure Blueprints</strong></td><td>Package policies + RBAC + ARM templates for repeatable governed deployments to subscriptions.</td></tr>
+          <tr><td><strong>Microsoft Purview</strong></td><td>Unified data governance: data map, catalog, lineage, information protection, compliance manager.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>Azure Policy vs RBAC:</strong> Policy controls what resources <em>look like</em> (properties, configurations). RBAC controls what users can <em>do</em> (actions on resources). They work together, not instead of each other.</div>
+    </div>
+
+    <h3>7.5 Service Trust Portal</h3>
+    <p>Visit <code>servicetrust.microsoft.com</code> for compliance content: audit reports, certifications, whitepapers for ISO 27001, SOC, HIPAA, GDPR, etc.</p>
+  </div>
+
+  <!-- S8: MONITORING & MANAGEMENT -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <h2>Monitoring &amp; Management Tools</h2>
+    </div>
+
+    <h3>8.1 Azure Monitor</h3>
+    <p>Central monitoring platform collecting <strong>Metrics</strong> (numerical time-series) and <strong>Logs</strong> (structured records) from all Azure resources.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Component</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Log Analytics Workspace</strong></td><td>Store and query log data using KQL (Kusto Query Language)</td></tr>
+          <tr><td><strong>Alerts</strong></td><td>Notify via email/SMS/Logic App/Function when conditions are met</td></tr>
+          <tr><td><strong>Application Insights</strong></td><td>APM — monitor live web apps, detect performance anomalies and exceptions</td></tr>
+          <tr><td><strong>VM Insights</strong></td><td>Monitor VM performance and dependency maps</td></tr>
+          <tr><td><strong>Container Insights</strong></td><td>Monitor AKS and container workloads</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>8.2 Azure Advisor</h3>
+    <p>Personalised best-practice recommendations across 5 categories:</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-icon">🔄</div><div class="card-title">Reliability</div><div class="card-body">Improve continuity of critical applications.</div></div>
+      <div class="card"><div class="card-icon">🛡️</div><div class="card-title">Security</div><div class="card-body">Detect threats and vulnerabilities (integrates with Defender for Cloud).</div></div>
+      <div class="card"><div class="card-icon">⚡</div><div class="card-title">Performance</div><div class="card-body">Improve speed and responsiveness.</div></div>
+      <div class="card"><div class="card-icon">💰</div><div class="card-title">Cost</div><div class="card-body">Reduce spending: right-size, use reservations, delete idle resources.</div></div>
+      <div class="card"><div class="card-icon">⚙️</div><div class="card-title">Operational Excellence</div><div class="card-body">Improve process and workflow efficiency.</div></div>
+    </div>
+
+    <h3>8.3 Azure Service Health</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Component</th><th>What It Shows</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Azure Status</strong> (status.azure.com)</td><td>Global view of all Azure services worldwide</td></tr>
+          <tr><td><strong>Service Health</strong></td><td>Personalised view of services &amp; regions <em>you use</em>; planned maintenance, advisories, outages</td></tr>
+          <tr><td><strong>Resource Health</strong></td><td>Health of <em>your specific resources</em> — "is this VM running right now?"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>8.4 Azure Arc</h3>
+    <p>Extends Azure management and governance to <strong>non-Azure resources</strong>: on-prem servers, VMware VMs, Kubernetes clusters anywhere, Azure Stack HCI.</p>
+    <div class="pill-row">
+      <span class="pill">Azure Policy on non-Azure resources</span>
+      <span class="pill">Azure Monitor everywhere</span>
+      <span class="pill">Defender for Cloud on-prem</span>
+      <span class="pill">RBAC &amp; tags outside Azure</span>
+    </div>
+
+    <h3>8.5 Management Tools Comparison</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tool</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Azure Portal</strong></td><td>GUI-based management, dashboards, one-off tasks</td></tr>
+          <tr><td><strong>Azure Cloud Shell</strong></td><td>Browser-based Bash/PowerShell; pre-configured with Azure CLI &amp; Az module</td></tr>
+          <tr><td><strong>Azure CLI</strong> (<code>az</code>)</td><td>Cross-platform scripting; preferred for Linux/macOS admins</td></tr>
+          <tr><td><strong>Azure PowerShell</strong> (<code>Az</code>)</td><td>Scripting; preferred for Windows admins familiar with PowerShell</td></tr>
+          <tr><td><strong>ARM Templates</strong> (JSON)</td><td>Declarative IaC; idempotent; supports conditions &amp; parameters</td></tr>
+          <tr><td><strong>Bicep</strong></td><td>Microsoft DSL for Azure IaC; simpler syntax, transpiles to ARM; preferred for new projects</td></tr>
+          <tr><td><strong>Terraform</strong></td><td>Third-party IaC; multi-cloud; uses HCL</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S9: CHEAT SHEET -->
+  <div class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <h2>Cheat Sheet &amp; Exam Checklist</h2>
+    </div>
+
+    <h3>Exam Domain Weights</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Domain</th><th>Weight</th></tr></thead>
+        <tbody>
+          <tr><td>Cloud Concepts</td><td><span class="tag tag-blue">25–30%</span></td></tr>
+          <tr><td>Azure Architecture and Services</td><td><span class="tag tag-green">35–40%</span></td></tr>
+          <tr><td>Azure Management and Governance</td><td><span class="tag tag-yellow">30–35%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Key Comparisons to Know</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Compare</th><th>Key Differentiator</th></tr></thead>
+        <tbody>
+          <tr><td>VPN Gateway vs ExpressRoute</td><td>VPN = internet, encrypted | ExpressRoute = private, dedicated, faster</td></tr>
+          <tr><td>NSG vs Azure Firewall</td><td>NSG = subnet/NIC, basic rules | Firewall = enterprise, FQDN filtering, all ports</td></tr>
+          <tr><td>Load Balancer vs App Gateway</td><td>LB = Layer 4 (TCP/UDP) | App Gateway = Layer 7 (HTTP/S) + WAF</td></tr>
+          <tr><td>App Gateway vs Front Door</td><td>App Gateway = regional | Front Door = global edge + CDN</td></tr>
+          <tr><td>Entra ID vs Active Directory</td><td>Entra ID = cloud, OAuth/OIDC | AD = on-prem, Kerberos/LDAP</td></tr>
+          <tr><td>Availability Zones vs Sets</td><td>Zones = different datacenters | Sets = different racks in one datacenter</td></tr>
+          <tr><td>Azure Policy vs RBAC</td><td>Policy = what resources look like | RBAC = what users can do</td></tr>
+          <tr><td>Reserved VMs vs Spot VMs</td><td>Reserved = committed term (1/3 yr) | Spot = unused capacity, can be evicted</td></tr>
+          <tr><td>Scalability vs Elasticity</td><td>Scalability = ability to scale | Elasticity = automatic scaling in/out</td></tr>
+          <tr><td>CapEx vs OpEx</td><td>CapEx = own/buy upfront | OpEx = rent/subscribe, pay-as-you-go</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>SLA Quick Reference</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>SLA</th></tr></thead>
+        <tbody>
+          <tr><td>Single VM + Premium SSD</td><td><span class="sla">99.9%</span></td></tr>
+          <tr><td>VMs in Availability Set</td><td><span class="sla">99.95%</span></td></tr>
+          <tr><td>VMs in Availability Zones</td><td><span class="sla">99.99%</span></td></tr>
+          <tr><td>Azure SQL Database</td><td><span class="sla">99.99%</span></td></tr>
+          <tr><td>Azure Storage (LRS)</td><td><span class="sla">99.9%</span> read</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>📋 Study Checklist <span style="font-size:12px;color:var(--text3);font-weight:400">(click to mark done)</span></h3>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Cloud service models (IaaS, PaaS, SaaS) and the shared responsibility model</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Cloud deployment models: Public, Private, Hybrid, Multi-cloud</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">CapEx vs OpEx — what cloud converts and why it matters</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Availability Zones vs Availability Sets — differences and SLAs</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Azure resource hierarchy: Management Groups → Subscriptions → RGs → Resources</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Storage redundancy options: LRS, ZRS, GRS, GZRS, RA-GRS</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Blob storage access tiers: Hot, Cool, Cold, Archive — costs and retention</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">RBAC roles (Owner, Contributor, Reader) and scope inheritance</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Azure Policy effects: Deny, Audit, DeployIfNotExists, etc.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Resource Locks: CanNotDelete vs ReadOnly</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">VPN Gateway vs ExpressRoute — when to use which</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Load Balancer vs App Gateway vs Front Door vs Traffic Manager</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Azure Reservations and Hybrid Benefit for cost savings</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Pricing Calculator vs TCO Calculator — what each is used for</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Defender for Cloud — Secure Score and CSPM vs CWPP</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Zero Trust principles: Verify explicitly, Least privilege, Assume breach</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Defence in Depth layers (Physical → Identity → Perimeter → Network → Compute → App → Data)</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Microsoft Entra ID: Conditional Access, MFA, RBAC</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Azure Monitor vs Advisor vs Service Health — what each monitors</span></li>
+      <li onclick="toggleCheck(this)"><span class="check-box">✓</span><span class="check-text">Azure Arc — extending Azure governance to non-Azure resources</span></li>
+    </ul>
+
+    <div class="callout callout-tip" style="margin-top:28px">
+      <span class="callout-icon">🎯</span>
+      <div class="callout-body"><strong>Exam Tips:</strong> Passing score is 700/1000. Questions are scenario-based — focus on <em>when</em> to use which service, not just what it is. Read the <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/az-900/" style="color:var(--accent2)" target="_blank">official study guide</a> on Microsoft Learn to confirm any last-minute changes to the curriculum.</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding-top:20px;border-top:1px solid var(--border);color:var(--text3);font-size:13px">
+    Based on John Savill's AZ-900 playlist · Updated Apr 2025 · Good luck! 🚀
+  </div>
+</div>
+</main>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<div id="search-overlay">
+  <div style="max-width:720px;margin:0 auto">
+    <p style="color:var(--text3);font-size:13px;margin-bottom:16px" id="search-count"></p>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<script>
+// Search data
+const sections=[
+  {id:'s1',title:'Cloud Concepts',items:[
+    {t:'Cloud Service Models',s:'IaaS lets you manage OS, middleware, runtime, apps and data while Azure manages hardware and networking. PaaS lets you focus on apps and data only. SaaS is fully managed — just use it. Examples: VMs (IaaS), App Service (PaaS), Microsoft 365 (SaaS).'},
+    {t:'Deployment Models',s:'Public cloud is shared over the internet. Private cloud is exclusive to one organization. Hybrid combines both. Multi-cloud uses multiple providers to avoid lock-in.'},
+    {t:'CapEx vs OpEx',s:'CapEx is capital expenditure — upfront investment in hardware. OpEx is operational expenditure — pay-as-you-go. Cloud converts CapEx to OpEx, reducing upfront costs and enabling per-use billing.'},
+    {t:'Cloud Benefits',s:'High availability, scalability (vertical = scale up, horizontal = scale out), elasticity (auto scale), agility, geo-distribution, disaster recovery, economies of scale.'},
+  ]},
+  {id:'s2',title:'Azure Architecture',items:[
+    {t:'Regions and Region Pairs',s:'A region is a set of datacenters in a latency-defined perimeter. Region pairs are 300+ miles apart in the same geography, used for replication and recovery. Sovereign regions include Azure Government and Azure China.'},
+    {t:'Availability Zones vs Sets',s:'Availability Zones are physically separate datacenters within a region — SLA 99.99%. Availability Sets use fault domains (separate racks) and update domains within one datacenter — SLA 99.95%.'},
+    {t:'Resource Hierarchy',s:'Management Groups contain subscriptions. Subscriptions are billing and access boundaries. Resource Groups are logical containers. Resources are actual services like VMs and storage accounts.'},
+    {t:'Azure Resource Manager ARM',s:'ARM is the deployment and management layer for all Azure. Every tool — portal, CLI, PowerShell, REST API — goes through ARM. Supports declarative templates, RBAC, tagging, and dependency management.'},
+  ]},
+  {id:'s3',title:'Compute Services',items:[
+    {t:'Azure Virtual Machines',s:'IaaS service giving full OS control. VM Scale Sets auto-scale VMs. Availability Sets provide fault domain and update domain protection. Single VM with Premium SSD gives 99.9% SLA.'},
+    {t:'Azure App Service',s:'PaaS for web apps and APIs. Supports .NET, Java, Node.js, Python, PHP. Built-in autoscale, CI/CD. Deployment slots allow zero-downtime swaps. App Service Plan defines compute resources.'},
+    {t:'Azure Container Instances ACI',s:'Serverless containers — no cluster management, per-second billing. Fastest way to run a container in Azure. Good for burst workloads and CI/CD.'},
+    {t:'Azure Kubernetes Service AKS',s:'Managed Kubernetes service. Microsoft manages the control plane. Use for microservices architectures and complex containerized applications.'},
+    {t:'Azure Functions',s:'Serverless FaaS — event-driven, pay only when code runs. Triggers include HTTP, Timer, Blob, Service Bus, Event Grid. Durable Functions enable stateful workflows.'},
+    {t:'Azure Logic Apps',s:'Low-code workflow automation with 200+ connectors. Visual designer. Ideal for integration scenarios without writing code.'},
+  ]},
+  {id:'s4',title:'Networking',items:[
+    {t:'Azure Virtual Network VNet',s:'Foundation of Azure networking — private network scoped to one region and subscription. Subnets segment resources. Resources in same VNet communicate by default.'},
+    {t:'VPN Gateway vs ExpressRoute',s:'VPN Gateway encrypts traffic over the public internet — cost-effective. ExpressRoute uses a private dedicated circuit — higher security, consistent latency, up to 100 Gbps. Use ExpressRoute for compliance and high bandwidth.'},
+    {t:'NSG Network Security Groups',s:'Filter traffic at subnet or NIC level. Rules have priority (lower number first), source, destination, port, protocol, allow or deny. Default: allow VNet inbound, deny all internet inbound.'},
+    {t:'Load Balancing Services',s:'Load Balancer is Layer 4 TCP/UDP regional. Application Gateway is Layer 7 HTTP/S regional with WAF. Traffic Manager is DNS-based global routing. Front Door is global edge Layer 7 with CDN and WAF.'},
+  ]},
+  {id:'s5',title:'Storage Services',items:[
+    {t:'Blob Storage Access Tiers',s:'Hot tier for frequently accessed data — highest storage cost, lowest access cost. Cool tier for infrequently accessed, minimum 30 days. Cold tier minimum 90 days. Archive is offline, minimum 180 days — lowest storage cost but requires rehydration to access.'},
+    {t:'Storage Redundancy',s:'LRS copies data 3 times in one datacenter. ZRS copies across 3 availability zones in one region. GRS adds 3 LRS copies in a paired secondary region. GZRS combines ZRS in primary with LRS in secondary. RA-GRS and RA-GZRS add read access to the secondary region.'},
+    {t:'Azure Disk Types',s:'Ultra Disk for IO-intensive workloads like SAP HANA. Premium SSD v2 and Premium SSD for production. Standard SSD for web servers and dev/test. Standard HDD for backup and non-critical workloads.'},
+    {t:'Azure Files and Queue',s:'Azure Files provides managed SMB/NFS file shares mountable on Windows, Linux, macOS. Azure File Sync caches shares on Windows Server. Queue Storage holds messages up to 64KB for async processing.'},
+  ]},
+  {id:'s6',title:'Identity and Security',items:[
+    {t:'Microsoft Entra ID Azure AD',s:'Cloud-based identity management. Uses OAuth 2.0, SAML, OpenID Connect — not Kerberos or LDAP like on-premises AD. Flat structure — no OUs or GPOs. Supports SSO, MFA, Conditional Access.'},
+    {t:'RBAC Roles',s:'Owner has full access plus manage access. Contributor has full access but cannot manage access. Reader can view only. User Access Administrator manages access only. RBAC is additive — multiple assignments combine. Deny assignments override allows.'},
+    {t:'Zero Trust',s:'Three principles: Verify explicitly using all available data. Use least privilege access with JIT and JEA. Assume breach and minimize blast radius with segmentation and end-to-end encryption.'},
+    {t:'Defender for Cloud and Key Vault',s:'Defender for Cloud provides CSPM with Secure Score and recommendations, plus CWPP for threat protection. Key Vault stores secrets, cryptographic keys, and certificates with optional HSM backing.'},
+    {t:'Conditional Access',s:'Enforce policies after first-factor authentication. If-Then model: if user comes from untrusted location, then require MFA. Requires Microsoft Entra ID P1 or higher.'},
+  ]},
+  {id:'s7',title:'Cost and Governance',items:[
+    {t:'Cost Savings Strategies',s:'Azure Reservations: commit 1 or 3 years for up to 72% savings on VMs, SQL, Cosmos DB. Azure Hybrid Benefit: use existing Windows Server or SQL Server licenses for up to 40% savings. Spot VMs: use unused capacity for up to 90% off, but can be evicted with 30 seconds notice.'},
+    {t:'Azure Policy and Resource Locks',s:'Azure Policy enforces organizational standards with effects: Deny, Audit, Append, Modify, DeployIfNotExists. Resource Locks prevent accidental changes: CanNotDelete allows read and modify but not delete; ReadOnly allows read only.'},
+    {t:'Tags and Governance',s:'Tags are name-value pairs applied to resources and resource groups for cost allocation, automation, and ownership. Tags are not inherited by default. Use Azure Policy to enforce tag inheritance.'},
+    {t:'Pricing Calculator and TCO',s:'Pricing Calculator estimates Azure service costs before deploying. TCO Calculator compares on-premises versus Azure costs over 3 to 5 years. Cost Management in the portal analyzes spending and sets budget alerts.'},
+  ]},
+  {id:'s8',title:'Monitoring and Management',items:[
+    {t:'Azure Monitor',s:'Central platform collecting metrics (numerical time-series) and logs (structured records). Log Analytics Workspace stores logs queried with KQL. Alerts notify via email, SMS, Logic Apps. Application Insights monitors live web applications.'},
+    {t:'Azure Advisor',s:'Free personalized recommendations in 5 categories: Reliability (high availability), Security (threats and vulnerabilities), Performance (speed), Cost (spending reduction), Operational Excellence (efficiency).'},
+    {t:'Azure Service Health',s:'Azure Status at status.azure.com shows global service health. Service Health shows personalized health for services and regions you use. Resource Health shows health of your specific resources.'},
+    {t:'Azure Arc and IaC Tools',s:'Azure Arc extends Azure management to on-premises servers, VMware VMs, and Kubernetes clusters anywhere. ARM Templates use JSON for declarative IaC. Bicep is a simpler DSL that transpiles to ARM, preferred for new projects.'},
+  ]},
+];
+
+// Mobile menu
+const sidebar=document.getElementById('sidebar');
+const overlay=document.getElementById('overlay');
+const menuBtn=document.getElementById('menuBtn');
+menuBtn.onclick=()=>{sidebar.classList.toggle('open');overlay.classList.toggle('show')};
+overlay.onclick=()=>{sidebar.classList.remove('open');overlay.classList.remove('show')};
+
+// Active TOC
+const tocLinks=document.querySelectorAll('.toc-link');
+const sectionEls=document.querySelectorAll('.section');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocLinks.forEach(l=>{l.classList.toggle('active',l.dataset.sec===e.target.id)});
+    }
+  });
+},{threshold:.2,rootMargin:'-60px 0px -60% 0px'});
+sectionEls.forEach(s=>obs.observe(s));
+
+// Close sidebar on mobile link click
+tocLinks.forEach(l=>l.addEventListener('click',()=>{
+  sidebar.classList.remove('open');overlay.classList.remove('show');
+}));
+
+// Checklist
+function toggleCheck(el){
+  el.classList.toggle('done');
+  const box=el.querySelector('.check-box');
+  if(el.classList.contains('done')){box.style.background='var(--accent)';box.style.borderColor='var(--accent)';}
+  else{box.style.background='transparent';box.style.borderColor='var(--border2)';}
+  updateProgress();
+}
+function updateProgress(){
+  const items=document.querySelectorAll('#checklist li');
+  const done=document.querySelectorAll('#checklist li.done').length;
+  const pct=Math.round((done/items.length)*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('pct').textContent=pct+'%';
+}
+
+// Search
+const searchInput=document.getElementById('searchInput');
+const searchOverlay=document.getElementById('search-overlay');
+const searchResults=document.getElementById('search-results');
+const searchCount=document.getElementById('search-count');
+
+searchInput.addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  if(!q){searchOverlay.style.display='none';return;}
+  searchOverlay.style.display='block';
+  let html='';let count=0;
+  sections.forEach(sec=>{
+    sec.items.forEach(item=>{
+      if(item.t.toLowerCase().includes(q)||item.s.toLowerCase().includes(q)){
+        count++;
+        const hl=t=>t.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<mark>$1</mark>');
+        html+=`<div class="search-result-item" onclick="goTo('${sec.id}')">
+          <div class="search-result-section">Section ${sec.id.replace('s','')} · ${sec.title}</div>
+          <div class="search-result-title">${hl(item.t)}</div>
+          <div class="search-result-snippet">${hl(item.s.substring(0,180))}…</div>
+        </div>`;
+      }
+    });
+  });
+  searchResults.innerHTML=html||'<p style="color:var(--text3);padding:20px 0">No results found.</p>';
+  searchCount.textContent=count+' result'+(count!==1?'s':'')+' for "'+searchInput.value+'"';
+});
+function goTo(id){
+  searchOverlay.style.display='none';searchInput.value='';
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){searchOverlay.style.display='none';searchInput.value=''}});
+
+// Back to top
+window.addEventListener('scroll',()=>{
+  document.getElementById('back-top').classList.toggle('visible',window.scrollY>400);
+});
+</script>
+</body>
+</html>
