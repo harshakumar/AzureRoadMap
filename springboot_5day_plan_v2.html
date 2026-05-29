@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring Boot — 5-Day Expert Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0f1e; --bg2:#0f1729; --bg3:#141f38;
+  --accent:#4f8ef7; --accent2:#00d4aa; --accent3:#f7784f; --accent4:#a78bfa; --accent5:#f9c846;
+  --text:#e8edf8; --text2:#8a9bc4; --text3:#5c6f99;
+  --border:rgba(79,142,247,0.15); --border2:rgba(79,142,247,0.08);
+  --card:#111827; --card2:#0d1526;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(79,142,247,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(79,142,247,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.container{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+/* HERO */
+.hero{padding:52px 0 36px;text-align:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.3);color:var(--accent);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(34px,5.5vw,58px);line-height:1.1;color:var(--text);margin-bottom:10px;}
+.hero h1 span{color:var(--accent);font-style:italic;}
+.hero p{font-size:15px;color:var(--text2);max-width:500px;margin:0 auto 28px;font-weight:300;}
+.stat-row{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-num{font-size:26px;font-weight:600;color:var(--accent);font-family:'DM Mono',monospace;}
+.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+
+/* SECTION */
+.section{padding:44px 0 0;}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.section-num{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);padding:2px 8px;border-radius:4px;}
+.section-title{font-size:20px;font-weight:500;color:var(--text);}
+.divider{height:1px;background:var(--border);margin:44px 0 0;}
+
+/* FAST TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;}
+.tip-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;}
+.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
+.tip-card:hover{border-color:rgba(79,142,247,0.4);transform:translateY(-2px);}
+.tip-card:hover::before{opacity:1;}
+.tip-card.c1::before{background:var(--accent);}
+.tip-card.c2::before{background:var(--accent2);}
+.tip-card.c3::before{background:var(--accent3);}
+.tip-card.c4::before{background:var(--accent4);}
+.tip-icon{font-size:20px;margin-bottom:8px;}
+.tip-card h3{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.tip-card p{font-size:12px;color:var(--text2);line-height:1.5;}
+
+/* AI SECTION */
+.ai-box{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:26px;}
+.ai-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.ai-logo{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent4));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ai-header h3{font-size:17px;font-weight:500;color:var(--text);}
+.ai-header p{font-size:12px;color:var(--text2);margin-top:2px;}
+.ai-tips-list{display:flex;flex-direction:column;gap:12px;}
+.ai-tip{display:flex;gap:12px;align-items:flex-start;}
+.ai-tip-num{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--accent);background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);min-width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.ai-tip-body h4{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.ai-tip-body p{font-size:12px;color:var(--text2);line-height:1.5;}
+.prompt-ex{font-family:'DM Mono',monospace;font-size:11px;background:rgba(79,142,247,0.08);border:1px solid rgba(79,142,247,0.15);color:var(--accent2);padding:5px 9px;border-radius:6px;margin-top:5px;display:block;line-height:1.5;}
+
+/* DAY TABS */
+.day-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.day-btn{font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;padding:6px 15px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;}
+.day-btn:hover{border-color:rgba(79,142,247,0.4);color:var(--text);}
+.day-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.day-panel{display:none;}
+.day-panel.active{display:block;}
+.day-meta{margin-bottom:16px;}
+.day-meta h3{font-size:17px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.day-meta .theme-tag{font-size:13px;color:var(--accent2);}
+
+/* SCHEDULE */
+.schedule{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.slot{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:11px 14px;border-radius:10px;border:1px solid var(--border2);background:var(--card);transition:border-color .15s;}
+.slot:hover{border-color:var(--border);}
+.slot.learn{border-left:3px solid var(--accent);}
+.slot.build{border-left:3px solid var(--accent2);}
+.slot.review{border-left:3px solid var(--accent3);}
+.slot.brk{background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.06);}
+.slot-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);padding-top:3px;}
+.slot-type{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:4px;margin-bottom:3px;}
+.slot-type.learn{background:rgba(79,142,247,0.1);color:var(--accent);}
+.slot-type.build{background:rgba(0,212,170,0.1);color:var(--accent2);}
+.slot-type.review{background:rgba(247,120,79,0.1);color:var(--accent3);}
+.slot-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.slot-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+
+/* TOPICS PANEL */
+.day-lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
+@media(max-width:640px){.day-lower{grid-template-columns:1fr;}}
+.sub-box{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.sub-box h4{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.sub-box h4 .ico{font-size:15px;}
+
+/* TOPIC LIST */
+.topic-list{display:flex;flex-direction:column;gap:6px;}
+.topic-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);line-height:1.4;}
+.topic-item::before{content:'▸';color:var(--accent4);flex-shrink:0;margin-top:1px;}
+.topic-item strong{color:var(--text);font-weight:500;}
+
+/* PILLS */
+.pill-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;background:rgba(167,139,250,0.1);color:var(--accent4);border:1px solid rgba(167,139,250,0.2);padding:2px 9px;border-radius:20px;}
+
+/* VIDEO / LINKS */
+.link-list{display:flex;flex-direction:column;gap:7px;}
+.link-item{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid var(--border2);text-decoration:none;transition:border-color .15s,background .15s;}
+.link-item:hover{border-color:var(--border);background:rgba(79,142,247,0.05);}
+.link-badge{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;}
+.lb-yt{background:rgba(247,78,79,0.15);color:#f74e4f;}
+.lb-doc{background:rgba(79,142,247,0.15);color:var(--accent);}
+.lb-blog{background:rgba(0,212,170,0.15);color:var(--accent2);}
+.lb-git{background:rgba(249,200,70,0.15);color:var(--accent5);}
+.link-info{}
+.link-title{font-size:12px;font-weight:500;color:var(--text);}
+.link-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+
+/* LEGEND */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);}
+.leg-dot{width:10px;height:3px;border-radius:2px;}
+
+/* GLOBAL REFS */
+.refs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.ref-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;transition:border-color .2s,transform .2s;}
+.ref-card:hover{border-color:rgba(79,142,247,0.4);transform:translateY(-2px);}
+.ref-card-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.ref-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.ri-yt{background:rgba(247,78,79,0.15);}
+.ri-doc{background:rgba(79,142,247,0.15);}
+.ri-blog{background:rgba(0,212,170,0.15);}
+.ri-git{background:rgba(249,200,70,0.15);}
+.ref-card h4{font-size:13px;font-weight:600;color:var(--text);}
+.ref-card p{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px;}
+.ref-links{display:flex;flex-direction:column;gap:5px;}
+.ref-link{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--accent);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border2);}
+.ref-link:last-child{border-bottom:none;}
+.ref-link:hover{color:var(--accent2);}
+.ref-link::before{content:'→';font-size:10px;flex-shrink:0;}
+
+/* FOOTER */
+.footer{padding:44px 0 36px;text-align:center;color:var(--text3);font-size:12px;}
+.footer strong{color:var(--text2);}
+
+@media print{
+  body{background:#fff;color:#111;}
+  body::before{display:none;}
+  .day-panel{display:block!important;margin-bottom:28px;}
+  .day-tabs{display:none;}
+  .slot{border:1px solid #ddd!important;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">5-Day Intensive Program</div>
+  <h1>Master <span>Spring Boot</span><br>in One Week</h1>
+  <p>Structured daily schedule · YouTube videos · official docs · Baeldung guides · all in one place.</p>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Days</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Hours</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Resources</div></div>
+  </div>
+</div>
+
+<!-- FAST TIPS -->
+<div class="section">
+  <div class="section-head"><span class="section-num">01</span><span class="section-title">Fast Learning Principles</span></div>
+  <div class="tips-grid">
+    <div class="tip-card c1"><div class="tip-icon">⚡</div><h3>Build every day</h3><p>Within 30 mins of learning a concept, write code that uses it. Hands break the illusion of understanding.</p></div>
+    <div class="tip-card c2"><div class="tip-icon">🔁</div><h3>One evolving project</h3><p>Layer features on the same app daily. By Day 5 you have a real production API — not 5 isolated Hello Worlds.</p></div>
+    <div class="tip-card c3"><div class="tip-icon">🧠</div><h3>Understand the WHY</h3><p>Don't memorise annotations. @Transactional exists because JDBC is manual. Context makes everything stick.</p></div>
+    <div class="tip-card c4"><div class="tip-icon">🐛</div><h3>Debug deliberately</h3><p>Read the stack trace for 5 min before searching. Spring Boot errors are verbose but tell you exactly what's wrong.</p></div>
+    <div class="tip-card c1"><div class="tip-icon">📖</div><h3>Review before sleep</h3><p>Spend 15 mins writing 5 things learned. Recall effort strengthens memory consolidation overnight.</p></div>
+    <div class="tip-card c2"><div class="tip-icon">🔍</div><h3>docs.spring.io first</h3><p>Spring's official reference docs are excellent. Always check them before random Stack Overflow answers.</p></div>
+  </div>
+</div>
+
+<!-- AI TIPS -->
+<div class="section">
+  <div class="section-head"><span class="section-num">02</span><span class="section-title">Learn Faster with AI</span></div>
+  <div class="ai-box">
+    <div class="ai-header">
+      <div class="ai-logo">🤖</div>
+      <div><h3>AI as Your Personal Spring Boot Tutor</h3><p>Use these prompts throughout the day — not just when stuck</p></div>
+    </div>
+    <div class="ai-tips-list">
+      <div class="ai-tip"><div class="ai-tip-num">01</div><div class="ai-tip-body"><h4>Ask for analogies, not definitions</h4><p>Familiar metaphors make complex concepts stick 10× faster than reading docs cold.</p><code class="prompt-ex">"Explain Spring's IoC container like I'm a restaurant manager managing kitchen staff"</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">02</div><div class="ai-tip-body"><h4>Rubber-duck debugging — explanation before fix</h4><p>Force yourself to understand the root cause rather than just copying the fix.</p><code class="prompt-ex">"Here's my code and error. Don't fix it yet — explain WHY this is happening"</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">03</div><div class="ai-tip-body"><h4>On-demand quiz after each learning block</h4><p>Testing yourself is 2–3× more effective than re-reading for long-term retention.</p><code class="prompt-ex">"Quiz me on Spring Security JWT — 5 questions, increasing difficulty, ask one at a time"</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">04</div><div class="ai-tip-body"><h4>AI code review of your daily projects</h4><p>Spots anti-patterns and teaches Spring idioms in context of your actual code.</p><code class="prompt-ex">"Review this service class. What would a senior Java dev change and why?"</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">05</div><div class="ai-tip-body"><h4>Socratic dialogue for deep understanding</h4><p>Guide-me-to-the-answer mode builds real intuition that copy-paste never gives.</p><code class="prompt-ex">"I want to understand @Transactional propagation. Guide me with questions instead of explaining"</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">06</div><div class="ai-tip-body"><h4>End-of-day cheat sheet builder</h4><p>Compact annotation tables you write yourself beat any downloaded cheat sheet.</p><code class="prompt-ex">"Summarise every annotation from Spring Data JPA in a compact table with use-case examples"</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">07</div><div class="ai-tip-body"><h4>Mock technical interview on Day 5</h4><p>Identifies gaps fast and builds interview confidence simultaneously.</p><code class="prompt-ex">"Conduct a 20-min Spring Boot technical interview. Be a tough interviewer. Start with basics."</code></div></div>
+      <div class="ai-tip"><div class="ai-tip-num">08</div><div class="ai-tip-body"><h4>Generate realistic feature specs</h4><p>Real-world scenarios are far more motivating than toy examples.</p><code class="prompt-ex">"Give me a realistic feature spec for a fintech app I can build using Spring Security + JPA today"</code></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5-DAY PLAN -->
+<div class="section">
+  <div class="section-head"><span class="section-num">03</span><span class="section-title">5-Day Daily Schedule</span></div>
+  <div class="day-tabs">
+    <button class="day-btn active" onclick="showDay(0,this)">Day 1 — Basics</button>
+    <button class="day-btn" onclick="showDay(1,this)">Day 2 — Data</button>
+    <button class="day-btn" onclick="showDay(2,this)">Day 3 — Security</button>
+    <button class="day-btn" onclick="showDay(3,this)">Day 4 — Testing</button>
+    <button class="day-btn" onclick="showDay(4,this)">Day 5 — Production</button>
+  </div>
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:var(--accent)"></div>Learn</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--accent2)"></div>Build</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--accent3)"></div>Review</div>
+  </div>
+
+  <!-- ===== DAY 1 ===== -->
+  <div class="day-panel active" id="day0">
+    <div class="day-meta"><h3>Day 1 — Foundation &amp; Core Concepts</h3><div class="theme-tag">Spring Boot Basics · Auto-configuration · REST APIs · DI / IoC</div></div>
+    <div class="schedule">
+      <div class="slot learn"><div class="slot-time">8:00–9:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Spring Boot intro &amp; project setup</div><div class="slot-desc">Install Java 17+, Maven/Gradle. Create project via start.spring.io. Understand Spring vs Spring Boot, auto-configuration, starters, and embedded Tomcat.</div></div></div>
+      <div class="slot learn"><div class="slot-time">9:30–11:00</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Dependency Injection &amp; IoC container</div><div class="slot-desc">@Component, @Service, @Repository, @Autowired, @Bean, @Configuration. Understand the IoC container — this is the foundation of everything in Spring.</div></div></div>
+      <div class="slot brk"><div class="slot-time">11:00–11:15</div><div><div class="slot-title" style="color:var(--text3)">Break</div></div></div>
+      <div class="slot learn"><div class="slot-time">11:15–12:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Building REST endpoints</div><div class="slot-desc">@RestController, @GetMapping, @PostMapping, @PutMapping, @DeleteMapping, @PathVariable, @RequestBody, @RequestParam, ResponseEntity.</div></div></div>
+      <div class="slot brk"><div class="slot-time">12:30–1:30</div><div><div class="slot-title" style="color:var(--text3)">Lunch</div></div></div>
+      <div class="slot build"><div class="slot-time">1:30–3:30</div><div><span class="slot-type build">Build</span><div class="slot-title">Mini Project: Todo REST API (in-memory)</div><div class="slot-desc">Full CRUD — GET all, GET by id, POST, PUT, DELETE. Store todos in a static List. Test every endpoint with Postman or curl.</div></div></div>
+      <div class="slot learn"><div class="slot-time">3:30–4:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Application properties &amp; profiles</div><div class="slot-desc">application.yml vs .properties, @Value injection, @ConfigurationProperties, Spring profiles (dev/prod/test), profile-specific config files.</div></div></div>
+      <div class="slot review"><div class="slot-time">4:30–5:00</div><div><span class="slot-type review">Review</span><div class="slot-title">Push to GitHub · AI quiz on IoC &amp; REST</div><div class="slot-desc">Commit code. Write 5 things learned. Ask AI: "Quiz me on Spring's IoC container and REST annotations."</div></div></div>
+    </div>
+    <div class="day-lower">
+      <div class="sub-box">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="topic-list">
+          <div class="topic-item"><strong>Auto-configuration</strong> — how @SpringBootApplication triggers it</div>
+          <div class="topic-item"><strong>Bean lifecycle</strong> — creation, injection, @PostConstruct, @PreDestroy</div>
+          <div class="topic-item"><strong>@Component vs @Bean</strong> — when to use each</div>
+          <div class="topic-item"><strong>Constructor injection</strong> vs field injection (why constructor wins)</div>
+          <div class="topic-item"><strong>HTTP status codes</strong> — 200, 201, 204, 400, 404, 500 mapping</div>
+          <div class="topic-item"><strong>ResponseEntity</strong> — custom status + headers in REST</div>
+          <div class="topic-item"><strong>@ConfigurationProperties</strong> — type-safe config binding</div>
+          <div class="topic-item"><strong>spring.profiles.active</strong> — switching profiles in dev vs prod</div>
+        </div>
+        <div class="pill-row"><span class="pill">@SpringBootApplication</span><span class="pill">@Component</span><span class="pill">@Autowired</span><span class="pill">@RestController</span><span class="pill">@Bean</span><span class="pill">@Value</span><span class="pill">ResponseEntity</span></div>
+      </div>
+      <div class="sub-box">
+        <h4><span class="ico">🔗</span>Videos &amp; References</h4>
+        <div class="link-list">
+          <a class="link-item" href="https://www.youtube.com/watch?v=gJrjgg1KVL4" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Spring Boot for Beginners 2025</div><div class="link-sub">Full beginner course — covers setup, DI, REST</div></div></a>
+          <a class="link-item" href="https://www.youtube.com/watch?v=Cw0J6jYJtzw" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Spring Boot Full Course 2025</div><div class="link-sub">Hands-on crash course — REST API &amp; architecture</div></div></a>
+          <a class="link-item" href="https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Official Getting Started Guide</div><div class="link-sub">docs.spring.io — auto-config &amp; project structure</div></div></a>
+          <a class="link-item" href="https://www.baeldung.com/spring-boot" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Baeldung — Spring Boot Series</div><div class="link-sub">100+ articles on every Spring Boot topic</div></div></a>
+          <a class="link-item" href="https://start.spring.io" target="_blank"><span class="link-badge lb-doc">TOOL</span><div class="link-info"><div class="link-title">Spring Initializr</div><div class="link-sub">Generate project boilerplate in seconds</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 2 ===== -->
+  <div class="day-panel" id="day1">
+    <div class="day-meta"><h3>Day 2 — Data Layer</h3><div class="theme-tag">Spring Data JPA · Hibernate · H2/PostgreSQL · Migrations</div></div>
+    <div class="schedule">
+      <div class="slot learn"><div class="slot-time">8:00–9:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">JPA &amp; Hibernate fundamentals</div><div class="slot-desc">@Entity, @Table, @Id, @GeneratedValue. Relationships: @OneToMany, @ManyToOne, @ManyToMany, @OneToOne. FetchType LAZY vs EAGER, CascadeType.</div></div></div>
+      <div class="slot learn"><div class="slot-time">9:30–11:00</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Spring Data JPA repositories</div><div class="slot-desc">JpaRepository, CrudRepository, derived query methods (findByNameAndAge), @Query with JPQL, native queries, @Modifying, projections.</div></div></div>
+      <div class="slot brk"><div class="slot-time">11:00–11:15</div><div><div class="slot-title" style="color:var(--text3)">Break</div></div></div>
+      <div class="slot learn"><div class="slot-time">11:15–12:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Database setup &amp; schema migrations</div><div class="slot-desc">H2 in-memory for dev. PostgreSQL for prod. Flyway migration scripts (V1__init.sql). DataSource config per profile. spring.jpa.hibernate.ddl-auto.</div></div></div>
+      <div class="slot brk"><div class="slot-time">12:30–1:30</div><div><div class="slot-title" style="color:var(--text3)">Lunch</div></div></div>
+      <div class="slot build"><div class="slot-time">1:30–3:30</div><div><span class="slot-type build">Build</span><div class="slot-title">Mini Project: Blog — User &amp; Post entities</div><div class="slot-desc">User and Post with @OneToMany. Full CRUD endpoints backed by JPA. Test in Postman. Intentionally trigger a lazy-loading error to learn from it.</div></div></div>
+      <div class="slot learn"><div class="slot-time">3:30–4:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Transactions &amp; pagination</div><div class="slot-desc">@Transactional, propagation types (REQUIRED, REQUIRES_NEW), readOnly. Pageable, Page&lt;T&gt;, Sort — add pagination to the post list endpoint.</div></div></div>
+      <div class="slot review"><div class="slot-time">4:30–5:00</div><div><span class="slot-type review">Review</span><div class="slot-title">Debug &amp; AI review · "Top 5 JPA gotchas?"</div><div class="slot-desc">Fix any N+1 issues. Ask AI: "What are the top 5 Spring Data JPA mistakes beginners make?"</div></div></div>
+    </div>
+    <div class="day-lower">
+      <div class="sub-box">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="topic-list">
+          <div class="topic-item"><strong>@Entity vs @Table</strong> — class mapping vs DB table name</div>
+          <div class="topic-item"><strong>GenerationType strategies</strong> — IDENTITY, SEQUENCE, AUTO</div>
+          <div class="topic-item"><strong>N+1 problem</strong> — what it is, how @EntityGraph fixes it</div>
+          <div class="topic-item"><strong>JPQL vs native SQL</strong> — when to use each</div>
+          <div class="topic-item"><strong>Flyway migrations</strong> — naming convention, versioned scripts</div>
+          <div class="topic-item"><strong>@Transactional read-only</strong> — performance benefit on read-only ops</div>
+          <div class="topic-item"><strong>Pageable</strong> — PageRequest.of(page, size, Sort.by(...))</div>
+          <div class="topic-item"><strong>Optimistic locking</strong> — @Version to prevent dirty writes</div>
+        </div>
+        <div class="pill-row"><span class="pill">@Entity</span><span class="pill">JpaRepository</span><span class="pill">@Query</span><span class="pill">@Transactional</span><span class="pill">Pageable</span><span class="pill">Flyway</span><span class="pill">@OneToMany</span></div>
+      </div>
+      <div class="sub-box">
+        <h4><span class="ico">🔗</span>Videos &amp; References</h4>
+        <div class="link-list">
+          <a class="link-item" href="https://www.youtube.com/watch?v=8SGI_XS5OPw" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Amigoscode — Spring Data JPA Tutorial</div><div class="link-sub">Deep dive: entities, repos, JPQL, pagination</div></div></a>
+          <a class="link-item" href="https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Baeldung — Spring Data JPA Guide</div><div class="link-sub">Comprehensive reference from entity to query</div></div></a>
+          <a class="link-item" href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Official Spring Data JPA Reference</div><div class="link-sub">Query methods, repos, projections, auditing</div></div></a>
+          <a class="link-item" href="https://www.javaguides.net/p/spring-data-jpa-tutorial.html" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Java Guides — JPA Tutorial Series</div><div class="link-sub">Step-by-step with code for every concept</div></div></a>
+          <a class="link-item" href="https://flywaydb.org/documentation/concepts/migrations" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Flyway Migration Concepts</div><div class="link-sub">Official docs — versioned &amp; undo migrations</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 3 ===== -->
+  <div class="day-panel" id="day2">
+    <div class="day-meta"><h3>Day 3 — Security &amp; Validation</h3><div class="theme-tag">Spring Security · JWT · Bean Validation · Global Error Handling</div></div>
+    <div class="schedule">
+      <div class="slot learn"><div class="slot-time">8:00–9:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Spring Security fundamentals</div><div class="slot-desc">SecurityFilterChain, authentication vs authorisation, UserDetailsService, PasswordEncoder (BCrypt), in-memory auth, the filter chain concept.</div></div></div>
+      <div class="slot learn"><div class="slot-time">9:30–11:00</div><div><span class="slot-type learn">Learn</span><div class="slot-title">JWT authentication flow end-to-end</div><div class="slot-desc">Stateless JWT: login → generate token → send in Authorization header → JwtFilter validates → secured endpoint. Implement JwtUtil and JwtAuthFilter from scratch.</div></div></div>
+      <div class="slot brk"><div class="slot-time">11:00–11:15</div><div><div class="slot-title" style="color:var(--text3)">Break</div></div></div>
+      <div class="slot build"><div class="slot-time">11:15–1:00</div><div><span class="slot-type build">Build</span><div class="slot-title">Secure the Blog API with JWT</div><div class="slot-desc">Add /auth/login endpoint. Protect POST/PUT/DELETE with @PreAuthorize or SecurityFilterChain rules. Test with Postman Bearer tokens. Test with expired/invalid tokens.</div></div></div>
+      <div class="slot brk"><div class="slot-time">1:00–2:00</div><div><div class="slot-title" style="color:var(--text3)">Lunch</div></div></div>
+      <div class="slot learn"><div class="slot-time">2:00–3:00</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Bean Validation &amp; DTO best practices</div><div class="slot-desc">@Valid, @NotNull, @NotBlank, @Size, @Email, @Min, @Max, @Pattern on request DTOs. Separation of entity vs DTO (never expose entities directly).</div></div></div>
+      <div class="slot build"><div class="slot-time">3:00–4:30</div><div><span class="slot-type build">Build</span><div class="slot-title">Global error handler with structured JSON</div><div class="slot-desc">Create GlobalExceptionHandler with @ControllerAdvice. Return structured JSON: {field, message, status, timestamp}. Handle validation failures, 404, 403, 500.</div></div></div>
+      <div class="slot review"><div class="slot-time">4:30–5:00</div><div><span class="slot-type review">Review</span><div class="slot-title">Draw JWT flow diagram · test edge cases</div><div class="slot-desc">Diagram the filter chain on paper. Test expired tokens, wrong passwords, missing fields. Ask AI to explain the Spring Security filter chain in depth.</div></div></div>
+    </div>
+    <div class="day-lower">
+      <div class="sub-box">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="topic-list">
+          <div class="topic-item"><strong>SecurityFilterChain</strong> — replacing old WebSecurityConfigurerAdapter</div>
+          <div class="topic-item"><strong>BCrypt password encoding</strong> — why you never store plain text</div>
+          <div class="topic-item"><strong>JWT structure</strong> — header.payload.signature, claims, expiry</div>
+          <div class="topic-item"><strong>OncePerRequestFilter</strong> — how to write a custom JWT filter</div>
+          <div class="topic-item"><strong>@PreAuthorize vs antMatchers</strong> — method vs URL-level security</div>
+          <div class="topic-item"><strong>CORS configuration</strong> — allowing frontend origins</div>
+          <div class="topic-item"><strong>@ControllerAdvice scope</strong> — global vs package-scoped handlers</div>
+          <div class="topic-item"><strong>DTO vs Entity</strong> — why you always map before returning</div>
+        </div>
+        <div class="pill-row"><span class="pill">SecurityFilterChain</span><span class="pill">JWT</span><span class="pill">UserDetailsService</span><span class="pill">@Valid</span><span class="pill">@ControllerAdvice</span><span class="pill">BCrypt</span><span class="pill">@PreAuthorize</span></div>
+      </div>
+      <div class="sub-box">
+        <h4><span class="ico">🔗</span>Videos &amp; References</h4>
+        <div class="link-list">
+          <a class="link-item" href="https://www.youtube.com/watch?v=KxqlJblhzfI" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Amigoscode — Spring Security + JWT</div><div class="link-sub">5-hour full course on Spring Security with JWT tokens</div></div></a>
+          <a class="link-item" href="https://www.youtube.com/watch?v=b9O9NI-RJ3o" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Spring Security JWT — Programming Techie</div><div class="link-sub">JWT filter + refresh tokens from scratch</div></div></a>
+          <a class="link-item" href="https://www.baeldung.com/security-spring" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Baeldung — Spring Security Series</div><div class="link-sub">50+ articles: JWT, OAuth2, method security</div></div></a>
+          <a class="link-item" href="https://docs.spring.io/spring-security/reference/index.html" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Official Spring Security Reference</div><div class="link-sub">Authentication, authorisation, filter chain</div></div></a>
+          <a class="link-item" href="https://www.javaguides.net/p/spring-security-tutorial.html" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Java Guides — Spring Security Tutorial</div><div class="link-sub">Step-by-step with login, registration, JWT</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 4 ===== -->
+  <div class="day-panel" id="day3">
+    <div class="day-meta"><h3>Day 4 — Testing &amp; Advanced Features</h3><div class="theme-tag">JUnit 5 · Mockito · Integration Tests · Caching · Async</div></div>
+    <div class="schedule">
+      <div class="slot learn"><div class="slot-time">8:00–9:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Unit testing with JUnit 5 &amp; Mockito</div><div class="slot-desc">@ExtendWith(MockitoExtension.class), @Mock, @InjectMocks, when/thenReturn, verify(), ArgumentCaptor, assertThrows. Test the service layer with mocked repos.</div></div></div>
+      <div class="slot build"><div class="slot-time">9:30–11:00</div><div><span class="slot-type build">Build</span><div class="slot-title">Write unit tests for Day 2/3 services</div><div class="slot-desc">Test UserService and PostService. Target 80%+ service layer coverage. Run with Maven Surefire. Use AI to generate edge-case scenarios you'd miss.</div></div></div>
+      <div class="slot brk"><div class="slot-time">11:00–11:15</div><div><div class="slot-title" style="color:var(--text3)">Break</div></div></div>
+      <div class="slot learn"><div class="slot-time">11:15–12:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Integration testing with @SpringBootTest</div><div class="slot-desc">@SpringBootTest, @WebMvcTest, MockMvc, @DataJpaTest, TestRestTemplate, @MockBean, @Sql. Understand test slices and when to use each.</div></div></div>
+      <div class="slot brk"><div class="slot-time">12:30–1:30</div><div><div class="slot-title" style="color:var(--text3)">Lunch</div></div></div>
+      <div class="slot learn"><div class="slot-time">1:30–3:00</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Caching &amp; async processing</div><div class="slot-desc">@EnableCaching, @Cacheable, @CacheEvict, @CachePut. Caffeine (local) vs Redis (distributed). @Async, @EnableAsync, CompletableFuture return types.</div></div></div>
+      <div class="slot build"><div class="slot-time">3:00–4:30</div><div><span class="slot-type build">Build</span><div class="slot-title">Add caching + async to Blog API</div><div class="slot-desc">Cache the findAll posts query with @Cacheable. Add async email notification stub (CompletableFuture&lt;Void&gt;). Measure response time with and without cache.</div></div></div>
+      <div class="slot review"><div class="slot-time">4:30–5:00</div><div><span class="slot-type review">Review</span><div class="slot-title">Coverage report with JaCoCo · AI missing-test check</div><div class="slot-desc">Generate JaCoCo report. Ask AI: "What integration tests am I missing for a JWT-secured paginated API?"</div></div></div>
+    </div>
+    <div class="day-lower">
+      <div class="sub-box">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="topic-list">
+          <div class="topic-item"><strong>Test pyramid</strong> — unit vs integration vs e2e ratio</div>
+          <div class="topic-item"><strong>@Mock vs @MockBean</strong> — Mockito vs Spring context mock</div>
+          <div class="topic-item"><strong>@WebMvcTest slice</strong> — test only the web layer, mock services</div>
+          <div class="topic-item"><strong>MockMvc perform/expect</strong> — andExpect(status().isOk())</div>
+          <div class="topic-item"><strong>Test containers</strong> — real DB in tests with Testcontainers</div>
+          <div class="topic-item"><strong>@Cacheable key expressions</strong> — SpEL for dynamic cache keys</div>
+          <div class="topic-item"><strong>ThreadPoolTaskExecutor</strong> — configuring @Async thread pool</div>
+          <div class="topic-item"><strong>JaCoCo exclusions</strong> — excluding config classes from coverage</div>
+        </div>
+        <div class="pill-row"><span class="pill">JUnit 5</span><span class="pill">Mockito</span><span class="pill">@SpringBootTest</span><span class="pill">MockMvc</span><span class="pill">@WebMvcTest</span><span class="pill">@Cacheable</span><span class="pill">@Async</span><span class="pill">JaCoCo</span></div>
+      </div>
+      <div class="sub-box">
+        <h4><span class="ico">🔗</span>Videos &amp; References</h4>
+        <div class="link-list">
+          <a class="link-item" href="https://www.youtube.com/watch?v=jqwZthuBmZY" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Spring Boot Testing — Amigoscode</div><div class="link-sub">Unit + integration tests with JUnit 5 &amp; Mockito</div></div></a>
+          <a class="link-item" href="https://www.baeldung.com/spring-boot-testing" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Baeldung — Spring Boot Testing Guide</div><div class="link-sub">@SpringBootTest, MockMvc, @DataJpaTest examples</div></div></a>
+          <a class="link-item" href="https://www.javaguides.net/p/spring-boot-testing-tutorial.html" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Java Guides — Testing Tutorial Series</div><div class="link-sub">BDD-style tests with JUnit 5, Mockito, AssertJ</div></div></a>
+          <a class="link-item" href="https://docs.spring.io/spring-boot/docs/current/reference/html/test-auto-configuration.html" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Official — Test Auto Configuration</div><div class="link-sub">All test slices and their auto-configs</div></div></a>
+          <a class="link-item" href="https://www.baeldung.com/spring-cache-tutorial" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Baeldung — Spring Caching Guide</div><div class="link-sub">@Cacheable, eviction, Redis integration</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 5 ===== -->
+  <div class="day-panel" id="day4">
+    <div class="day-meta"><h3>Day 5 — Production &amp; Deployment</h3><div class="theme-tag">Actuator · Docker · Logging · CI/CD · Microservices Intro</div></div>
+    <div class="schedule">
+      <div class="slot learn"><div class="slot-time">8:00–9:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Spring Boot Actuator &amp; monitoring</div><div class="slot-desc">/actuator/health, /metrics, /info, /env endpoints. Prometheus integration. Custom HealthIndicator. Securing actuator endpoints in prod.</div></div></div>
+      <div class="slot learn"><div class="slot-time">9:30–11:00</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Dockerise your Spring Boot app</div><div class="slot-desc">Write a Dockerfile with multi-stage build (Maven build → JRE runtime). docker-compose with PostgreSQL container. Inject secrets via environment variables.</div></div></div>
+      <div class="slot brk"><div class="slot-time">11:00–11:15</div><div><div class="slot-title" style="color:var(--text3)">Break</div></div></div>
+      <div class="slot learn"><div class="slot-time">11:15–12:30</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Structured logging &amp; externalised config</div><div class="slot-desc">SLF4J + Logback. JSON logging for prod (Logstash encoder). Log levels per profile. Spring Cloud Config basics for centralised config management.</div></div></div>
+      <div class="slot brk"><div class="slot-time">12:30–1:30</div><div><div class="slot-title" style="color:var(--text3)">Lunch</div></div></div>
+      <div class="slot build"><div class="slot-time">1:30–4:00</div><div><span class="slot-type build">Build</span><div class="slot-title">Capstone: Production-ready Blog API</div><div class="slot-desc">Polish the full project: JWT + JPA + validation + tests + caching + Docker + Actuator. Add meaningful logs. Write a README. Tag v1.0.0 and push to GitHub.</div></div></div>
+      <div class="slot learn"><div class="slot-time">4:00–4:45</div><div><span class="slot-type learn">Learn</span><div class="slot-title">Microservices intro (stretch goal)</div><div class="slot-desc">Spring Cloud concepts: Eureka service discovery, Spring Cloud Gateway, Feign clients, circuit breaker with Resilience4j — concepts + minimal demo.</div></div></div>
+      <div class="slot review"><div class="slot-time">4:45–5:00</div><div><span class="slot-type review">Review</span><div class="slot-title">AI mock interview · personal annotation cheat sheet</div><div class="slot-desc">Ask AI: "Conduct a 20-min Spring Boot technical interview." Write your own one-page annotation reference from memory.</div></div></div>
+    </div>
+    <div class="day-lower">
+      <div class="sub-box">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="topic-list">
+          <div class="topic-item"><strong>Actuator endpoints</strong> — health, metrics, loggers, threaddump</div>
+          <div class="topic-item"><strong>Multi-stage Dockerfile</strong> — builder vs runtime image, size reduction</div>
+          <div class="topic-item"><strong>docker-compose networks</strong> — app + db on same bridge network</div>
+          <div class="topic-item"><strong>Logback profiles</strong> — console pattern for dev, JSON for prod</div>
+          <div class="topic-item"><strong>MDC context logging</strong> — trace/request IDs in log lines</div>
+          <div class="topic-item"><strong>Graceful shutdown</strong> — server.shutdown=graceful config</div>
+          <div class="topic-item"><strong>Health indicators</strong> — disk, DB, custom downstream service checks</div>
+          <div class="topic-item"><strong>Resilience4j</strong> — @CircuitBreaker, @Retry annotations</div>
+        </div>
+        <div class="pill-row"><span class="pill">Actuator</span><span class="pill">Dockerfile</span><span class="pill">docker-compose</span><span class="pill">SLF4J</span><span class="pill">Logback</span><span class="pill">Prometheus</span><span class="pill">Eureka</span><span class="pill">Feign</span></div>
+      </div>
+      <div class="sub-box">
+        <h4><span class="ico">🔗</span>Videos &amp; References</h4>
+        <div class="link-list">
+          <a class="link-item" href="https://www.youtube.com/watch?v=tmL2IniRgCo" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">Spring Boot Roadmap 2025 — YouTube</div><div class="link-sub">Full roadmap: Actuator, Docker, microservices</div></div></a>
+          <a class="link-item" href="https://www.youtube.com/c/TechWorldwithNana" target="_blank"><span class="link-badge lb-yt">YT</span><div class="link-info"><div class="link-title">TechWorld with Nana — Docker &amp; K8s</div><div class="link-sub">Best Docker + Kubernetes tutorials for devs</div></div></a>
+          <a class="link-item" href="https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Official Actuator Reference</div><div class="link-sub">All endpoints, security, custom indicators</div></div></a>
+          <a class="link-item" href="https://www.baeldung.com/dockerizing-spring-boot-application" target="_blank"><span class="link-badge lb-blog">BLOG</span><div class="link-info"><div class="link-title">Baeldung — Dockerising Spring Boot</div><div class="link-sub">Dockerfile, docker-compose, layered JARs</div></div></a>
+          <a class="link-item" href="https://spring.io/guides/gs/spring-cloud-loadbalancer" target="_blank"><span class="link-badge lb-doc">DOC</span><div class="link-info"><div class="link-title">Spring Cloud Guides</div><div class="link-sub">Service discovery, Feign, Gateway getting started</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end section 03 -->
+
+<!-- GLOBAL RESOURCES -->
+<div class="section">
+  <div class="section-head"><span class="section-num">04</span><span class="section-title">Essential Resources — All 5 Days</span></div>
+  <div class="refs-grid">
+    <div class="ref-card">
+      <div class="ref-card-head"><div class="ref-icon ri-yt">📺</div><h4>YouTube Channels</h4></div>
+      <p>Best channels for Spring Boot — free &amp; high quality</p>
+      <div class="ref-links">
+        <a class="ref-link" href="https://www.youtube.com/c/amigoscode" target="_blank">Amigoscode — Java &amp; Spring Boot (best overall)</a>
+        <a class="ref-link" href="https://www.youtube.com/c/JavaBrains" target="_blank">Java Brains — concepts &amp; microservices</a>
+        <a class="ref-link" href="https://www.youtube.com/c/SpringDeveloper" target="_blank">SpringDeveloper (official Spring channel)</a>
+        <a class="ref-link" href="https://www.youtube.com/c/ProgrammingTechie" target="_blank">Programming Techie — Docker, microservices</a>
+        <a class="ref-link" href="https://www.youtube.com/c/TechWorldwithNana" target="_blank">TechWorld with Nana — DevOps &amp; Docker</a>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-head"><div class="ref-icon ri-doc">📘</div><h4>Official Documentation</h4></div>
+      <p>Always the most accurate &amp; up-to-date source</p>
+      <div class="ref-links">
+        <a class="ref-link" href="https://docs.spring.io/spring-boot/docs/current/reference/html/" target="_blank">Spring Boot Reference Docs (all topics)</a>
+        <a class="ref-link" href="https://docs.spring.io/spring-security/reference/" target="_blank">Spring Security Reference</a>
+        <a class="ref-link" href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank">Spring Data JPA Reference</a>
+        <a class="ref-link" href="https://spring.io/guides" target="_blank">Spring Getting Started Guides (15 min each)</a>
+        <a class="ref-link" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/" target="_blank">Spring Framework Javadoc API</a>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-head"><div class="ref-icon ri-blog">📝</div><h4>Blogs &amp; Tutorials</h4></div>
+      <p>Practical guides with working code examples</p>
+      <div class="ref-links">
+        <a class="ref-link" href="https://www.baeldung.com/spring-boot" target="_blank">Baeldung — Spring Boot Series (100+ articles)</a>
+        <a class="ref-link" href="https://www.baeldung.com/security-spring" target="_blank">Baeldung — Spring Security Series</a>
+        <a class="ref-link" href="https://www.javaguides.net/p/spring-boot-tutorial.html" target="_blank">Java Guides — 200+ Spring Boot tutorials</a>
+        <a class="ref-link" href="https://www.codejava.net/spring-boot-tutorials" target="_blank">CodeJava.net — practical code walkthroughs</a>
+        <a class="ref-link" href="https://reflectoring.io/spring-boot/" target="_blank">Reflectoring.io — clean architecture patterns</a>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-card-head"><div class="ref-icon ri-git">🧰</div><h4>Tools &amp; Practice</h4></div>
+      <p>Tools you'll use every single day</p>
+      <div class="ref-links">
+        <a class="ref-link" href="https://start.spring.io" target="_blank">start.spring.io — Spring Initializr</a>
+        <a class="ref-link" href="https://www.postman.com/downloads/" target="_blank">Postman — API testing client</a>
+        <a class="ref-link" href="https://github.com/topics/spring-boot-example" target="_blank">GitHub — spring-boot-example repos</a>
+        <a class="ref-link" href="https://www.h2database.com/html/main.html" target="_blank">H2 Database — in-memory dev database</a>
+        <a class="ref-link" href="https://flywaydb.org/documentation/" target="_blank">Flyway — DB migration docs</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+<div class="footer"><strong>Spring Boot 5-Day Expert Plan</strong> &nbsp;·&nbsp; Build · Test · Ship · Deploy 🚀</div>
+
+</div><!-- /container -->
+
+<script>
+function showDay(idx,btn){
+  document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('day'+idx).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
