@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Life in the UK Test — 5-Day Study Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06100a;--bg2:#0a1a10;
+  --a1:#4ade80;--a2:#38bdf8;--a3:#fb923c;--a4:#c084fc;--a5:#facc15;--a6:#f472b6;
+  --tx:#e2f5e8;--tx2:#7aaa8c;--tx3:#426050;
+  --bd:rgba(74,222,128,.15);--bd2:rgba(74,222,128,.07);
+  --card:#091510;--card2:#071210;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(74,222,128,.07),transparent);pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(74,222,128,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(74,222,128,.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+/* HERO */
+.hero{padding:52px 0 36px;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:var(--a1);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.badge::before{content:'';width:6px;height:6px;background:var(--a1);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,5.5vw,56px);line-height:1.1;color:var(--tx);margin-bottom:10px;}
+h1 em{color:var(--a1);font-style:italic;}
+.hero-sub{font-size:15px;color:var(--tx2);max-width:560px;margin:0 auto 28px;font-weight:300;}
+.stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-n{font-size:26px;font-weight:600;color:var(--a1);font-family:'DM Mono',monospace;}
+.stat-l{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+
+/* EXAM INFO BAR */
+.info-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:40px;}
+.ib{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:13px 16px;display:flex;align-items:center;gap:10px;}
+.ib-icon{font-size:20px;flex-shrink:0;}
+.ib-label{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;}
+.ib-val{font-size:13px;font-weight:600;color:var(--tx);}
+
+/* CHAPTER DOMAINS */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:8px;}
+.ch{border-radius:10px;padding:12px 16px;border:1px solid;}
+.ch .cn{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.06em;margin-bottom:4px;}
+.ch .ct{font-size:13px;font-weight:500;}
+.ch .cpct{font-size:11px;margin-top:2px;opacity:.7;}
+.c1{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.2);color:var(--a1);}
+.c2{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2);color:var(--a2);}
+.c3{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.2);color:var(--a3);}
+.c4{background:rgba(192,132,252,.08);border-color:rgba(192,132,252,.2);color:var(--a4);}
+.c5{background:rgba(250,204,21,.08);border-color:rgba(250,204,21,.2);color:var(--a5);}
+
+/* SECTION */
+.sec{padding:44px 0 0;}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.sec-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--a1);background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);padding:2px 8px;border-radius:4px;}
+.sec-ttl{font-size:20px;font-weight:500;color:var(--tx);}
+.hr{height:1px;background:var(--bd);margin:44px 0 0;}
+
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;}
+.tip{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;}
+.tip::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
+.tip:hover{border-color:rgba(74,222,128,.35);transform:translateY(-2px);}
+.tip:hover::before{opacity:1;}
+.tip.t1::before{background:var(--a1)}.tip.t2::before{background:var(--a2)}.tip.t3::before{background:var(--a3)}.tip.t4::before{background:var(--a4)}
+.tip-icon{font-size:20px;margin-bottom:8px;}
+.tip h3{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:5px;}
+.tip p{font-size:12px;color:var(--tx2);line-height:1.5;}
+
+/* AI BOX */
+.ai-box{background:var(--card2);border:1px solid var(--bd);border-radius:16px;padding:24px;}
+.ai-hd{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.ai-logo{width:34px;height:34px;background:linear-gradient(135deg,var(--a1),var(--a2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ai-hd h3{font-size:16px;font-weight:500;color:var(--tx);}
+.ai-hd p{font-size:12px;color:var(--tx2);margin-top:1px;}
+.ai-list{display:flex;flex-direction:column;gap:11px;}
+.ai-item{display:flex;gap:11px;align-items:flex-start;}
+.ai-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--a1);background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);min-width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.ai-b h4{font-size:13px;font-weight:500;color:var(--tx);margin-bottom:2px;}
+.ai-b p{font-size:12px;color:var(--tx2);line-height:1.5;}
+.px{font-family:'DM Mono',monospace;font-size:11px;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.15);color:var(--a2);padding:5px 9px;border-radius:6px;margin-top:5px;display:block;line-height:1.5;}
+
+/* DAY TABS */
+.day-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.dtab{font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--tx2);cursor:pointer;transition:all .15s;}
+.dtab:hover{border-color:rgba(74,222,128,.4);color:var(--tx);}
+.dtab.on{background:var(--a1);border-color:var(--a1);color:#050e08;}
+.dpanel{display:none;}
+.dpanel.on{display:block;}
+.dmeta{margin-bottom:14px;}
+.dmeta h3{font-size:17px;font-weight:500;color:var(--tx);margin-bottom:3px;}
+.dmeta .dtag{font-size:12px;color:var(--a2);}
+
+/* LEGEND */
+.leg-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px;}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx3);}
+.ldot{width:10px;height:3px;border-radius:2px;}
+
+/* SCHEDULE */
+.sched{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.slot{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:10px 14px;border-radius:10px;border:1px solid var(--bd2);background:var(--card);transition:border-color .15s;}
+.slot:hover{border-color:var(--bd);}
+.slot.read{border-left:3px solid var(--a1);}
+.slot.study{border-left:3px solid var(--a4);}
+.slot.practice{border-left:3px solid var(--a2);}
+.slot.review{border-left:3px solid var(--a3);}
+.slot.exam{border-left:3px solid var(--a5);}
+.slot.brk{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.06);}
+.stime{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);padding-top:3px;}
+.stag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:4px;margin-bottom:3px;}
+.stag.read{background:rgba(74,222,128,.1);color:var(--a1);}
+.stag.study{background:rgba(192,132,252,.1);color:var(--a4);}
+.stag.practice{background:rgba(56,189,248,.1);color:var(--a2);}
+.stag.review{background:rgba(251,146,60,.1);color:var(--a3);}
+.stag.exam{background:rgba(250,204,21,.1);color:var(--a5);}
+.stitle{font-size:13px;font-weight:500;color:var(--tx);margin-bottom:2px;}
+.sdesc{font-size:12px;color:var(--tx2);line-height:1.5;}
+
+/* LOWER GRID */
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
+@media(max-width:640px){.lower{grid-template-columns:1fr;}}
+.sub{background:var(--card2);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;}
+.sub h4{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:11px;display:flex;align-items:center;gap:7px;}
+.sub h4 .ico{font-size:14px;}
+
+/* TOPIC LIST */
+.tlist{display:flex;flex-direction:column;gap:5px;}
+.ti{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--tx2);line-height:1.4;}
+.ti::before{content:'▸';color:var(--a1);flex-shrink:0;margin-top:1px;}
+.ti strong{color:var(--tx);font-weight:500;}
+.pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;background:rgba(74,222,128,.1);color:var(--a1);border:1px solid rgba(74,222,128,.2);padding:2px 9px;border-radius:20px;}
+
+/* LINKS */
+.llist{display:flex;flex-direction:column;gap:6px;}
+.lnk{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--bd2);text-decoration:none;transition:border-color .15s,background .15s;}
+.lnk:hover{border-color:var(--bd);background:rgba(74,222,128,.04);}
+.lbadge{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;}
+.lb-yt{background:rgba(248,56,56,.15);color:#f85656;}
+.lb-free{background:rgba(74,222,128,.15);color:var(--a1);}
+.lb-off{background:rgba(56,189,248,.15);color:var(--a2);}
+.lb-quiz{background:rgba(250,204,21,.15);color:var(--a5);}
+.lb-app{background:rgba(192,132,252,.15);color:var(--a4);}
+.li-title{font-size:12px;font-weight:500;color:var(--tx);}
+.li-sub{font-size:11px;color:var(--tx3);margin-top:1px;}
+
+/* GLOBAL REFS */
+.refs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.rcard{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;transition:border-color .2s,transform .2s;}
+.rcard:hover{border-color:rgba(74,222,128,.4);transform:translateY(-2px);}
+.rc-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.ricon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.ri-yt{background:rgba(248,56,56,.15);}
+.ri-free{background:rgba(74,222,128,.15);}
+.ri-off{background:rgba(56,189,248,.15);}
+.ri-quiz{background:rgba(250,204,21,.15);}
+.rcard h4{font-size:13px;font-weight:600;color:var(--tx);}
+.rcard>p{font-size:11px;color:var(--tx2);line-height:1.5;margin-bottom:9px;}
+.rlinks{display:flex;flex-direction:column;gap:5px;}
+.rl{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--a1);text-decoration:none;padding:3px 0;border-bottom:1px solid var(--bd2);}
+.rl:last-child{border-bottom:none;}
+.rl:hover{color:var(--a2);}
+.rl::before{content:'→';font-size:10px;flex-shrink:0;}
+
+/* BOOKING STEPS */
+.cert-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.cstep{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;}
+.cstep-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--a5);background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.2);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.cstep h4{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px;}
+.cstep p{font-size:12px;color:var(--tx2);line-height:1.5;}
+.cstep a{color:var(--a1);text-decoration:none;}
+.cstep a:hover{color:var(--a2);}
+
+.footer{padding:44px 0 36px;text-align:center;color:var(--tx3);font-size:12px;}
+.footer strong{color:var(--tx2);}
+
+@media print{
+  body{background:#fff;color:#111;}
+  body::before,body::after{display:none;}
+  .dpanel{display:block!important;margin-bottom:24px;}
+  .day-tabs{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">British Citizenship · Life in the UK Test</div>
+  <h1>Pass the <em>Life in the UK</em><br>Test in 5 Days</h1>
+  <p class="hero-sub">A structured daily plan covering all 5 handbook chapters with YouTube videos, free practice tests, AI learning tips, and the complete exam booking guide.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">Chapters</div></div>
+    <div class="stat"><div class="stat-n">24</div><div class="stat-l">Questions</div></div>
+    <div class="stat"><div class="stat-n">45</div><div class="stat-l">Minutes</div></div>
+    <div class="stat"><div class="stat-n">75%</div><div class="stat-l">Pass Mark</div></div>
+    <div class="stat"><div class="stat-n">£50</div><div class="stat-l">Exam Fee</div></div>
+  </div>
+</div>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="ib"><div class="ib-icon">📖</div><div><div class="ib-label">Handbook</div><div class="ib-val">3rd Edition (2025)</div></div></div>
+  <div class="ib"><div class="ib-icon">✅</div><div><div class="ib-label">Pass Score</div><div class="ib-val">18 of 24 correct</div></div></div>
+  <div class="ib"><div class="ib-icon">💻</div><div><div class="ib-label">Format</div><div class="ib-val">Computer-based, test centre</div></div></div>
+  <div class="ib"><div class="ib-icon">🎯</div><div><div class="ib-label">Result</div><div class="ib-val">Instant, on the day</div></div></div>
+  <div class="ib"><div class="ib-icon">🔄</div><div><div class="ib-label">Retakes</div><div class="ib-val">Unlimited, re-book anytime</div></div></div>
+</div>
+
+<!-- CHAPTER OVERVIEW -->
+<div style="margin-bottom:8px;text-align:center;font-size:12px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;">Official Handbook — 5 Chapters</div>
+<div class="ch-grid">
+  <div class="ch c1"><div class="cn">Chapter 1</div><div class="ct">Values &amp; Principles of the UK</div><div class="cpct">Democracy · rule of law · liberty · responsibilities</div></div>
+  <div class="ch c2"><div class="cn">Chapter 2</div><div class="ct">What is the UK?</div><div class="cpct">Geography · nations · languages · population</div></div>
+  <div class="ch c3"><div class="cn">Chapter 3 ★ HEAVIEST</div><div class="ct">A Long and Illustrious History</div><div class="cpct">Stone Age → WWII · most exam questions here</div></div>
+  <div class="ch c4"><div class="cn">Chapter 4</div><div class="ct">A Modern, Thriving Society</div><div class="cpct">Culture · sport · arts · religion · NHS · education</div></div>
+  <div class="ch c5"><div class="cn">Chapter 5</div><div class="ct">UK Government, Law &amp; Your Role</div><div class="cpct">Parliament · elections · courts · your rights</div></div>
+</div>
+<p style="font-size:11px;color:var(--tx3);text-align:center;margin:8px 0 40px;">All 24 exam questions draw only from the official 3rd Edition handbook. Focus extra time on Chapter 3 — it generates the most questions.</p>
+
+<!-- FAST TIPS -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">01</span><span class="sec-ttl">Fast Learning Strategy</span></div>
+  <div class="tips-grid">
+    <div class="tip t1"><div class="tip-icon">🎯</div><h3>Exact facts, exact words</h3><p>The exam uses precise wording from the handbook. Don't paraphrase when memorising — use the exact numbers, dates, and names used in the book.</p></div>
+    <div class="tip t2"><div class="tip-icon">📅</div><h3>Dates are exam gold</h3><p>1066 (Battle of Hastings), 1215 (Magna Carta), 1918 (women's vote), 1948 (NHS). Build a dedicated dates flashcard list on Day 1 and review it daily.</p></div>
+    <div class="tip t3"><div class="tip-icon">🔁</div><h3>Practice tests over re-reading</h3><p>After reading each chapter, do 20 practice questions immediately. Wrong answers tell you exactly which sentences to re-read. Far more efficient than passive re-reading.</p></div>
+    <div class="tip t4"><div class="tip-icon">🗺️</div><h3>Chapter 3 gets double time</h3><p>British history (Ch. 3) is the longest chapter and generates the most questions. Spend 2 full study sessions on it — more than any other chapter.</p></div>
+    <div class="tip t1"><div class="tip-icon">⚡</div><h3>Active recall beats highlighting</h3><p>Close the book after each section. Write down every fact you remember. Then check. This retrieval practice burns facts into long-term memory faster than any other method.</p></div>
+    <div class="tip t2"><div class="tip-icon">🧪</div><h3>Target 85%+ before booking</h3><p>Don't book the real test until you're consistently scoring 85%+ on full 24-question mocks. The 75% pass mark leaves little room for nervous mistakes on the day.</p></div>
+  </div>
+</div>
+
+<!-- AI TIPS -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">02</span><span class="sec-ttl">Learn Faster with AI</span></div>
+  <div class="ai-box">
+    <div class="ai-hd">
+      <div class="ai-logo">🤖</div>
+      <div><h3>AI as Your Personal Life in the UK Tutor</h3><p>Use these prompts every day to memorise facts faster and fill gaps automatically</p></div>
+    </div>
+    <div class="ai-list">
+      <div class="ai-item"><div class="ai-num">01</div><div class="ai-b"><h4>Generate flashcard-style quizzes on demand</h4><p>After reading each chapter section, ask AI to quiz you on key facts. Testing beats re-reading by 3× for long-term retention.</p><code class="px">"Quiz me on Chapter 3 British history — 15 questions on dates and key events, ask one at a time and explain each answer"</code></div></div>
+      <div class="ai-item"><div class="ai-num">02</div><div class="ai-b"><h4>Turn confusing facts into memorable stories</h4><p>History dates and political facts are dry. AI can turn them into vivid mini-stories that make dates unforgettable.</p><code class="px">"Turn the key events of British history from 1066 to 1700 into a short, memorable story I can use to remember dates"</code></div></div>
+      <div class="ai-item"><div class="ai-num">03</div><div class="ai-b"><h4>Create mnemonics for hard-to-remember facts</h4><p>When exact numbers or names refuse to stick, a mnemonic from AI takes seconds to create and lasts for days.</p><code class="px">"Create a mnemonic to help me remember the 4 countries of the UK, their capital cities, and patron saints"</code></div></div>
+      <div class="ai-item"><div class="ai-num">04</div><div class="ai-b"><h4>Explain wrong answers in practice tests</h4><p>When you get a practice question wrong, paste it into AI for a full explanation. Understanding why is more valuable than just noting the right answer.</p><code class="px">"I got this practice question wrong: [paste question + options]. Explain why the correct answer is right and why the others are wrong."</code></div></div>
+      <div class="ai-item"><div class="ai-num">05</div><div class="ai-b"><h4>Build a daily revision summary</h4><p>At the end of each study day, ask AI to summarise what you covered in a compact cheat sheet format.</p><code class="px">"Summarise the key facts from Chapter 4 (modern society) in a compact table — topic, key facts, important names/dates"</code></div></div>
+      <div class="ai-item"><div class="ai-num">06</div><div class="ai-b"><h4>Full mock exam simulation before Day 5</h4><p>Ask AI to run a timed 24-question mock exam covering all chapters in the official question proportion.</p><code class="px">"Give me a 24-question Life in the UK mock exam covering all 5 chapters proportionally. Show all answers and explanations at the end."</code></div></div>
+      <div class="ai-item"><div class="ai-num">07</div><div class="ai-b"><h4>Target weak areas with focussed drills</h4><p>If you keep failing questions on a specific era or topic, ask AI for a targeted drill session on just that area.</p><code class="px">"I keep getting questions wrong about the English Civil War and Cromwell. Drill me with 10 specific questions on this period only."</code></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5-DAY PLAN -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">03</span><span class="sec-ttl">5-Day Daily Study Schedule</span></div>
+  <div class="day-tabs">
+    <button class="dtab on" onclick="show(0,this)">Day 1 — Values &amp; UK</button>
+    <button class="dtab" onclick="show(1,this)">Day 2 — History (Early)</button>
+    <button class="dtab" onclick="show(2,this)">Day 3 — History (Modern)</button>
+    <button class="dtab" onclick="show(3,this)">Day 4 — Society &amp; Gov</button>
+    <button class="dtab" onclick="show(4,this)">Day 5 — Mock &amp; Exam</button>
+  </div>
+  <div class="leg-row">
+    <div class="leg"><div class="ldot" style="background:var(--a1)"></div>Read</div>
+    <div class="leg"><div class="ldot" style="background:var(--a4)"></div>Study Deep</div>
+    <div class="leg"><div class="ldot" style="background:var(--a2)"></div>Practice Test</div>
+    <div class="leg"><div class="ldot" style="background:var(--a3)"></div>Review</div>
+    <div class="leg"><div class="ldot" style="background:var(--a5)"></div>Exam</div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="dpanel on" id="d0">
+    <div class="dmeta"><h3>Day 1 — Chapter 1 &amp; 2: Values, Principles &amp; What is the UK?</h3><div class="dtag">UK values · Democracy · Responsibilities · Geography · Nations · Languages · Patron Saints</div></div>
+    <div class="sched">
+      <div class="slot read"><div class="stime">8:00–8:30</div><div><span class="stag read">Read</span><div class="stitle">Orientation — take a diagnostic mock test first</div><div class="sdesc">Before studying anything, take one full 24-question mock test at lifeintheuktests.co.uk. This shows you your starting point and which chapters are weakest. Don't worry about the score.</div></div></div>
+      <div class="slot study"><div class="stime">8:30–10:00</div><div><span class="stag study">Study</span><div class="stitle">Chapter 1: Values and Principles of the UK</div><div class="sdesc">The 4 fundamental British values: democracy, rule of law, individual liberty, mutual respect and tolerance. Responsibilities of UK residents (obey law, pay taxes, vote, jury service). Rights and freedoms. Volunteering and civic life.</div></div></div>
+      <div class="slot brk"><div class="stime">10:00–10:15</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot study"><div class="stime">10:15–11:45</div><div><span class="stag study">Study</span><div class="stitle">Chapter 2: What is the UK?</div><div class="sdesc">The 4 nations (England, Scotland, Wales, Northern Ireland), their capitals and patron saints. UK geography — main cities, rivers, mountains. Population stats. Languages spoken (Welsh, Gaelic, Cornish). The Commonwealth. Currency.</div></div></div>
+      <div class="slot brk"><div class="stime">11:45–12:30</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot practice"><div class="stime">12:30–2:00</div><div><span class="stag practice">Practice</span><div class="stitle">Chapter 1 &amp; 2 practice questions — 30 questions</div><div class="sdesc">Go to lifeintheuktestpractice.co.uk → Practice by Chapter → do Ch1 and Ch2 question sets. For every wrong answer, find the exact sentence in the handbook and highlight it.</div></div></div>
+      <div class="slot study"><div class="stime">2:00–3:30</div><div><span class="stag study">Study</span><div class="stitle">Patron saints, national days &amp; UK symbols deep dive</div><div class="sdesc">St George (England, 23 April), St Andrew (Scotland, 30 November), St David (Wales, 1 March), St Patrick (N. Ireland, 17 March). Union Flag composition. National flower symbols (rose, thistle, daffodil, shamrock).</div></div></div>
+      <div class="slot review"><div class="stime">3:30–4:00</div><div><span class="stag review">Review</span><div class="stitle">Build your dates &amp; facts flashcard list</div><div class="sdesc">Write all key facts on paper or flashcards. Ask AI: "Quiz me on Chapter 1 and 2 key facts — patron saints, capitals, responsibilities, and British values."</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually — Day 1</h4>
+        <div class="tlist">
+          <div class="ti"><strong>4 British values</strong> — democracy, rule of law, individual liberty, mutual respect</div>
+          <div class="ti"><strong>Responsibilities</strong> — obey the law, pay taxes, vote if eligible, jury duty</div>
+          <div class="ti"><strong>Rights in the UK</strong> — freedom of speech, religion, protection from discrimination</div>
+          <div class="ti"><strong>4 nations &amp; capitals</strong> — London, Edinburgh, Cardiff, Belfast</div>
+          <div class="ti"><strong>Patron saints &amp; dates</strong> — St George/Andrew/David/Patrick + their dates</div>
+          <div class="ti"><strong>National symbols</strong> — rose (England), thistle (Scotland), daffodil (Wales), shamrock (NI)</div>
+          <div class="ti"><strong>Languages</strong> — Welsh, Scottish Gaelic, Irish Gaelic, Cornish status</div>
+          <div class="ti"><strong>The Commonwealth</strong> — what it is, how many members (~56), role</div>
+        </div>
+        <div class="pills"><span class="pill">4 British Values</span><span class="pill">Patron Saints</span><span class="pill">Capitals</span><span class="pill">Union Flag</span><span class="pill">Commonwealth</span><span class="pill">Responsibilities</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources — Day 1</h4>
+        <div class="llist">
+          <a class="lnk" href="https://www.youtube.com/c/LifeintheUKTestWeb" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">Life in the UK Test Web — YouTube Channel</div><div class="li-sub">Free practice tests, chapter-by-chapter videos</div></div></a>
+          <a class="lnk" href="https://www.youtube.com/playlist?list=PLvo9seay2droiX3mLE5oHo_kEparXzKm1" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">Life in the UK Test Full Course (Playlist)</div><div class="li-sub">Complete video series — all chapters covered</div></div></a>
+          <a class="lnk" href="https://lifeintheuktestpractice.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">lifeintheuktestpractice.co.uk</div><div class="li-sub">Free practice questions by chapter — no login needed</div></div></a>
+          <a class="lnk" href="https://ukready.co.uk/study-guide.html" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">ukready.co.uk — Study Guide</div><div class="li-sub">Complete topic summary — all 5 chapters, free</div></div></a>
+          <a class="lnk" href="https://lifeintheuktests.co.uk/life-in-the-uk-test/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">lifeintheuktests.co.uk — Full Mock Test</div><div class="li-sub">24-question timed mock exactly like the real exam</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="dpanel" id="d1">
+    <div class="dmeta"><h3>Day 2 — Chapter 3 (Part 1): Early British History</h3><div class="dtag">Stone Age to 1600s · Romans · Vikings · Normans · Magna Carta · Tudors · Reformation</div></div>
+    <div class="sched">
+      <div class="slot read"><div class="stime">8:00–8:15</div><div><span class="stag read">Warm-up</span><div class="stitle">10-question quick quiz on Day 1 material</div><div class="sdesc">Test what stuck overnight. Take a Chapter 1+2 quiz at lifeintheuktests.co.uk. This is spaced repetition — it cements yesterday's learning before new material.</div></div></div>
+      <div class="slot study"><div class="stime">8:15–10:00</div><div><span class="stag study">Study</span><div class="stitle">Prehistoric Britain to the Romans (pre-43 AD to ~410 AD)</div><div class="sdesc">Stone, Bronze, Iron Ages. Stonehenge purpose. 43 AD Roman invasion. Julius Caesar failed attempts 55–54 BC. Boudicca's revolt. Roman contributions: roads, towns (Londinium), Hadrian's Wall. Christianity arrival.</div></div></div>
+      <div class="slot study"><div class="stime">10:00–11:30</div><div><span class="stag study">Study</span><div class="stitle">Anglo-Saxons, Vikings &amp; Norman Conquest</div><div class="sdesc">Anglo-Saxon kingdoms. Alfred the Great and Danes. Viking raids and settlements. 1066 Battle of Hastings — William the Conqueror (Duke of Normandy) defeats King Harold. Domesday Book 1086. Norman French language influence.</div></div></div>
+      <div class="slot brk"><div class="stime">11:30–12:15</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">12:15–1:45</div><div><span class="stag study">Study</span><div class="stitle">Middle Ages to Tudors (1215–1603)</div><div class="sdesc">1215 Magna Carta — limits royal power (King John). Black Death 1348 (1/3 of population died). Hundred Years' War. Wars of the Roses (Lancaster vs York). 1485 Henry VII — start of Tudor dynasty. Henry VIII and the Reformation. Church of England. Elizabeth I — Spanish Armada 1588.</div></div></div>
+      <div class="slot practice"><div class="stime">1:45–3:00</div><div><span class="stag practice">Practice</span><div class="stitle">Chapter 3 (Part 1) practice — 25 questions</div><div class="sdesc">Use lifeintheuktestweb.co.uk — Chapter 3 questions. Focus on: exact dates, names of monarchs, what each event changed. Mark every wrong answer and find the exact handbook sentence.</div></div></div>
+      <div class="slot review"><div class="stime">3:00–3:30</div><div><span class="stag review">Review</span><div class="stitle">Build a history timeline on paper</div><div class="sdesc">Draw a timeline from pre-Roman Britain to 1603. Add key events and dates. Ask AI: "Create a mnemonic to remember key British history dates from 55 BC to 1603."</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually — Day 2</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Roman invasion</strong> — 43 AD, Julius Caesar earlier attempts (55–54 BC)</div>
+          <div class="ti"><strong>Hadrian's Wall</strong> — built to keep out Picts (Scotland), still partially standing</div>
+          <div class="ti"><strong>1066 Battle of Hastings</strong> — William the Conqueror defeats Harold II</div>
+          <div class="ti"><strong>Domesday Book 1086</strong> — survey of England for taxation</div>
+          <div class="ti"><strong>Magna Carta 1215</strong> — limited king's power, signed by King John</div>
+          <div class="ti"><strong>Black Death 1348</strong> — plague killed 1/3 of England, Scotland, Wales</div>
+          <div class="ti"><strong>Wars of the Roses</strong> — House of Lancaster vs House of York</div>
+          <div class="ti"><strong>Henry VIII &amp; the Reformation</strong> — broke from Rome, founded Church of England</div>
+        </div>
+        <div class="pills"><span class="pill">1066</span><span class="pill">1215 Magna Carta</span><span class="pill">1348 Black Death</span><span class="pill">Domesday Book</span><span class="pill">Henry VIII</span><span class="pill">Reformation</span><span class="pill">Hadrian's Wall</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources — Day 2</h4>
+        <div class="llist">
+          <a class="lnk" href="https://www.youtube.com/c/LifeintheUKTestWeb" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">Life in the UK Test Web — History Videos</div><div class="li-sub">Chapter 3 video walkthroughs — early history</div></div></a>
+          <a class="lnk" href="https://lifeintheuktestweb.co.uk/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">lifeintheuktestweb.co.uk — Chapter 3 Tests</div><div class="li-sub">Free chapter-specific tests with explanations</div></div></a>
+          <a class="lnk" href="https://ukready.co.uk/study-guide.html" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">ukready.co.uk — History Study Guide</div><div class="li-sub">Chapter 3 summary with key dates timeline</div></div></a>
+          <a class="lnk" href="https://www.lifeinukstudy.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">lifeinukstudy.co.uk — Chapter Summaries</div><div class="li-sub">Digestible summaries with dates and flashcards</div></div></a>
+          <a class="lnk" href="https://lifeintheukexams.com/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">lifeintheukexams.com — 50 Official Practice Tests</div><div class="li-sub">25 mock + 50 official style tests, all free</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="dpanel" id="d2">
+    <div class="dmeta"><h3>Day 3 — Chapter 3 (Part 2): Modern British History</h3><div class="dtag">1600s–1900s · Civil War · Empire · Industrial Revolution · Suffragettes · WWI &amp; WWII</div></div>
+    <div class="sched">
+      <div class="slot read"><div class="stime">8:00–8:15</div><div><span class="stag read">Warm-up</span><div class="stitle">Quick quiz on Days 1 &amp; 2 material</div><div class="sdesc">Do a mixed 15-question quiz covering Chapters 1, 2 and early history. Spaced repetition on previous days before new material. It only takes 15 minutes and dramatically improves retention.</div></div></div>
+      <div class="slot study"><div class="stime">8:15–10:00</div><div><span class="stag study">Study</span><div class="stitle">English Civil War to the British Empire (1603–1850s)</div><div class="sdesc">James I, Gunpowder Plot 1605. Charles I &amp; Civil War. Oliver Cromwell — Lord Protector. Restoration of Charles II. 1688 Glorious Revolution (William III). Acts of Union (Scotland 1707, Ireland 1801). 18th century Empire — India, Americas, Australia. Slave trade and abolition (1807 slave trade abolished, 1833 slavery abolished). Industrial Revolution.</div></div></div>
+      <div class="slot study"><div class="stime">10:00–11:30</div><div><span class="stag study">Study</span><div class="stitle">Victorian era, Reform &amp; Suffragettes (1837–1914)</div><div class="sdesc">Queen Victoria 1837–1901. Reforms: Factory Act, abolition of child labour, education. The Great Exhibition 1851. Florence Nightingale — nursing. Emmeline Pankhurst and suffragettes. Women over 30 got vote 1918, all women over 21 in 1928.</div></div></div>
+      <div class="slot brk"><div class="stime">11:30–12:15</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">12:15–1:45</div><div><span class="stag study">Study</span><div class="stitle">WWI, WWII &amp; Post-war Britain (1914–1970s)</div><div class="sdesc">WWI 1914–1918 — trenches, 2 million British deaths. 1918 Armistice, 11 November (Remembrance Day). WWII 1939–1945 — Churchill, Dunkirk, Blitz, D-Day. 1945 Labour win — NHS created 1948, Clement Attlee. Post-war immigration (Windrush). Devolution: Scottish Parliament &amp; Welsh Assembly 1999.</div></div></div>
+      <div class="slot practice"><div class="stime">1:45–3:00</div><div><span class="stag practice">Practice</span><div class="stitle">Chapter 3 (Part 2) — 25 practice questions</div><div class="sdesc">Use ukready.co.uk or lifeintheuktestpractice.co.uk. Focus on: exact dates for WWI/WWII, women's suffrage dates, NHS founding year, Industrial Revolution key inventions.</div></div></div>
+      <div class="slot review"><div class="stime">3:00–3:30</div><div><span class="stag review">Review</span><div class="stitle">Complete your history timeline to present day</div><div class="sdesc">Extend your Day 2 timeline to 1999. Ask AI: "Summarise all the key dates in British history from 1600 to 2000 in a compact table I can use for revision."</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually — Day 3</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Gunpowder Plot 1605</strong> — Guy Fawkes, attempted to blow up Parliament</div>
+          <div class="ti"><strong>1688 Glorious Revolution</strong> — William III from Netherlands, bloodless</div>
+          <div class="ti"><strong>Acts of Union</strong> — Scotland 1707, Ireland 1801 — creating Great Britain/UK</div>
+          <div class="ti"><strong>Slave trade abolished 1807</strong>, slavery abolished 1833</div>
+          <div class="ti"><strong>Women's suffrage</strong> — 1918 (over 30), 1928 (over 21) — Emmeline Pankhurst</div>
+          <div class="ti"><strong>WWI 1914–1918</strong> — 11 Nov Armistice Day, Remembrance Day poppy</div>
+          <div class="ti"><strong>WWII 1939–1945</strong> — Churchill PM, NHS created 1948 (Attlee govt)</div>
+          <div class="ti"><strong>Devolution 1999</strong> — Scottish Parliament and Welsh Assembly created</div>
+        </div>
+        <div class="pills"><span class="pill">1605 Gunpowder Plot</span><span class="pill">1807 Slave Trade</span><span class="pill">1918 Women's Vote</span><span class="pill">NHS 1948</span><span class="pill">WWII</span><span class="pill">Devolution 1999</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources — Day 3</h4>
+        <div class="llist">
+          <a class="lnk" href="https://www.youtube.com/channel/UC-TavbNtofjBhJQvdz7Lkqw" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">Life in The UK Test — YouTube Channel</div><div class="li-sub">Modern history tutorials, practice tests by topic</div></div></a>
+          <a class="lnk" href="https://www.youtube.com/playlist?list=PLvo9seay2droiX3mLE5oHo_kEparXzKm1" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">Full Course Playlist — History section</div><div class="li-sub">WWI, WWII, Empire, Suffragettes chapters</div></div></a>
+          <a class="lnk" href="https://ukready.co.uk/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">ukready.co.uk — 40 Mock Tests Free</div><div class="li-sub">960+ questions including all history topics</div></div></a>
+          <a class="lnk" href="https://lifeintheuktestpractice.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">lifeintheuktestpractice.co.uk</div><div class="li-sub">Expert-crafted questions — Chapter 3 focus</div></div></a>
+          <a class="lnk" href="https://www.practicelifeintheuktests.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">practicelifeintheuktests.co.uk</div><div class="li-sub">700+ revision questions, topic-by-topic practice</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="dpanel" id="d3">
+    <div class="dmeta"><h3>Day 4 — Chapters 4 &amp; 5: Modern Society, Government &amp; Law</h3><div class="dtag">NHS · Education · Religion · Sport · Arts · Parliament · Elections · Courts · Your rights</div></div>
+    <div class="sched">
+      <div class="slot read"><div class="stime">8:00–8:15</div><div><span class="stag read">Warm-up</span><div class="stitle">20-question mixed quiz from Days 1–3</div><div class="sdesc">Use any free mock test site and take a full 24-question timed test. Your score should now be above 65%. Check weak areas before today's new content.</div></div></div>
+      <div class="slot study"><div class="stime">8:15–10:00</div><div><span class="stag study">Study</span><div class="stitle">Chapter 4: A Modern, Thriving Society</div><div class="sdesc">UK population (67 million). Religion in the UK: Christianity (predominant), Islam, Hinduism, Sikhism, Judaism. NHS — free at point of use, funded by taxes. Education system: primary (5–11), secondary (11–16), further/higher ed. GCSE, A-Levels, university degrees.</div></div></div>
+      <div class="slot study"><div class="stime">10:00–11:30</div><div><span class="stag study">Study</span><div class="stitle">Chapter 4: Culture, Sport, Arts &amp; Traditions</div><div class="sdesc">Famous British sportspeople (Roger Bannister, David Beckham, Andy Murray, Jessica Ennis). Literature (Shakespeare, Dickens, Austen, Harry Potter). Music (The Beatles, Rolling Stones). Films, BBC, Turner Prize. Bank holidays. Traditions (Remembrance Day, Guy Fawkes, Christmas). Pub culture.</div></div></div>
+      <div class="slot brk"><div class="stime">11:30–12:15</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">12:15–2:00</div><div><span class="stag study">Study</span><div class="stitle">Chapter 5: UK Government, Law &amp; Your Role</div><div class="sdesc">Constitutional monarchy — King's powers are ceremonial. Parliament: House of Commons (elected MPs) + House of Lords (appointed). Prime Minister. General elections — First Past the Post. Devolved governments (Scotland, Wales, NI). European Convention on Human Rights. Criminal vs civil law. Magistrates vs Crown Court. Your role: voting, taxes, jury service.</div></div></div>
+      <div class="slot practice"><div class="stime">2:00–3:15</div><div><span class="stag practice">Practice</span><div class="stitle">Chapters 4 &amp; 5 practice — 30 mixed questions</div><div class="sdesc">Use lifeintheuktest.com or lifeintheukexams.com. Focus on: who sits in Parliament, how elections work, NHS basics, famous British people, UK bank holidays, Remembrance Day date.</div></div></div>
+      <div class="slot review"><div class="stime">3:15–4:00</div><div><span class="stag review">Review</span><div class="stitle">Full revision of all 5 chapters · Final cheat sheet</div><div class="sdesc">Review all your flashcards and handwritten notes. Ask AI: "Give me the top 40 most commonly tested Life in the UK Test facts across all 5 chapters." This is your final cram sheet.</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually — Day 4</h4>
+        <div class="tlist">
+          <div class="ti"><strong>NHS</strong> — created 1948, free at point of use, funded by National Insurance</div>
+          <div class="ti"><strong>Education stages</strong> — Primary 5–11, Secondary 11–16, GCSE/A-Levels</div>
+          <div class="ti"><strong>UK bank holidays</strong> — Christmas, New Year, Easter, Early May, Spring, August</div>
+          <div class="ti"><strong>Remembrance Day</strong> — 11 November, 2-min silence at 11am, poppies</div>
+          <div class="ti"><strong>Parliament structure</strong> — House of Commons (elected) + House of Lords (appointed)</div>
+          <div class="ti"><strong>Voting system</strong> — First Past the Post for general elections</div>
+          <div class="ti"><strong>Devolution</strong> — Scotland, Wales, NI have devolved parliaments/assemblies</div>
+          <div class="ti"><strong>Famous Britons</strong> — Shakespeare, Newton, Darwin, Brunel, Florence Nightingale</div>
+        </div>
+        <div class="pills"><span class="pill">NHS 1948</span><span class="pill">Parliament</span><span class="pill">First Past The Post</span><span class="pill">Remembrance Day</span><span class="pill">Shakespeare</span><span class="pill">Devolution</span><span class="pill">Bank Holidays</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources — Day 4</h4>
+        <div class="llist">
+          <a class="lnk" href="https://www.youtube.com/c/LifeintheUKTestWeb" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">Life in the UK Test Web — Gov &amp; Society</div><div class="li-sub">Chapter 4 &amp; 5 video walkthroughs</div></div></a>
+          <a class="lnk" href="https://lifeintheuktest.com/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">lifeintheuktest.com — 1000+ Questions</div><div class="li-sub">70+ exams, all topics, free with progress tracker</div></div></a>
+          <a class="lnk" href="https://www.lifeinukstudy.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">lifeinukstudy.co.uk — 500+ Questions Free</div><div class="li-sub">Chapter summaries + topic-specific question sets</div></div></a>
+          <a class="lnk" href="https://uacademy.co.uk/blog/life-in-the-uk-test-chapters/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">uAcademy — Chapter-by-Chapter Guide</div><div class="li-sub">Detailed breakdown of what each chapter covers</div></div></a>
+          <a class="lnk" href="https://insidethemicrosoftcloud.com/sc900quiz/" target="_blank"><span class="lbadge lb-quiz">GOV</span><div><div class="li-title">Official Handbook Info — GOV.UK</div><div class="li-sub">Book the test, find test centres, official guidance</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="dpanel" id="d4">
+    <div class="dmeta"><h3>Day 5 — Full Mock Exams &amp; Sitting the Test</h3><div class="dtag">No new learning · Revision only · 3 full mocks · Exam technique · Take the real test</div></div>
+    <div class="sched">
+      <div class="slot review"><div class="stime">8:00–8:30</div><div><span class="stag review">Review</span><div class="stitle">Final cheat sheet read-through</div><div class="sdesc">Read your handwritten notes, timeline, and AI-generated top-40 facts list. Don't learn anything new. Only consolidate what you already know. Focus especially on dates and names.</div></div></div>
+      <div class="slot practice"><div class="stime">8:30–9:30</div><div><span class="stag practice">Mock 1</span><div class="stitle">Timed mock exam — 24 questions, 45 minutes</div><div class="sdesc">Use lifeintheuktests.co.uk for a full timed mock. Real conditions: no notes, no help, timer running. Target: 21+/24 (87.5%). Review every wrong answer immediately after and find the handbook source.</div></div></div>
+      <div class="slot brk"><div class="stime">9:30–9:45</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot review"><div class="stime">9:45–10:30</div><div><span class="stag review">Review</span><div class="stitle">Targeted revision on Mock 1 weak areas only</div><div class="sdesc">For each question you got wrong in Mock 1, find the exact sentence in your notes or the handbook. Read it 3 times. Close notes. Recite it from memory. Do not study topics you got right.</div></div></div>
+      <div class="slot practice"><div class="stime">10:30–11:30</div><div><span class="stag practice">Mock 2</span><div class="stitle">Second timed mock — 24 questions, 45 minutes</div><div class="sdesc">Use a different site (ukready.co.uk or lifeintheukexams.com) for variety. You should see improvement vs Mock 1. If scoring below 20/24, consider delaying the real exam by one day for more targeted practice.</div></div></div>
+      <div class="slot brk"><div class="stime">11:30–12:30</div><div><div class="stitle" style="color:var(--tx3)">Lunch — relax, no studying</div></div></div>
+      <div class="slot practice"><div class="stime">12:30–1:30</div><div><span class="stag practice">Mock 3</span><div class="stitle">Final mock — confidence-builder before the test</div><div class="sdesc">One final 24-question timed mock. This is your readiness check. If 20+/24 — you are ready. Review any final wrong answers, then PUT THE NOTES AWAY. Cramming in the last hour hurts more than it helps.</div></div></div>
+      <div class="slot exam"><div class="stime">1:30–2:00</div><div><span class="stag exam">Prep</span><div class="stitle">Exam checklist &amp; journey planning</div><div class="sdesc">Check your booking confirmation and the address. Confirm you have the same original ID used when booking. Plan your route — aim to arrive 30 minutes early. Eat, hydrate, rest. Do NOT cram.</div></div></div>
+      <div class="slot exam"><div class="stime">Scheduled</div><div><span class="stag exam">Exam</span><div class="stitle">🎓 Life in the UK Test — Official Exam</div><div class="sdesc">24 questions · 45 minutes · Pass mark 18/24 (75%). Read every question carefully — exact wording matters. Flag uncertain answers and return to them. You receive your result immediately after. Good luck! 🇬🇧</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Exam day tactics</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Read the full question</strong> — "which of the following is NOT correct" trips many people</div>
+          <div class="ti"><strong>Some questions have 2 correct answers</strong> — you must select both to get the mark</div>
+          <div class="ti"><strong>Use all 45 minutes</strong> — you have ~112 seconds per question, so don't rush</div>
+          <div class="ti"><strong>Flag and return</strong> — mark uncertain questions and revisit at the end</div>
+          <div class="ti"><strong>Bring original ID</strong> — same document used when booking. No ID = no test</div>
+          <div class="ti"><strong>Arrive 30 min early</strong> — check-in, ID verification, and practice question take time</div>
+          <div class="ti"><strong>No notes in the room</strong> — everything stays outside or in a locker</div>
+          <div class="ti"><strong>Results are instant</strong> — you see pass/fail on screen immediately</div>
+        </div>
+        <div class="pills"><span class="pill">24 Questions</span><span class="pill">45 Minutes</span><span class="pill">18/24 to Pass</span><span class="pill">Instant Result</span><span class="pill">Bring Photo ID</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Best Mock Test Sites for Day 5</h4>
+        <div class="llist">
+          <a class="lnk" href="https://lifeintheuktests.co.uk/life-in-the-uk-test/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">lifeintheuktests.co.uk — Official-style mock</div><div class="li-sub">24-question timed test — most realistic format</div></div></a>
+          <a class="lnk" href="https://ukready.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">ukready.co.uk — 40 Free Mock Tests</div><div class="li-sub">960+ questions, no registration, tracks progress</div></div></a>
+          <a class="lnk" href="https://lifeintheuktestweb.co.uk/test-1/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">lifeintheuktestweb.co.uk — Tests 1–17</div><div class="li-sub">Users report many real exam Qs appear here</div></div></a>
+          <a class="lnk" href="https://lifeintheukexams.com/" target="_blank"><span class="lbadge lb-quiz">QUIZ</span><div><div class="li-title">lifeintheukexams.com — 50 Practice Tests</div><div class="li-sub">All free, detailed feedback on every answer</div></div></a>
+          <a class="lnk" href="https://www.practicelifeintheuktests.co.uk/" target="_blank"><span class="lbadge lb-free">FREE</span><div><div class="li-title">practicelifeintheuktests.co.uk</div><div class="li-sub">700+ questions, unlimited mock tests, topic drill</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end section 03 -->
+
+<!-- HOW TO BOOK -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">04</span><span class="sec-ttl">How to Book &amp; Pass the Official Test</span></div>
+  <div class="cert-steps">
+    <div class="cstep">
+      <div class="cstep-num">Step 1</div>
+      <h4>Get the official handbook</h4>
+      <p>Buy "Life in the United Kingdom: A Guide for New Residents" (3rd Edition) from <a href="https://www.amazon.co.uk" target="_blank">Amazon</a> or borrow it from your local library. All exam questions come from this book only.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 2</div>
+      <h4>Check eligibility</h4>
+      <p>Required for ILR (Indefinite Leave to Remain) or British citizenship. Exemptions: under 18, over 65, long-term physical or mental condition. Check at <a href="https://www.gov.uk/life-in-the-uk-test" target="_blank">gov.uk</a>.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 3</div>
+      <h4>Book the exam online</h4>
+      <p>Book at <a href="https://www.gov.uk/book-life-in-uk-test" target="_blank">gov.uk/book-life-in-uk-test</a>. Cost: £50. Choose your nearest test centre (over 30 across the UK). Book with valid ID — same ID required on test day.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 4</div>
+      <h4>Study using this 5-day plan</h4>
+      <p>Follow the daily schedule in Section 03. Reach 85%+ consistently on mock tests before your test date. Use the free practice sites daily from Day 1.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 5</div>
+      <h4>On test day</h4>
+      <p>Arrive 30 minutes early with your original photo ID. No notes or phones in the room. 24 questions on a computer, 45 minutes. Results shown immediately on screen after submission.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 6</div>
+      <h4>After passing</h4>
+      <p>You receive a unique reference number on your result slip — keep this safe. This reference is required for your ILR or citizenship application. Certificate valid for any subsequent application, no expiry.</p>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL RESOURCES -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">05</span><span class="sec-ttl">All Resources — Quick Reference</span></div>
+  <div class="refs-grid">
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-yt">📺</div><h4>YouTube Channels</h4></div>
+      <p>Free video walkthroughs for all 5 chapters</p>
+      <div class="rlinks">
+        <a class="rl" href="https://www.youtube.com/c/LifeintheUKTestWeb" target="_blank">Life in the UK Test Web (best channel)</a>
+        <a class="rl" href="https://www.youtube.com/channel/UC-TavbNtofjBhJQvdz7Lkqw" target="_blank">Life in The UK Test 2025 Channel</a>
+        <a class="rl" href="https://www.youtube.com/playlist?list=PLvo9seay2droiX3mLE5oHo_kEparXzKm1" target="_blank">Full Course Playlist — all chapters</a>
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-free">✅</div><h4>Free Practice Sites</h4></div>
+      <p>All 100% free, no registration needed</p>
+      <div class="rlinks">
+        <a class="rl" href="https://lifeintheuktests.co.uk/" target="_blank">lifeintheuktests.co.uk — 1000+ questions</a>
+        <a class="rl" href="https://ukready.co.uk/" target="_blank">ukready.co.uk — 40 mock tests, 960 questions</a>
+        <a class="rl" href="https://lifeintheuktestweb.co.uk/" target="_blank">lifeintheuktestweb.co.uk — tests 1–17</a>
+        <a class="rl" href="https://lifeintheuktestpractice.co.uk/" target="_blank">lifeintheuktestpractice.co.uk — by chapter</a>
+        <a class="rl" href="https://lifeintheukexams.com/" target="_blank">lifeintheukexams.com — 50 official-style</a>
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-off">📘</div><h4>Study Guides &amp; References</h4></div>
+      <p>Chapter summaries and topic breakdowns</p>
+      <div class="rlinks">
+        <a class="rl" href="https://ukready.co.uk/study-guide.html" target="_blank">ukready.co.uk — complete study guide</a>
+        <a class="rl" href="https://www.lifeinukstudy.co.uk/" target="_blank">lifeinukstudy.co.uk — 500+ questions + guides</a>
+        <a class="rl" href="https://uacademy.co.uk/blog/life-in-the-uk-test-chapters/" target="_blank">uAcademy — chapter breakdown guide</a>
+        <a class="rl" href="https://www.practicelifeintheuktests.co.uk/" target="_blank">practicelifeintheuktests.co.uk</a>
+        <a class="rl" href="https://www.lifeintheuktestapp.co.uk/blog/life-in-the-uk-test-topics-definitive-syllabus/" target="_blank">Definitive Syllabus Guide 2025</a>
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-quiz">📋</div><h4>Official &amp; Booking Links</h4></div>
+      <p>Government official resources</p>
+      <div class="rlinks">
+        <a class="rl" href="https://www.gov.uk/life-in-the-uk-test" target="_blank">gov.uk — Life in the UK Test overview</a>
+        <a class="rl" href="https://www.gov.uk/book-life-in-uk-test" target="_blank">gov.uk — Book your test (£50)</a>
+        <a class="rl" href="https://www.gov.uk/find-life-in-uk-test-centre" target="_blank">gov.uk — Find nearest test centre</a>
+        <a class="rl" href="https://www.gov.uk/apply-citizenship-indefinite-leave-to-remain" target="_blank">gov.uk — Apply for ILR / citizenship</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+<div class="footer"><strong>Life in the UK Test — 5-Day Study Plan</strong> &nbsp;·&nbsp; Read · Practice · Pass · Welcome to Britain 🇬🇧 &nbsp;·&nbsp; Good luck!</div>
+
+</div><!-- /wrap -->
+<script>
+function show(i,btn){
+  document.querySelectorAll('.dpanel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('d'+i).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>
