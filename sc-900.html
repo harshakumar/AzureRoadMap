@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SC-900 — 5-Day Certification Study Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050d1a;--bg2:#09122a;--bg3:#0d1836;
+  --a1:#38bdf8;--a2:#34d399;--a3:#fb923c;--a4:#c084fc;--a5:#facc15;--a6:#f472b6;
+  --tx:#ddeeff;--tx2:#7a9cc0;--tx3:#4a6a8a;
+  --bd:rgba(56,189,248,.15);--bd2:rgba(56,189,248,.08);
+  --card:#0b1528;--card2:#081020;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(56,189,248,.08),transparent);pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+/* HERO */
+.hero{padding:56px 0 40px;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);color:var(--a1);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.badge::before{content:'';width:6px;height:6px;background:var(--a1);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,5.5vw,56px);line-height:1.1;color:var(--tx);margin-bottom:10px;}
+h1 em{color:var(--a1);font-style:italic;}
+.hero-sub{font-size:15px;color:var(--tx2);max-width:520px;margin:0 auto 28px;font-weight:300;}
+.stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-n{font-size:26px;font-weight:600;color:var(--a1);font-family:'DM Mono',monospace;}
+.stat-l{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+
+/* DOMAIN PILLS */
+.domains{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 40px;}
+.dom{border-radius:8px;padding:8px 16px;font-size:12px;font-weight:500;text-align:center;}
+.dom .pct{font-family:'DM Mono',monospace;font-size:16px;font-weight:600;display:block;margin-bottom:1px;}
+.d1{background:rgba(192,132,252,.1);border:1px solid rgba(192,132,252,.25);color:var(--a4);}
+.d2{background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:var(--a1);}
+.d3{background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.25);color:var(--a3);}
+.d4{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--a2);}
+
+/* SECTION */
+.sec{padding:44px 0 0;}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.sec-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--a1);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);padding:2px 8px;border-radius:4px;}
+.sec-ttl{font-size:20px;font-weight:500;color:var(--tx);}
+.hr{height:1px;background:var(--bd);margin:44px 0 0;}
+
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;}
+.tip{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;}
+.tip::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
+.tip:hover{border-color:rgba(56,189,248,.35);transform:translateY(-2px);}
+.tip:hover::before{opacity:1;}
+.tip.t1::before{background:var(--a1)}.tip.t2::before{background:var(--a2)}.tip.t3::before{background:var(--a3)}.tip.t4::before{background:var(--a4)}
+.tip-icon{font-size:20px;margin-bottom:8px;}
+.tip h3{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:5px;}
+.tip p{font-size:12px;color:var(--tx2);line-height:1.5;}
+
+/* AI BOX */
+.ai-box{background:var(--card2);border:1px solid var(--bd);border-radius:16px;padding:24px;}
+.ai-hd{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.ai-logo{width:34px;height:34px;background:linear-gradient(135deg,var(--a1),var(--a4));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ai-hd h3{font-size:16px;font-weight:500;color:var(--tx);}
+.ai-hd p{font-size:12px;color:var(--tx2);margin-top:1px;}
+.ai-list{display:flex;flex-direction:column;gap:11px;}
+.ai-item{display:flex;gap:11px;align-items:flex-start;}
+.ai-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--a1);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);min-width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.ai-b h4{font-size:13px;font-weight:500;color:var(--tx);margin-bottom:2px;}
+.ai-b p{font-size:12px;color:var(--tx2);line-height:1.5;}
+.px{font-family:'DM Mono',monospace;font-size:11px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.15);color:var(--a2);padding:5px 9px;border-radius:6px;margin-top:5px;display:block;line-height:1.5;}
+
+/* DAY TABS */
+.day-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.dtab{font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--tx2);cursor:pointer;transition:all .15s;}
+.dtab:hover{border-color:rgba(56,189,248,.4);color:var(--tx);}
+.dtab.on{background:var(--a1);border-color:var(--a1);color:#0a0f1e;}
+.dpanel{display:none;}
+.dpanel.on{display:block;}
+.dmeta{margin-bottom:14px;}
+.dmeta h3{font-size:17px;font-weight:500;color:var(--tx);margin-bottom:3px;}
+.dmeta .dtag{font-size:12px;color:var(--a2);}
+
+/* LEGEND */
+.leg-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px;}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx3);}
+.ldot{width:10px;height:3px;border-radius:2px;}
+
+/* SCHEDULE */
+.sched{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.slot{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:10px 14px;border-radius:10px;border:1px solid var(--bd2);background:var(--card);transition:border-color .15s;}
+.slot:hover{border-color:var(--bd);}
+.slot.learn{border-left:3px solid var(--a1);}
+.slot.study{border-left:3px solid var(--a4);}
+.slot.practice{border-left:3px solid var(--a2);}
+.slot.review{border-left:3px solid var(--a3);}
+.slot.exam{border-left:3px solid var(--a5);}
+.slot.brk{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.06);}
+.stime{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);padding-top:3px;}
+.stag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:4px;margin-bottom:3px;}
+.stag.learn{background:rgba(56,189,248,.1);color:var(--a1);}
+.stag.study{background:rgba(192,132,252,.1);color:var(--a4);}
+.stag.practice{background:rgba(52,211,153,.1);color:var(--a2);}
+.stag.review{background:rgba(251,146,60,.1);color:var(--a3);}
+.stag.exam{background:rgba(250,204,21,.1);color:var(--a5);}
+.stitle{font-size:13px;font-weight:500;color:var(--tx);margin-bottom:2px;}
+.sdesc{font-size:12px;color:var(--tx2);line-height:1.5;}
+
+/* LOWER GRID */
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
+@media(max-width:640px){.lower{grid-template-columns:1fr;}}
+.sub{background:var(--card2);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;}
+.sub h4{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:11px;display:flex;align-items:center;gap:7px;}
+.sub h4 .ico{font-size:14px;}
+
+/* TOPIC LIST */
+.tlist{display:flex;flex-direction:column;gap:5px;}
+.ti{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--tx2);line-height:1.4;}
+.ti::before{content:'▸';color:var(--a4);flex-shrink:0;margin-top:1px;}
+.ti strong{color:var(--tx);font-weight:500;}
+.pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;background:rgba(192,132,252,.1);color:var(--a4);border:1px solid rgba(192,132,252,.2);padding:2px 9px;border-radius:20px;}
+
+/* LINKS */
+.llist{display:flex;flex-direction:column;gap:6px;}
+.lnk{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--bd2);text-decoration:none;transition:border-color .15s,background .15s;}
+.lnk:hover{border-color:var(--bd);background:rgba(56,189,248,.04);}
+.lbadge{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;}
+.lb-yt{background:rgba(248,56,56,.15);color:#f85656;}
+.lb-ms{background:rgba(56,189,248,.15);color:var(--a1);}
+.lb-blog{background:rgba(52,211,153,.15);color:var(--a2);}
+.lb-test{background:rgba(250,204,21,.15);color:var(--a5);}
+.li-title{font-size:12px;font-weight:500;color:var(--tx);}
+.li-sub{font-size:11px;color:var(--tx3);margin-top:1px;}
+
+/* GLOBAL REFS */
+.refs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.rcard{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;transition:border-color .2s,transform .2s;}
+.rcard:hover{border-color:rgba(56,189,248,.4);transform:translateY(-2px);}
+.rc-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.ricon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.ri-yt{background:rgba(248,56,56,.15);}
+.ri-ms{background:rgba(56,189,248,.15);}
+.ri-blog{background:rgba(52,211,153,.15);}
+.ri-test{background:rgba(250,204,21,.15);}
+.rcard h4{font-size:13px;font-weight:600;color:var(--tx);}
+.rcard>p{font-size:11px;color:var(--tx2);line-height:1.5;margin-bottom:9px;}
+.rlinks{display:flex;flex-direction:column;gap:5px;}
+.rl{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--a1);text-decoration:none;padding:3px 0;border-bottom:1px solid var(--bd2);}
+.rl:last-child{border-bottom:none;}
+.rl:hover{color:var(--a2);}
+.rl::before{content:'→';font-size:10px;flex-shrink:0;}
+
+/* CERT GUIDE */
+.cert-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.cstep{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 18px;position:relative;}
+.cstep-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--a5);background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.2);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.cstep h4{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px;}
+.cstep p{font-size:12px;color:var(--tx2);line-height:1.5;}
+.cstep a{color:var(--a1);text-decoration:none;}
+.cstep a:hover{color:var(--a2);}
+
+.footer{padding:44px 0 36px;text-align:center;color:var(--tx3);font-size:12px;}
+.footer strong{color:var(--tx2);}
+
+@media print{
+  body{background:#fff;color:#111;}
+  body::before,body::after{display:none;}
+  .dpanel{display:block!important;margin-bottom:24px;}
+  .day-tabs{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Microsoft Certification · SC-900</div>
+  <h1>Get <em>SC-900 Certified</em><br>in 5 Days</h1>
+  <p class="hero-sub">A complete structured plan — Microsoft Learn modules, YouTube videos, practice tests, and exam booking guide included.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">5</div><div class="stat-l">Days</div></div>
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">Exam Domains</div></div>
+    <div class="stat"><div class="stat-n">700</div><div class="stat-l">Pass Score</div></div>
+    <div class="stat"><div class="stat-n">$99</div><div class="stat-l">Exam Cost</div></div>
+    <div class="stat"><div class="stat-n">45</div><div class="stat-l">Avg Questions</div></div>
+  </div>
+</div>
+
+<!-- EXAM DOMAINS -->
+<div style="margin-bottom:8px;text-align:center;font-size:12px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;">Exam Domain Weightings</div>
+<div class="domains">
+  <div class="dom d1"><span class="pct">10–15%</span>Security, Compliance &amp; Identity Concepts</div>
+  <div class="dom d2"><span class="pct">25–30%</span>Microsoft Entra (Identity &amp; Access)</div>
+  <div class="dom d3"><span class="pct">35–40%</span>Microsoft Security Solutions</div>
+  <div class="dom d4"><span class="pct">15–20%</span>Microsoft Compliance Solutions</div>
+</div>
+
+<!-- FAST TIPS -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">01</span><span class="sec-ttl">SC-900 Study Strategy</span></div>
+  <div class="tips-grid">
+    <div class="tip t1"><div class="tip-icon">🎯</div><h3>Concepts, not config</h3><p>SC-900 asks "what is it" and "why use it" — not how to configure. Focus on the purpose of each product, not the steps.</p></div>
+    <div class="tip t2"><div class="tip-icon">🔁</div><h3>Microsoft Learn first</h3><p>The official Microsoft Learn learning path covers every exam objective. It's free and written by the people who set the exam.</p></div>
+    <div class="tip t3"><div class="tip-icon">🗺️</div><h3>Map each product</h3><p>Build a simple table: product name → what it does → which domain. Entra, Defender, Sentinel, Purview — know each one cold.</p></div>
+    <div class="tip t4"><div class="tip-icon">📝</div><h3>Practice test daily</h3><p>Take at least 20 practice questions each day. Wrong answers are gold — revisit the Microsoft Learn module for that topic immediately.</p></div>
+    <div class="tip t1"><div class="tip-icon">🧠</div><h3>Day 5 is exam day</h3><p>Don't learn new material on Day 5. Only revise, do a full mock exam, then rest. Schedule your real exam for after Day 5.</p></div>
+    <div class="tip t2"><div class="tip-icon">🔤</div><h3>Learn the terminology</h3><p>Microsoft uses specific language. Authentication vs authorisation, SIEM vs SOAR, eDiscovery vs audit. Precise definitions matter.</p></div>
+  </div>
+</div>
+
+<!-- AI TIPS -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">02</span><span class="sec-ttl">Learn Faster with AI</span></div>
+  <div class="ai-box">
+    <div class="ai-hd">
+      <div class="ai-logo">🤖</div>
+      <div><h3>AI-Powered SC-900 Preparation</h3><p>Use these prompts to master concepts faster and fill gaps automatically</p></div>
+    </div>
+    <div class="ai-list">
+      <div class="ai-item"><div class="ai-num">01</div><div class="ai-b"><h4>Explain Microsoft products as analogies</h4><p>Abstract security products are hard to distinguish. Analogies make them stick permanently.</p><code class="px">"Explain the difference between Microsoft Sentinel and Microsoft Defender for Cloud using a real-world security analogy"</code></div></div>
+      <div class="ai-item"><div class="ai-num">02</div><div class="ai-b"><h4>Generate daily practice quizzes</h4><p>After each Microsoft Learn module, ask AI to quiz you. Testing beats re-reading by 3×.</p><code class="px">"Give me 10 SC-900 style multiple choice questions on Microsoft Entra ID with explanations for each answer"</code></div></div>
+      <div class="ai-item"><div class="ai-num">03</div><div class="ai-b"><h4>Build comparison tables on demand</h4><p>The exam loves comparing similar products. AI can instantly make comparison tables.</p><code class="px">"Create a comparison table: Microsoft Defender for Endpoint vs Defender for Cloud vs Defender for Identity"</code></div></div>
+      <div class="ai-item"><div class="ai-num">04</div><div class="ai-b"><h4>Clarify confusing concepts instantly</h4><p>Don't re-read docs when confused. Ask AI to re-explain using a different framing.</p><code class="px">"I'm confused about the difference between Conditional Access and Identity Protection in Microsoft Entra — explain both simply"</code></div></div>
+      <div class="ai-item"><div class="ai-num">05</div><div class="ai-b"><h4>Day 5 mock exam simulation</h4><p>Full-length timed mock exam before booking the real thing.</p><code class="px">"Simulate a 45-question SC-900 mock exam. Cover all 4 domains proportionally. Show answers and explanations at the end."</code></div></div>
+      <div class="ai-item"><div class="ai-num">06</div><div class="ai-b"><h4>Build a cheat-sheet by domain</h4><p>End of each day, compress what you learned into a compact reference card.</p><code class="px">"Give me a one-page cheat sheet for the Microsoft Security Solutions domain covering every product and its purpose"</code></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5-DAY PLAN -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">03</span><span class="sec-ttl">5-Day Daily Study Schedule</span></div>
+  <div class="day-tabs">
+    <button class="dtab on" onclick="show(0,this)">Day 1 — Concepts</button>
+    <button class="dtab" onclick="show(1,this)">Day 2 — Entra ID</button>
+    <button class="dtab" onclick="show(2,this)">Day 3 — Security</button>
+    <button class="dtab" onclick="show(3,this)">Day 4 — Compliance</button>
+    <button class="dtab" onclick="show(4,this)">Day 5 — Exam Day</button>
+  </div>
+  <div class="leg-row">
+    <div class="leg"><div class="ldot" style="background:var(--a1)"></div>Learn</div>
+    <div class="leg"><div class="ldot" style="background:var(--a4)"></div>Study Module</div>
+    <div class="leg"><div class="ldot" style="background:var(--a2)"></div>Practice Questions</div>
+    <div class="leg"><div class="ldot" style="background:var(--a3)"></div>Review</div>
+    <div class="leg"><div class="ldot" style="background:var(--a5)"></div>Exam</div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="dpanel on" id="d0">
+    <div class="dmeta"><h3>Day 1 — Security, Compliance &amp; Identity Concepts</h3><div class="dtag">Domain 1 (10–15%) · Zero Trust · Shared Responsibility · Encryption · Identity fundamentals</div></div>
+    <div class="sched">
+      <div class="slot learn"><div class="stime">8:00–9:00</div><div><span class="stag learn">Learn</span><div class="stitle">Orientation: what is SC-900?</div><div class="sdesc">Read the official exam study guide at learn.microsoft.com. Understand the 4 domains, their weightings, and what the exam tests. Watch John Savill's SC-900 Study Cram intro (first 20 min).</div></div></div>
+      <div class="slot study"><div class="stime">9:00–10:30</div><div><span class="stag study">Module</span><div class="stitle">Security concepts: Zero Trust &amp; shared responsibility</div><div class="sdesc">Microsoft Learn: "Describe core security concepts". Cover Zero Trust (verify explicitly, least privilege, assume breach), shared responsibility model, defence in depth, CIA triad.</div></div></div>
+      <div class="slot brk"><div class="stime">10:30–10:45</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot study"><div class="stime">10:45–12:00</div><div><span class="stag study">Module</span><div class="stitle">Encryption, hashing &amp; data protection basics</div><div class="sdesc">Symmetric vs asymmetric encryption, certificates, hashing, data at rest vs in transit. Azure Key Vault purpose. Compliance concepts: GDPR, ISO, regulatory frameworks overview.</div></div></div>
+      <div class="slot brk"><div class="stime">12:00–1:00</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">1:00–2:30</div><div><span class="stag study">Module</span><div class="stitle">Identity concepts: AuthN vs AuthZ</div><div class="sdesc">Authentication vs authorisation, modern authentication (OAuth 2.0, OIDC), federation, identity as the new security perimeter. What is an Identity Provider (IdP)?</div></div></div>
+      <div class="slot practice"><div class="stime">2:30–3:30</div><div><span class="stag practice">Practice</span><div class="stitle">Microsoft official practice assessment — Domain 1</div><div class="sdesc">Take the free practice assessment on Microsoft Learn filtered to security/identity concepts. Note every wrong answer and revisit the relevant module. Aim for 80%+ before moving on.</div></div></div>
+      <div class="slot review"><div class="stime">3:30–4:00</div><div><span class="stag review">Review</span><div class="stitle">AI quiz + cheat sheet for Domain 1</div><div class="sdesc">Ask AI to quiz you on Zero Trust and shared responsibility. Build a one-page Domain 1 cheat sheet. Write the definitions of AuthN vs AuthZ in your own words.</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Zero Trust model</strong> — 3 principles: verify explicitly, least privilege, assume breach</div>
+          <div class="ti"><strong>Shared responsibility model</strong> — who owns what across IaaS / PaaS / SaaS</div>
+          <div class="ti"><strong>Defence in depth</strong> — 7 layers (physical → data)</div>
+          <div class="ti"><strong>CIA Triad</strong> — confidentiality, integrity, availability</div>
+          <div class="ti"><strong>Encryption types</strong> — symmetric, asymmetric, hashing (one-way)</div>
+          <div class="ti"><strong>Authentication vs authorisation</strong> — identity proof vs permission grant</div>
+          <div class="ti"><strong>Modern authentication</strong> — OAuth 2.0, OpenID Connect, SAML</div>
+          <div class="ti"><strong>Compliance basics</strong> — GDPR, ISO 27001, NIST framework purpose</div>
+        </div>
+        <div class="pills"><span class="pill">Zero Trust</span><span class="pill">CIA Triad</span><span class="pill">AuthN / AuthZ</span><span class="pill">OAuth 2.0</span><span class="pill">OIDC</span><span class="pill">Encryption</span><span class="pill">GDPR</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources</h4>
+        <div class="llist">
+          <a class="lnk" href="https://youtu.be/Bz-8jM3jg-8" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">John Savill — SC-900 Study Cram (2hr)</div><div class="li-sub">Best single video — covers all 4 domains</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/training/paths/describe-concepts-of-security-compliance-identity/" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Learn — Domain 1 Learning Path</div><div class="li-sub">Official free module — security &amp; compliance concepts</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-900" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Official SC-900 Study Guide</div><div class="li-sub">Exam objectives &amp; skills measured — start here</div></div></a>
+          <a class="lnk" href="https://www.youtube.com/watch?v=AJ8xONC7t6U" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">SC-900 Full Course for Beginners</div><div class="li-sub">Complete walkthrough — ideal for Day 1 orientation</div></div></a>
+          <a class="lnk" href="https://insidethemicrosoftcloud.com/sc900quiz/" target="_blank"><span class="lbadge lb-test">QUIZ</span><div><div class="li-title">Inside the Microsoft Cloud — Free Quiz</div><div class="li-sub">Free SC-900 practice questions, no login needed</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="dpanel" id="d1">
+    <div class="dmeta"><h3>Day 2 — Microsoft Entra (Identity &amp; Access Management)</h3><div class="dtag">Domain 2 (25–30%) · Microsoft Entra ID · MFA · SSO · Conditional Access · Governance</div></div>
+    <div class="sched">
+      <div class="slot study"><div class="stime">8:00–9:30</div><div><span class="stag study">Module</span><div class="stitle">Microsoft Entra ID (formerly Azure AD)</div><div class="sdesc">What is Entra ID? Identity types (users, groups, service principals, managed identities). Editions (Free, P1, P2). External identities — B2B vs B2C. Hybrid identity &amp; Azure AD Connect.</div></div></div>
+      <div class="slot study"><div class="stime">9:30–11:00</div><div><span class="stag study">Module</span><div class="stitle">Authentication methods &amp; MFA</div><div class="sdesc">Password hash sync, pass-through auth, federated auth. MFA methods (authenticator app, SMS, FIDO2). Passwordless authentication. Self-service password reset (SSPR). Windows Hello for Business.</div></div></div>
+      <div class="slot brk"><div class="stime">11:00–11:15</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot study"><div class="stime">11:15–12:30</div><div><span class="stag study">Module</span><div class="stitle">Conditional Access &amp; Identity Protection</div><div class="sdesc">What is Conditional Access? Signals (user, location, device, app, risk). Access controls (grant/block/require MFA). Identity Protection — user risk and sign-in risk policies. Named locations.</div></div></div>
+      <div class="slot brk"><div class="stime">12:30–1:30</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">1:30–2:30</div><div><span class="stag study">Module</span><div class="stitle">Identity Governance &amp; privileged access</div><div class="sdesc">Entitlement management, access reviews. Privileged Identity Management (PIM) — just-in-time access, time-bound elevation. Azure AD roles vs RBAC. Lifecycle workflows.</div></div></div>
+      <div class="slot practice"><div class="stime">2:30–3:30</div><div><span class="stag practice">Practice</span><div class="stitle">Practice — 25 questions on Entra ID</div><div class="sdesc">Use Microsoft Learn practice assessment + ExamTopics free questions. Focus on: MFA types, Conditional Access vs Identity Protection, PIM purpose, B2B vs B2C differences.</div></div></div>
+      <div class="slot review"><div class="stime">3:30–4:00</div><div><span class="stag review">Review</span><div class="stitle">AI comparison table · Entra product map</div><div class="sdesc">Ask AI: "Create a table comparing Entra ID Free, P1, and P2 features." Draw a diagram mapping all Entra services and what each one does.</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Entra ID editions</strong> — Free vs P1 vs P2, what each unlocks</div>
+          <div class="ti"><strong>Identity types</strong> — users, groups, service principals, managed identities</div>
+          <div class="ti"><strong>External identities</strong> — B2B (partner/guest) vs B2C (customer-facing)</div>
+          <div class="ti"><strong>MFA methods</strong> — Authenticator app, FIDO2, SMS, Windows Hello</div>
+          <div class="ti"><strong>SSPR</strong> — self-service password reset, who can enable it</div>
+          <div class="ti"><strong>Conditional Access signals</strong> — user risk, location, device compliance</div>
+          <div class="ti"><strong>PIM</strong> — just-in-time privileged access, approval workflows</div>
+          <div class="ti"><strong>SSO</strong> — how federated SSO works with SAML/OIDC</div>
+        </div>
+        <div class="pills"><span class="pill">Entra ID</span><span class="pill">MFA</span><span class="pill">SSPR</span><span class="pill">Conditional Access</span><span class="pill">PIM</span><span class="pill">B2B / B2C</span><span class="pill">FIDO2</span><span class="pill">SSO</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources</h4>
+        <div class="llist">
+          <a class="lnk" href="https://learn.microsoft.com/en-us/training/paths/describe-capabilities-of-microsoft-identity-access/" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Learn — Entra Identity &amp; Access</div><div class="li-sub">Official Domain 2 learning path — all modules</div></div></a>
+          <a class="lnk" href="https://www.youtube.com/watch?v=AJ8xONC7t6U&t=2400" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">SC-900 Full Course — Entra ID section</div><div class="li-sub">Entra ID chapter starts ~40 min in</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/entra/fundamentals/whatis" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Entra ID — What is it?</div><div class="li-sub">Official overview docs — authoritative reference</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Conditional Access overview — Microsoft Docs</div><div class="li-sub">Signals, conditions, controls — official reference</div></div></a>
+          <a class="lnk" href="https://www.examtopics.com/exams/microsoft/sc-900/" target="_blank"><span class="lbadge lb-test">QUIZ</span><div><div class="li-title">ExamTopics — Free SC-900 Questions</div><div class="li-sub">Community-verified real exam questions</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="dpanel" id="d2">
+    <div class="dmeta"><h3>Day 3 — Microsoft Security Solutions</h3><div class="dtag">Domain 3 (35–40%) · Microsoft Defender · Sentinel · DDoS · Firewall · Security posture</div></div>
+    <div class="sched">
+      <div class="slot study"><div class="stime">8:00–9:30</div><div><span class="stag study">Module</span><div class="stitle">Azure security basics: DDoS, Firewall &amp; NSG</div><div class="sdesc">Azure DDoS Protection (Basic vs Standard). Azure Firewall vs Network Security Groups (NSGs) vs Web Application Firewall (WAF). Azure Bastion for secure RDP/SSH. Azure Key Vault purpose.</div></div></div>
+      <div class="slot study"><div class="stime">9:30–11:00</div><div><span class="stag study">Module</span><div class="stitle">Microsoft Defender family — know each product</div><div class="sdesc">Defender for Endpoint, Defender for Office 365, Defender for Identity, Defender for Cloud Apps (CASB), Defender for Cloud, Defender for IoT. XDR concept. Microsoft Defender XDR portal.</div></div></div>
+      <div class="slot brk"><div class="stime">11:00–11:15</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot study"><div class="stime">11:15–12:30</div><div><span class="stag study">Module</span><div class="stitle">Microsoft Sentinel (SIEM + SOAR)</div><div class="sdesc">What is SIEM? What is SOAR? Microsoft Sentinel capabilities: data connectors, analytics rules, incidents, workbooks, playbooks (Logic Apps). Threat intelligence integration.</div></div></div>
+      <div class="slot brk"><div class="stime">12:30–1:30</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">1:30–2:30</div><div><span class="stag study">Module</span><div class="stitle">Microsoft Defender for Cloud (CSPM)</div><div class="sdesc">Cloud Security Posture Management (CSPM) vs Cloud Workload Protection (CWP). Secure Score. Security recommendations. Regulatory compliance dashboard. Foundational CSPM (free) vs Defender CSPM (paid).</div></div></div>
+      <div class="slot practice"><div class="stime">2:30–3:45</div><div><span class="stag practice">Practice</span><div class="stitle">Practice — 30 questions on Security Solutions</div><div class="sdesc">Domain 3 is the heaviest! Focus on: which Defender product covers which threat, SIEM vs SOAR difference, Sentinel vs Defender for Cloud, DDoS Standard vs Basic.</div></div></div>
+      <div class="slot review"><div class="stime">3:45–4:15</div><div><span class="stag review">Review</span><div class="stitle">Build the Defender product map</div><div class="sdesc">Ask AI: "Create a comparison table of every Microsoft Defender product with its target, threat type covered, and key capability." This table alone is worth 15+ exam marks.</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Defender for Endpoint</strong> — endpoint threat detection &amp; response (EDR)</div>
+          <div class="ti"><strong>Defender for Identity</strong> — detects on-prem AD threats &amp; lateral movement</div>
+          <div class="ti"><strong>Defender for Office 365</strong> — email, Teams, SharePoint threats</div>
+          <div class="ti"><strong>Defender for Cloud Apps</strong> — CASB (cloud app shadow IT &amp; control)</div>
+          <div class="ti"><strong>Defender for Cloud</strong> — Azure resource security posture (CSPM/CWP)</div>
+          <div class="ti"><strong>Microsoft Sentinel</strong> — SIEM (detect) + SOAR (respond/automate)</div>
+          <div class="ti"><strong>SIEM vs SOAR</strong> — log collection/detect vs automated response</div>
+          <div class="ti"><strong>Secure Score</strong> — percentage-based posture measurement</div>
+        </div>
+        <div class="pills"><span class="pill">Defender XDR</span><span class="pill">Sentinel</span><span class="pill">SIEM/SOAR</span><span class="pill">CASB</span><span class="pill">CSPM</span><span class="pill">Secure Score</span><span class="pill">Azure Firewall</span><span class="pill">WAF</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources</h4>
+        <div class="llist">
+          <a class="lnk" href="https://learn.microsoft.com/en-us/training/paths/describe-capabilities-of-microsoft-security-solutions/" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Learn — Security Solutions Path</div><div class="li-sub">Official Domain 3 learning path — all modules</div></div></a>
+          <a class="lnk" href="https://youtu.be/Bz-8jM3jg-8?t=3600" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">John Savill — Security domain chapter</div><div class="li-sub">Defender family + Sentinel explained visually</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/azure/sentinel/overview" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Sentinel — Official Overview</div><div class="li-sub">What it is, connectors, analytics, playbooks</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-cloud-introduction" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Defender for Cloud — Official Overview</div><div class="li-sub">CSPM, secure score, workload protections</div></div></a>
+          <a class="lnk" href="https://tutorialsdojo.com/sc-900-microsoft-security-compliance-and-identity-fundamentals-exam-study-path/" target="_blank"><span class="lbadge lb-blog">BLOG</span><div><div class="li-title">Tutorials Dojo — SC-900 Study Path</div><div class="li-sub">Detailed guide + practice questions per domain</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="dpanel" id="d3">
+    <div class="dmeta"><h3>Day 4 — Microsoft Compliance Solutions</h3><div class="dtag">Domain 4 (15–20%) · Microsoft Purview · DLP · Compliance Manager · Insider Risk · eDiscovery</div></div>
+    <div class="sched">
+      <div class="slot study"><div class="stime">8:00–9:30</div><div><span class="stag study">Module</span><div class="stitle">Compliance concepts &amp; Microsoft Purview overview</div><div class="sdesc">What is data governance? Microsoft Purview portal. Compliance Manager — compliance score, assessments, improvement actions. Microsoft Privacy principles. Data classification overview.</div></div></div>
+      <div class="slot study"><div class="stime">9:30–11:00</div><div><span class="stag study">Module</span><div class="stitle">Information protection &amp; data lifecycle</div><div class="sdesc">Sensitivity labels (apply policies to content). Retention labels vs retention policies. Records management. AIP (Azure Information Protection) integration. MIP scanner for on-prem.</div></div></div>
+      <div class="slot brk"><div class="stime">11:00–11:15</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot study"><div class="stime">11:15–12:30</div><div><span class="stag study">Module</span><div class="stitle">Data Loss Prevention (DLP) &amp; Insider Risk</div><div class="sdesc">What is DLP? DLP policies — protect sensitive info across M365, Teams, Exchange. Insider Risk Management — detect risky user behaviour. Communication compliance. Adaptive protection.</div></div></div>
+      <div class="slot brk"><div class="stime">12:30–1:30</div><div><div class="stitle" style="color:var(--tx3)">Lunch</div></div></div>
+      <div class="slot study"><div class="stime">1:30–2:30</div><div><span class="stag study">Module</span><div class="stitle">eDiscovery &amp; Audit</div><div class="sdesc">eDiscovery (Standard vs Premium) — legal holds, search, export. Audit (Standard vs Premium) — log retention, intelligent insights. Content Search in Purview. Litigation hold vs retention hold.</div></div></div>
+      <div class="slot practice"><div class="stime">2:30–3:45</div><div><span class="stag practice">Practice</span><div class="stitle">Full domain practice — all 4 domains mixed</div><div class="sdesc">Now that you've covered all 4 domains, do a mixed 40-question practice test. Use Microsoft Learn official practice assessment. Track weak areas — revisit those modules tonight.</div></div></div>
+      <div class="slot review"><div class="stime">3:45–4:15</div><div><span class="stag review">Review</span><div class="stitle">Final review of all 4 domain cheat sheets</div><div class="sdesc">Review all 4 cheat sheets you built over the week. Ask AI: "Quiz me with 20 hard SC-900 questions spanning all 4 domains." Focus on any weak area before tomorrow.</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Topics to cover individually</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Compliance Manager</strong> — compliance score, assessments, improvement actions</div>
+          <div class="ti"><strong>Sensitivity labels</strong> — classify and protect content in Office apps/M365</div>
+          <div class="ti"><strong>Retention labels vs policies</strong> — label applies to content, policy applies to location</div>
+          <div class="ti"><strong>DLP policies</strong> — prevent sharing of sensitive info (SSNs, credit cards)</div>
+          <div class="ti"><strong>Insider Risk Management</strong> — detect unusual/risky employee behaviour</div>
+          <div class="ti"><strong>eDiscovery Standard vs Premium</strong> — legal hold, custodians, case management</div>
+          <div class="ti"><strong>Audit Standard vs Premium</strong> — log retention period differences</div>
+          <div class="ti"><strong>Microsoft Priva</strong> — privacy risk management and subject rights requests</div>
+        </div>
+        <div class="pills"><span class="pill">Purview</span><span class="pill">Compliance Manager</span><span class="pill">Sensitivity Labels</span><span class="pill">DLP</span><span class="pill">eDiscovery</span><span class="pill">Insider Risk</span><span class="pill">Audit</span><span class="pill">Retention</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Videos &amp; Resources</h4>
+        <div class="llist">
+          <a class="lnk" href="https://learn.microsoft.com/en-us/training/paths/describe-capabilities-of-microsoft-compliance-solutions/" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Learn — Compliance Solutions Path</div><div class="li-sub">Official Domain 4 learning path — full modules</div></div></a>
+          <a class="lnk" href="https://youtu.be/Bz-8jM3jg-8?t=5400" target="_blank"><span class="lbadge lb-yt">YT</span><div><div class="li-title">John Savill — Compliance domain chapter</div><div class="li-sub">Purview, DLP, eDiscovery, audit explained</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/purview/purview" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Microsoft Purview — Official Overview</div><div class="li-sub">Compliance, governance, and data security</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/microsoft-365/compliance/compliance-manager-overview" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Compliance Manager — Official Docs</div><div class="li-sub">Score, assessments, regulatory templates</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications" target="_blank"><span class="lbadge lb-test">QUIZ</span><div><div class="li-title">Microsoft Official Practice Assessment</div><div class="li-sub">Free, official, most exam-accurate questions</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="dpanel" id="d4">
+    <div class="dmeta"><h3>Day 5 — Full Review, Mock Exam &amp; Certification</h3><div class="dtag">No new learning · Final revision · Mock exam · Book &amp; take the real SC-900</div></div>
+    <div class="sched">
+      <div class="slot review"><div class="stime">8:00–9:00</div><div><span class="stag review">Review</span><div class="stitle">Rapid fire cheat sheet review</div><div class="sdesc">Read all 4 domain cheat sheets you built. Focus on: every Defender product and its target, the difference between Sentinel and Defender for Cloud, PIM vs Conditional Access, DLP vs sensitivity labels.</div></div></div>
+      <div class="slot practice"><div class="stime">9:00–10:30</div><div><span class="stag practice">Practice</span><div class="stitle">Full 45-question timed mock exam (Set 1)</div><div class="sdesc">Use Microsoft Learn official practice assessment. Simulate real conditions: timed, no notes, no help. Mark every question. Calculate score. Anything below 80% — do targeted revision.</div></div></div>
+      <div class="slot brk"><div class="stime">10:30–10:45</div><div><div class="stitle" style="color:var(--tx3)">Break</div></div></div>
+      <div class="slot review"><div class="stime">10:45–12:00</div><div><span class="stag review">Review</span><div class="stitle">Target revision on weak areas from mock</div><div class="sdesc">For every wrong answer, go back to the relevant Microsoft Learn module. Read only that section. Don't re-read everything — surgical revision only. Ask AI to explain anything still unclear.</div></div></div>
+      <div class="slot brk"><div class="stime">12:00–1:00</div><div><div class="stitle" style="color:var(--tx3)">Lunch — relax, no studying</div></div></div>
+      <div class="slot practice"><div class="stime">1:00–2:00</div><div><span class="stag practice">Practice</span><div class="stitle">Final 25-question mock (Set 2) + AI simulation</div><div class="sdesc">Take a second shorter practice set from ExamTopics or Inside the Microsoft Cloud. Then ask AI to run a 10-question verbal quiz. You should be scoring 85%+ by now.</div></div></div>
+      <div class="slot exam"><div class="stime">2:00–2:30</div><div><span class="stag exam">Prep</span><div class="stitle">Pre-exam checklist &amp; mental prep</div><div class="sdesc">Confirm exam booking, ID requirements, testing environment (home proctored or test centre). Rest. Do NOT cram new topics. Review your one-page product map one final time.</div></div></div>
+      <div class="slot exam"><div class="stime">Scheduled</div><div><span class="stag exam">Exam</span><div class="stitle">🎓 SC-900 Certification Exam</div><div class="sdesc">45–60 questions. 60 minutes. Pass score: 700/1000. Question types: multiple choice, multi-select, drag-and-drop, scenario. You receive results immediately after submission. Good luck!</div></div></div>
+    </div>
+    <div class="lower">
+      <div class="sub">
+        <h4><span class="ico">📋</span>Exam day tactics</h4>
+        <div class="tlist">
+          <div class="ti"><strong>Read every word</strong> — exam uses precise language. "Which best describes" vs "which enables"</div>
+          <div class="ti"><strong>Eliminate wrong answers first</strong> — usually 2 are clearly wrong</div>
+          <div class="ti"><strong>Scenario questions</strong> — identify the product category first (security/compliance/identity)</div>
+          <div class="ti"><strong>Don't overthink</strong> — this is a fundamentals exam, the first answer you think of is usually right</div>
+          <div class="ti"><strong>Flag and move on</strong> — flag uncertain questions, return later</div>
+          <div class="ti"><strong>Time</strong> — 60 min for ~45 questions, about 80 sec per question</div>
+          <div class="ti"><strong>Read case studies fully</strong> — scenario context matters</div>
+          <div class="ti"><strong>After exam</strong> — add badge to LinkedIn and Microsoft Learn profile</div>
+        </div>
+        <div class="pills"><span class="pill">700 to pass</span><span class="pill">~45 questions</span><span class="pill">60 minutes</span><span class="pill">Instant results</span><span class="pill">No expiry</span></div>
+      </div>
+      <div class="sub">
+        <h4><span class="ico">🔗</span>Practice Tests &amp; Exam Links</h4>
+        <div class="llist">
+          <a class="lnk" href="https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Official Microsoft Practice Assessment (Free)</div><div class="li-sub">Most accurate — written by exam team. Use this first.</div></div></a>
+          <a class="lnk" href="https://examregistration.microsoft.com/?locale=en-us&examcode=SC-900&provider=prometric" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">Book SC-900 Exam — Microsoft Certification Portal</div><div class="li-sub">Schedule online proctored or test centre exam · $99</div></div></a>
+          <a class="lnk" href="https://insidethemicrosoftcloud.com/sc900quiz/" target="_blank"><span class="lbadge lb-test">QUIZ</span><div><div class="li-title">Inside Microsoft Cloud — Free Practice Quiz</div><div class="li-sub">Good variety, no login, all domains covered</div></div></a>
+          <a class="lnk" href="https://www.examtopics.com/exams/microsoft/sc-900/" target="_blank"><span class="lbadge lb-test">QUIZ</span><div><div class="li-title">ExamTopics — Community Questions (Free)</div><div class="li-sub">Community-verified real exam questions with votes</div></div></a>
+          <a class="lnk" href="https://learn.microsoft.com/en-us/credentials/certifications/exams/sc-900/" target="_blank"><span class="lbadge lb-ms">MS</span><div><div class="li-title">SC-900 Exam Page — Microsoft Learn</div><div class="li-sub">Prep resources, schedule link, certification details</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end section 03 -->
+
+<!-- HOW TO BOOK & GET CERTIFIED -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">04</span><span class="sec-ttl">How to Book &amp; Get Certified</span></div>
+  <div class="cert-steps">
+    <div class="cstep">
+      <div class="cstep-num">Step 1</div>
+      <h4>Create Microsoft Learn profile</h4>
+      <p>Go to <a href="https://learn.microsoft.com" target="_blank">learn.microsoft.com</a> and sign in with a Microsoft account. Your certifications, badges, and exam history live here.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 2</div>
+      <h4>Complete the free learning paths</h4>
+      <p>4 official free learning paths on Microsoft Learn cover all exam domains. Takes ~10–12 hrs total. Built-in knowledge checks after every module.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 3</div>
+      <h4>Take the free practice assessment</h4>
+      <p>Go to the <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/sc-900/" target="_blank">SC-900 exam page</a> on Microsoft Learn → click "Take a free Practice Assessment". Score 80%+ before booking.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 4</div>
+      <h4>Schedule the exam</h4>
+      <p>On the SC-900 exam page, click "Schedule exam". Choose online proctored (Pearson VUE, from home) or a local test centre. Cost: $99 USD. Exam is ~60 minutes.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 5</div>
+      <h4>Day of the exam</h4>
+      <p>For online: quiet room, webcam, government ID. Check-in 30 min early. Results shown immediately — pass score is 700/1000. Certificate issued within 24 hours.</p>
+    </div>
+    <div class="cstep">
+      <div class="cstep-num">Step 6</div>
+      <h4>Claim your badge &amp; certificate</h4>
+      <p>Badges appear in your <a href="https://learn.microsoft.com/en-us/users/me/achievements" target="_blank">Microsoft Learn achievements</a>. Share to LinkedIn via Credly. SC-900 does not expire — it's a permanent certification.</p>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL RESOURCES -->
+<div class="sec">
+  <div class="sec-head"><span class="sec-num">05</span><span class="sec-ttl">All Resources — Quick Reference</span></div>
+  <div class="refs-grid">
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-yt">📺</div><h4>YouTube Channels</h4></div>
+      <p>Free, high-quality video content for all 4 domains</p>
+      <div class="rlinks">
+        <a class="rl" href="https://www.youtube.com/channel/UCpIn7ox7j7bH_OFj7tYouOQ" target="_blank">John Savill's Technical Training (best overall)</a>
+        <a class="rl" href="https://www.youtube.com/watch?v=AJ8xONC7t6U" target="_blank">SC-900 Full Course for Beginners</a>
+        <a class="rl" href="https://www.youtube.com/watch?v=UHeZnZpmtJM" target="_blank">A Guide to Cloud — SC-900 Series</a>
+        <a class="rl" href="https://youtu.be/Bz-8jM3jg-8" target="_blank">SC-900 Study Cram V2 — John Savill</a>
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-ms">📘</div><h4>Official Microsoft Docs</h4></div>
+      <p>Primary source — written by the people who build the products</p>
+      <div class="rlinks">
+        <a class="rl" href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-900" target="_blank">Official SC-900 Study Guide</a>
+        <a class="rl" href="https://learn.microsoft.com/en-us/training/paths/describe-concepts-of-security-compliance-identity/" target="_blank">MS Learn — Domain 1 Path</a>
+        <a class="rl" href="https://learn.microsoft.com/en-us/training/paths/describe-capabilities-of-microsoft-identity-access/" target="_blank">MS Learn — Domain 2 (Entra) Path</a>
+        <a class="rl" href="https://learn.microsoft.com/en-us/training/paths/describe-capabilities-of-microsoft-security-solutions/" target="_blank">MS Learn — Domain 3 (Security) Path</a>
+        <a class="rl" href="https://learn.microsoft.com/en-us/training/paths/describe-capabilities-of-microsoft-compliance-solutions/" target="_blank">MS Learn — Domain 4 (Compliance) Path</a>
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-test">📝</div><h4>Practice Tests</h4></div>
+      <p>Must score 80%+ before booking the real exam</p>
+      <div class="rlinks">
+        <a class="rl" href="https://learn.microsoft.com/en-us/credentials/certifications/practice-assessments-for-microsoft-certifications" target="_blank">Microsoft Official Practice Assessment (FREE)</a>
+        <a class="rl" href="https://insidethemicrosoftcloud.com/sc900quiz/" target="_blank">Inside Microsoft Cloud Free Quiz</a>
+        <a class="rl" href="https://www.examtopics.com/exams/microsoft/sc-900/" target="_blank">ExamTopics — Free Community Questions</a>
+        <a class="rl" href="https://www.udemy.com/course/sc-900-microsoft-security-complianceidentity-fundamentals/" target="_blank">Udemy — SC-900 Practice Tests</a>
+      </div>
+    </div>
+    <div class="rcard">
+      <div class="rc-head"><div class="ricon ri-blog">🔗</div><h4>Blogs &amp; Exam Guides</h4></div>
+      <p>Study guides, tips, and domain breakdowns</p>
+      <div class="rlinks">
+        <a class="rl" href="https://vladtalkstech.com/sc-900-study-guide-microsoft-security-compliance-and-identity-fundamentals-certification/" target="_blank">Vlad Talks Tech — SC-900 Study Guide</a>
+        <a class="rl" href="https://passitexams.com/study-guide/sc-900/" target="_blank">Pass It Exams — SC-900 2026 Guide</a>
+        <a class="rl" href="https://tutorialsdojo.com/sc-900-microsoft-security-compliance-and-identity-fundamentals-exam-study-path/" target="_blank">Tutorials Dojo — Exam Study Path</a>
+        <a class="rl" href="https://intunedin.net/2025/12/13/sc-900-microsoft-security-compliance-and-identity-fundamentals-exam-resource-guide-november-2025-update/" target="_blank">intunedin.net — Nov 2025 Exam Update</a>
+        <a class="rl" href="https://learn.microsoft.com/en-us/credentials/certifications/exams/sc-900/" target="_blank">Book the Exam — Microsoft Learn</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+<div class="footer"><strong>SC-900 — 5-Day Certification Study Plan</strong> &nbsp;·&nbsp; Learn · Practice · Pass · Get Certified 🎓 &nbsp;·&nbsp; Good luck!</div>
+
+</div><!-- /wrap -->
+<script>
+function show(i,btn){
+  document.querySelectorAll('.dpanel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('d'+i).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>
