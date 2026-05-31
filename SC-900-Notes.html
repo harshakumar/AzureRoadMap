@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SC-900 Study Notes — Microsoft Security, Compliance & Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0c0e14;
+    --surface: #13161f;
+    --surface2: #1a1e2b;
+    --border: #252a3a;
+    --accent: #4f8ef7;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --accent5: #ef4444;
+    --text: #e2e8f0;
+    --text-muted: #8892a4;
+    --text-dim: #4a5568;
+    --heading: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0c0e14 0%, #111827 50%, #0f172a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79,142,247,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(79,142,247,.35);
+    padding: .3rem .8rem;
+    border-radius: 100px;
+    margin-bottom: 1.2rem;
+    background: rgba(79,142,247,.07);
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    color: var(--heading);
+    line-height: 1.15;
+    margin-bottom: .6rem;
+    letter-spacing: -.02em;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: .95rem;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 2rem;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  /* ─── LAYOUT ─────────────────────────────── */
+  .page-wrap {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    gap: 0;
+  }
+
+  /* ─── SIDEBAR ────────────────────────────── */
+  .sidebar {
+    position: sticky;
+    top: 1.5rem;
+    height: fit-content;
+    padding: 2rem 1rem 2rem 0;
+  }
+  .sidebar-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    padding-left: .5rem;
+  }
+  .nav-group { margin-bottom: .25rem; }
+  .nav-section {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text-dim);
+    padding: .4rem .5rem .2rem;
+    margin-top: .75rem;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem .75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: .82rem;
+    color: var(--text-muted);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    transition: all .15s;
+    border-left: 2px solid transparent;
+  }
+  .nav-link:hover {
+    background: var(--surface);
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── MAIN CONTENT ───────────────────────── */
+  .content {
+    padding: 2.5rem 0 4rem 2.5rem;
+    border-left: 1px solid var(--border);
+    min-width: 0;
+  }
+
+  /* ─── SECTION ────────────────────────────── */
+  .section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 1.5rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .section h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading);
+    letter-spacing: -.01em;
+  }
+  .section-time {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    color: var(--text-dim);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* ─── CARDS ──────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--heading);
+    margin-bottom: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .card p, .card li { font-size: .9rem; color: var(--text); line-height: 1.7; }
+  .card ul, .card ol { padding-left: 1.3rem; }
+  .card li { margin-bottom: .3rem; }
+
+  /* ─── KEY CONCEPT ────────────────────────── */
+  .key-concept {
+    border-left: 3px solid var(--accent);
+    background: rgba(79,142,247,.06);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .key-concept .kc-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--accent);
+    margin-bottom: .35rem;
+  }
+  .key-concept p { font-size: .88rem; color: var(--text); }
+
+  /* ─── HIGHLIGHT VARIANTS ─────────────────── */
+  .highlight-green { border-left-color: var(--accent3); background: rgba(16,185,129,.06); }
+  .highlight-green .kc-label { color: var(--accent3); }
+  .highlight-amber { border-left-color: var(--accent4); background: rgba(245,158,11,.06); }
+  .highlight-amber .kc-label { color: var(--accent4); }
+  .highlight-red { border-left-color: var(--accent5); background: rgba(239,68,68,.06); }
+  .highlight-red .kc-label { color: var(--accent5); }
+  .highlight-purple { border-left-color: var(--accent2); background: rgba(124,58,237,.06); }
+  .highlight-purple .kc-label { color: #a78bfa; }
+
+  /* ─── PILL GRID ──────────────────────────── */
+  .pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1rem;
+  }
+  .pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    padding: .25rem .7rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--surface2);
+  }
+  .pill-blue { border-color: rgba(79,142,247,.4); color: var(--accent); background: rgba(79,142,247,.08); }
+  .pill-green { border-color: rgba(16,185,129,.4); color: var(--accent3); background: rgba(16,185,129,.08); }
+  .pill-amber { border-color: rgba(245,158,11,.4); color: var(--accent4); background: rgba(245,158,11,.08); }
+  .pill-purple { border-color: rgba(124,58,237,.4); color: #a78bfa; background: rgba(124,58,237,.08); }
+
+  /* ─── TWO-COL GRID ───────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ─── TABLE ──────────────────────────────── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .85rem;
+    margin-bottom: 1rem;
+  }
+  .data-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text-dim);
+    padding: .6rem .8rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    background: var(--surface);
+  }
+  .data-table td {
+    padding: .65rem .8rem;
+    border-bottom: 1px solid rgba(37,42,58,.5);
+    vertical-align: top;
+    color: var(--text);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(79,142,247,.04); }
+
+  /* ─── EXAM TIP ───────────────────────────── */
+  .exam-tip {
+    background: rgba(245,158,11,.07);
+    border: 1px solid rgba(245,158,11,.25);
+    border-radius: 8px;
+    padding: .9rem 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+  }
+  .exam-tip-icon { font-size: 1rem; flex-shrink: 0; margin-top: .1rem; }
+  .exam-tip-body { font-size: .85rem; color: var(--text); }
+  .exam-tip-body strong { color: var(--accent4); font-family: 'Syne', sans-serif; }
+
+  /* ─── CHAPTER DIVIDER ────────────────────── */
+  .chapter-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    color: var(--text-dim);
+    padding: 2rem 0 .75rem;
+    display: block;
+    border-top: 1px dashed var(--border);
+    margin-bottom: .5rem;
+  }
+  .chapter-tag:first-child { border-top: none; padding-top: 0; }
+
+  /* ─── PROGRESS BAR ───────────────────────── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width: 0%;
+    z-index: 999;
+    transition: width .1s;
+  }
+
+  /* ─── MOBILE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .page-wrap {
+      grid-template-columns: 1fr;
+    }
+    .sidebar {
+      display: none;
+    }
+    .content {
+      border-left: none;
+      padding: 1.5rem 0;
+    }
+    .hero { padding: 2.5rem 1rem 2rem; }
+  }
+
+  /* ─── MOBILE NAV TOGGLE ──────────────────── */
+  .mobile-toc {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: .75rem 1rem;
+  }
+  @media (max-width: 900px) { .mobile-toc { display: block; } }
+  .toc-toggle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    color: var(--accent);
+    cursor: pointer;
+    background: none;
+    border: 1px solid rgba(79,142,247,.3);
+    border-radius: 6px;
+    padding: .4rem .8rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .toc-drawer {
+    display: none;
+    padding: 1rem 0;
+    columns: 2;
+    column-gap: 1rem;
+  }
+  .toc-drawer.open { display: block; }
+  .toc-drawer a {
+    display: block;
+    font-size: .8rem;
+    font-family: 'Syne', sans-serif;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: .25rem 0;
+    break-inside: avoid;
+  }
+  .toc-drawer a:hover { color: var(--accent); }
+  @media (max-width: 480px) { .toc-drawer { columns: 1; } }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Study Notes · John Savill's SC-900 Cram V2</div>
+  <h1>Microsoft <span>SC-900</span> Fundamentals</h1>
+  <p class="hero-sub">Security · Compliance · Identity</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Domains</span></div>
+    <div class="stat"><span class="stat-num">28</span><span class="stat-label">Topics</span></div>
+    <div class="stat"><span class="stat-num">~2h</span><span class="stat-label">Source Video</span></div>
+    <div class="stat"><span class="stat-num">60</span><span class="stat-label">Exam Questions</span></div>
+  </div>
+</div>
+
+<!-- MOBILE TOC -->
+<div class="mobile-toc">
+  <button class="toc-toggle" onclick="toggleToc()">☰ Table of Contents</button>
+  <div class="toc-drawer" id="tocDrawer">
+    <a href="#shared-responsibility">Shared Responsibility</a>
+    <a href="#defense-in-depth">Defense in Depth</a>
+    <a href="#cia">CIA Triad</a>
+    <a href="#zero-trust">Zero Trust</a>
+    <a href="#encryption">Encryption</a>
+    <a href="#hashing">Hashing</a>
+    <a href="#grc">GRC</a>
+    <a href="#identity">Identity</a>
+    <a href="#authentication">Authentication</a>
+    <a href="#adds">AD Domain Services</a>
+    <a href="#federation">Federation</a>
+    <a href="#account-types">Account Types</a>
+    <a href="#mfa">MFA</a>
+    <a href="#authorization">Authorization</a>
+    <a href="#audit">Audit & Governance</a>
+    <a href="#entra-access">Entra Access</a>
+    <a href="#ddos">DDoS</a>
+    <a href="#firewall">Azure Firewall</a>
+    <a href="#waf">WAF</a>
+    <a href="#vnet-nsg">VNET & NSG</a>
+    <a href="#bastion">Azure Bastion</a>
+    <a href="#keyvault">Key Vault</a>
+    <a href="#defender-cloud">Defender for Cloud</a>
+    <a href="#sentinel">Microsoft Sentinel</a>
+    <a href="#copilot">Security Copilot</a>
+    <a href="#defender-xdr">Defender XDR</a>
+    <a href="#compliance">Compliance</a>
+    <a href="#purview">Purview & Priva</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Contents</div>
+
+    <span class="nav-section">Core Concepts</span>
+    <a class="nav-link" href="#shared-responsibility"><span class="nav-dot" style="background:#4f8ef7"></span>Shared Responsibility</a>
+    <a class="nav-link" href="#defense-in-depth"><span class="nav-dot" style="background:#4f8ef7"></span>Defense in Depth</a>
+    <a class="nav-link" href="#cia"><span class="nav-dot" style="background:#4f8ef7"></span>CIA Triad</a>
+    <a class="nav-link" href="#zero-trust"><span class="nav-dot" style="background:#4f8ef7"></span>Zero Trust</a>
+    <a class="nav-link" href="#encryption"><span class="nav-dot" style="background:#4f8ef7"></span>Encryption</a>
+    <a class="nav-link" href="#hashing"><span class="nav-dot" style="background:#4f8ef7"></span>Hashing</a>
+    <a class="nav-link" href="#grc"><span class="nav-dot" style="background:#4f8ef7"></span>GRC</a>
+
+    <span class="nav-section">Identity</span>
+    <a class="nav-link" href="#identity"><span class="nav-dot" style="background:#7c3aed"></span>Identity</a>
+    <a class="nav-link" href="#authentication"><span class="nav-dot" style="background:#7c3aed"></span>Authentication</a>
+    <a class="nav-link" href="#adds"><span class="nav-dot" style="background:#7c3aed"></span>AD Domain Services</a>
+    <a class="nav-link" href="#federation"><span class="nav-dot" style="background:#7c3aed"></span>Federation</a>
+    <a class="nav-link" href="#account-types"><span class="nav-dot" style="background:#7c3aed"></span>Account Types</a>
+    <a class="nav-link" href="#mfa"><span class="nav-dot" style="background:#7c3aed"></span>MFA</a>
+    <a class="nav-link" href="#authorization"><span class="nav-dot" style="background:#7c3aed"></span>Authorization</a>
+    <a class="nav-link" href="#audit"><span class="nav-dot" style="background:#7c3aed"></span>Audit & Governance</a>
+    <a class="nav-link" href="#entra-access"><span class="nav-dot" style="background:#7c3aed"></span>Entra Access</a>
+
+    <span class="nav-section">Security</span>
+    <a class="nav-link" href="#ddos"><span class="nav-dot" style="background:#ef4444"></span>DDoS</a>
+    <a class="nav-link" href="#firewall"><span class="nav-dot" style="background:#ef4444"></span>Azure Firewall</a>
+    <a class="nav-link" href="#waf"><span class="nav-dot" style="background:#ef4444"></span>WAF</a>
+    <a class="nav-link" href="#vnet-nsg"><span class="nav-dot" style="background:#ef4444"></span>VNET & NSG</a>
+    <a class="nav-link" href="#bastion"><span class="nav-dot" style="background:#ef4444"></span>Azure Bastion</a>
+    <a class="nav-link" href="#keyvault"><span class="nav-dot" style="background:#ef4444"></span>Key Vault</a>
+    <a class="nav-link" href="#defender-cloud"><span class="nav-dot" style="background:#ef4444"></span>Defender for Cloud</a>
+    <a class="nav-link" href="#sentinel"><span class="nav-dot" style="background:#ef4444"></span>Sentinel</a>
+    <a class="nav-link" href="#copilot"><span class="nav-dot" style="background:#ef4444"></span>Security Copilot</a>
+    <a class="nav-link" href="#defender-xdr"><span class="nav-dot" style="background:#ef4444"></span>Defender XDR</a>
+
+    <span class="nav-section">Compliance</span>
+    <a class="nav-link" href="#compliance"><span class="nav-dot" style="background:#10b981"></span>Compliance</a>
+    <a class="nav-link" href="#purview"><span class="nav-dot" style="background:#10b981"></span>Purview & Priva</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content">
+
+    <!-- ═══════════ CORE CONCEPTS ═══════════ -->
+    <span class="chapter-tag">Domain 1 — Security, Compliance & Identity Concepts</span>
+
+    <section class="section" id="shared-responsibility">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">☁️</div>
+        <h2>Shared Responsibility Model</h2>
+        <span class="section-time">00:02:34</span>
+      </div>
+      <div class="key-concept">
+        <div class="kc-label">Core Concept</div>
+        <p>Security responsibilities are shared between Microsoft (cloud provider) and the customer — the split depends on the service model used.</p>
+      </div>
+      <div class="card">
+        <h3>Responsibility by Service Model</h3>
+        <table class="data-table">
+          <thead><tr><th>Responsibility</th><th>On-Prem</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
+          <tbody>
+            <tr><td>Physical datacenter</td><td>Customer</td><td>Microsoft</td><td>Microsoft</td><td>Microsoft</td></tr>
+            <tr><td>Network controls</td><td>Customer</td><td>Customer</td><td>Shared</td><td>Microsoft</td></tr>
+            <tr><td>Operating system</td><td>Customer</td><td>Customer</td><td>Microsoft</td><td>Microsoft</td></tr>
+            <tr><td>Applications</td><td>Customer</td><td>Customer</td><td>Customer/MSFT</td><td>Microsoft</td></tr>
+            <tr><td>Identity & directory</td><td>Customer</td><td>Customer</td><td>Shared</td><td>Shared</td></tr>
+            <tr><td>Information & data</td><td>Customer</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Data and identity are <em>always</em> the customer's responsibility regardless of the model. Microsoft always owns the physical infrastructure.</div>
+      </div>
+    </section>
+
+    <section class="section" id="defense-in-depth">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">🛡️</div>
+        <h2>Defense in Depth</h2>
+        <span class="section-time">00:07:39</span>
+      </div>
+      <div class="key-concept">
+        <div class="kc-label">Core Concept</div>
+        <p>Multiple layers of security so that if one layer fails, another layer prevents further access. No single point of failure.</p>
+      </div>
+      <div class="card">
+        <h3>The 7 Layers (Outside → Inside)</h3>
+        <ol>
+          <li><strong>Physical security</strong> — Protect datacenter hardware</li>
+          <li><strong>Identity & access</strong> — Control who can access what</li>
+          <li><strong>Perimeter</strong> — DDoS protection, firewalls</li>
+          <li><strong>Network</strong> — Limit communication between resources, deny by default</li>
+          <li><strong>Compute</strong> — Secure VMs, close ports, patch OS</li>
+          <li><strong>Application</strong> — Ensure apps are secure, store secrets properly</li>
+          <li><strong>Data</strong> — Encrypt data at rest and in transit</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="cia">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">🔒</div>
+        <h2>CIA Triad</h2>
+        <span class="section-time">00:09:51</span>
+      </div>
+      <div class="two-col">
+        <div class="key-concept">
+          <div class="kc-label">Confidentiality</div>
+          <p>Protect data from unauthorized access. Encryption, access controls, need-to-know principle.</p>
+        </div>
+        <div class="key-concept highlight-green">
+          <div class="kc-label">Integrity</div>
+          <p>Data has not been tampered with. Hashing, digital signatures, version control.</p>
+        </div>
+      </div>
+      <div class="key-concept highlight-amber" style="max-width:50%">
+        <div class="kc-label">Availability</div>
+        <p>Systems are accessible when needed. Redundancy, disaster recovery, DDoS protection.</p>
+      </div>
+    </section>
+
+    <section class="section" id="zero-trust">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">🚫</div>
+        <h2>Zero Trust</h2>
+        <span class="section-time">00:11:54</span>
+      </div>
+      <div class="key-concept">
+        <div class="kc-label">Core Principle</div>
+        <p><strong>"Never trust, always verify."</strong> Assume breach. Every request must be authenticated, authorized, and continuously validated regardless of where it originates.</p>
+      </div>
+      <div class="card">
+        <h3>Three Guiding Principles</h3>
+        <ul>
+          <li><strong>Verify explicitly</strong> — Always authenticate and authorize based on all available data points (identity, location, device health, service/workload, data classification, anomalies)</li>
+          <li><strong>Use least privilege access</strong> — Limit user access with Just-In-Time (JIT), Just-Enough-Access (JEA), risk-based adaptive policies</li>
+          <li><strong>Assume breach</strong> — Minimize blast radius, segment access, encrypt end-to-end, use analytics to detect threats</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Six Pillars of Zero Trust</h3>
+        <div class="pill-grid">
+          <span class="pill pill-blue">Identities</span>
+          <span class="pill pill-blue">Devices</span>
+          <span class="pill pill-blue">Applications</span>
+          <span class="pill pill-blue">Data</span>
+          <span class="pill pill-blue">Infrastructure</span>
+          <span class="pill pill-blue">Networks</span>
+        </div>
+        <p>Each pillar is verified with signals → policy decision → enforcement. Microsoft Entra ID is the control plane for identity in Zero Trust.</p>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Zero Trust is the opposite of the old "castle and moat" (perimeter) model where once inside the network you're trusted.</div>
+      </div>
+    </section>
+
+    <section class="section" id="encryption">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">🔑</div>
+        <h2>Encryption Basics</h2>
+        <span class="section-time">00:16:48</span>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>🔄 Symmetric Encryption</h3>
+          <ul>
+            <li><strong>Same key</strong> for encryption and decryption</li>
+            <li>Fast, efficient for large data</li>
+            <li>Key distribution is a challenge</li>
+            <li>Examples: AES, 3DES</li>
+            <li>Used for: data at rest, bulk data</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🔀 Asymmetric Encryption</h3>
+          <ul>
+            <li><strong>Public key</strong> encrypts, <strong>private key</strong> decrypts</li>
+            <li>Slower than symmetric</li>
+            <li>Solves key distribution problem</li>
+            <li>Examples: RSA, ECC</li>
+            <li>Used for: TLS handshakes, digital signatures</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Data States & Encryption</h3>
+        <table class="data-table">
+          <thead><tr><th>State</th><th>Description</th><th>Protection Method</th></tr></thead>
+          <tbody>
+            <tr><td>At rest</td><td>Stored on disk, database, storage</td><td>AES-256 encryption (Storage Service Encryption, TDE)</td></tr>
+            <tr><td>In transit</td><td>Moving between systems</td><td>TLS 1.2/1.3, HTTPS, VPN</td></tr>
+            <tr><td>In use</td><td>Being processed in memory</td><td>Confidential computing, secure enclaves</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Digital Signatures & Certificates</h3>
+        <ul>
+          <li><strong>Digital signature</strong>: sender hashes data → encrypts hash with <em>private key</em> → receiver decrypts with <em>public key</em> to verify</li>
+          <li><strong>Certificate Authority (CA)</strong>: trusted third party that issues digital certificates</li>
+          <li><strong>PKI (Public Key Infrastructure)</strong>: the system for managing keys and certificates</li>
+          <li>HTTPS uses TLS which uses asymmetric encryption to exchange a symmetric session key</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="hashing">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">🧮</div>
+        <h2>Hashing</h2>
+        <span class="section-time">00:22:53</span>
+      </div>
+      <div class="key-concept">
+        <div class="kc-label">Core Concept</div>
+        <p>A one-way function that converts any input into a fixed-length string. Cannot be reversed. Same input always produces same output.</p>
+      </div>
+      <div class="card">
+        <h3>Key Properties</h3>
+        <ul>
+          <li><strong>One-way / irreversible</strong> — cannot derive original from hash</li>
+          <li><strong>Deterministic</strong> — same input = same hash, always</li>
+          <li><strong>Avalanche effect</strong> — tiny input change → completely different hash</li>
+          <li><strong>Collision resistant</strong> — two different inputs shouldn't produce same hash</li>
+        </ul>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>Common Algorithms</h3>
+          <ul>
+            <li>MD5 — 128-bit (deprecated, insecure)</li>
+            <li>SHA-1 — 160-bit (deprecated)</li>
+            <li>SHA-256 — 256-bit ✅ Recommended</li>
+            <li>SHA-512 — 512-bit ✅ Stronger</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Use Cases</h3>
+          <ul>
+            <li>Password storage (never store plaintext)</li>
+            <li>File integrity verification</li>
+            <li>Digital signatures</li>
+            <li>Blockchain / data chains</li>
+          </ul>
+        </div>
+      </div>
+      <div class="key-concept highlight-amber">
+        <div class="kc-label">Salting</div>
+        <p>Adding a random value (salt) to a password before hashing prevents rainbow table attacks. Each user gets a unique salt stored alongside the hash.</p>
+      </div>
+    </section>
+
+    <section class="section" id="grc">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,.12)">📋</div>
+        <h2>GRC — Governance, Risk & Compliance</h2>
+        <span class="section-time">00:25:13</span>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>📐 Governance</h3>
+          <p>System of rules, practices, and processes an organization uses to direct and control its activities. Policies, procedures, accountability.</p>
+        </div>
+        <div class="card">
+          <h3>⚠️ Risk Management</h3>
+          <p>Identifying, assessing, and mitigating risks. Risk = Likelihood × Impact. Options: Accept, Avoid, Transfer, Mitigate.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>✅ Compliance</h3>
+        <p>Adherence to laws, regulations, standards, and policies. Examples:</p>
+        <div class="pill-grid">
+          <span class="pill">GDPR</span><span class="pill">HIPAA</span><span class="pill">ISO 27001</span>
+          <span class="pill">SOC 2</span><span class="pill">PCI DSS</span><span class="pill">NIST CSF</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ IDENTITY ═══════════ -->
+    <span class="chapter-tag">Domain 2 — Microsoft Entra Identity & Access Management</span>
+
+    <section class="section" id="identity">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">👤</div>
+        <h2>Identity Concepts</h2>
+        <span class="section-time">00:27:09</span>
+      </div>
+      <div class="key-concept highlight-purple">
+        <div class="kc-label">Identity as the New Perimeter</div>
+        <p>In a cloud-first world, identity is the primary security boundary. Microsoft Entra ID (formerly Azure Active Directory) is the identity control plane.</p>
+      </div>
+      <div class="card">
+        <h3>4 Pillars of Identity</h3>
+        <table class="data-table">
+          <thead><tr><th>Pillar</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Administration</strong></td><td>Creation and management of identity (users, groups, devices)</td></tr>
+            <tr><td><strong>Authentication</strong></td><td>The "who are you?" challenge — verify the claimed identity</td></tr>
+            <tr><td><strong>Authorization</strong></td><td>The "what can you do?" check — what resources can you access</td></tr>
+            <tr><td><strong>Auditing</strong></td><td>Track what happened, by whom, when, and from where</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Microsoft Entra ID Overview</h3>
+        <ul>
+          <li>Cloud-based Identity and Access Management (IAM) service</li>
+          <li>Used for signing into Microsoft 365, Azure, and thousands of SaaS apps</li>
+          <li>A <strong>tenant</strong> = a dedicated instance of Entra ID for an organization</li>
+          <li>Supports external identities (B2B, B2C)</li>
+          <li>Free tier available; P1/P2 tiers unlock advanced features</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="authentication">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">🔐</div>
+        <h2>Authentication Methods</h2>
+        <span class="section-time">00:30:12</span>
+      </div>
+      <div class="card">
+        <h3>Authentication Factors</h3>
+        <div class="pill-grid">
+          <span class="pill pill-purple">Something you know (password, PIN)</span>
+          <span class="pill pill-purple">Something you have (phone, smart card)</span>
+          <span class="pill pill-purple">Something you are (biometrics)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Passwordless Authentication Options</h3>
+        <ul>
+          <li><strong>Windows Hello for Business</strong> — PIN or biometric tied to device</li>
+          <li><strong>FIDO2 Security Keys</strong> — Hardware key (e.g. YubiKey) — most phishing resistant</li>
+          <li><strong>Microsoft Authenticator App</strong> — Push notification or number matching</li>
+          <li><strong>Passkeys</strong> — FIDO2 standard stored on device or in cloud</li>
+        </ul>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> FIDO2 keys are the most phishing-resistant authentication method. Passwordless is more secure than passwords because it removes the password as an attack vector.</div>
+      </div>
+    </section>
+
+    <section class="section" id="adds">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">🏢</div>
+        <h2>Active Directory Domain Services (AD DS)</h2>
+        <span class="section-time">00:34:16</span>
+      </div>
+      <div class="key-concept highlight-purple">
+        <div class="kc-label">On-Premises Identity</div>
+        <p>Traditional on-premises directory service. Uses Kerberos/NTLM for authentication. Organises objects into domains, trees, and forests.</p>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>AD DS (On-Prem)</h3>
+          <ul>
+            <li>Kerberos authentication</li>
+            <li>Group Policy Objects (GPO)</li>
+            <li>OU structure (Organizational Units)</li>
+            <li>Domain Controllers</li>
+            <li>Trusts between domains</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Microsoft Entra ID (Cloud)</h3>
+          <ul>
+            <li>SAML/OpenID Connect/OAuth2</li>
+            <li>Conditional Access Policies</li>
+            <li>Flat structure (no OUs/GPOs)</li>
+            <li>No Domain Controllers</li>
+            <li>Global service (worldwide)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Microsoft Entra Connect</h3>
+        <p>Synchronises on-premises AD DS identities to Entra ID. Enables hybrid identity. Supports <strong>Password Hash Sync (PHS)</strong>, <strong>Pass-through Authentication (PTA)</strong>, and <strong>Federation</strong>.</p>
+      </div>
+    </section>
+
+    <section class="section" id="federation">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">🤝</div>
+        <h2>Federation</h2>
+        <span class="section-time">00:36:17</span>
+      </div>
+      <div class="key-concept highlight-purple">
+        <div class="kc-label">Core Concept</div>
+        <p>Establishes trust between separate identity systems so users can authenticate once and access resources across systems (cross-organization SSO).</p>
+      </div>
+      <div class="card">
+        <h3>Key Federation Concepts</h3>
+        <ul>
+          <li><strong>Identity Provider (IdP)</strong> — The system that authenticates the user (e.g. Entra ID)</li>
+          <li><strong>Service Provider (SP)</strong> / Relying Party — The application that trusts the IdP</li>
+          <li><strong>Claims</strong> — Assertions about the user (name, email, group membership)</li>
+          <li><strong>Tokens</strong> — Encoded, signed claims passed from IdP to SP (SAML tokens, JWT)</li>
+          <li><strong>Single Sign-On (SSO)</strong> — Log in once, access many apps without re-authenticating</li>
+        </ul>
+      </div>
+      <div class="two-col">
+        <div class="key-concept highlight-purple">
+          <div class="kc-label">SAML 2.0</div>
+          <p>XML-based standard for exchanging authentication/authorization data. Common for enterprise apps.</p>
+        </div>
+        <div class="key-concept highlight-purple">
+          <div class="kc-label">OpenID Connect (OIDC)</div>
+          <p>Modern identity layer built on OAuth 2.0. Uses JWT tokens. Common for modern web/mobile apps.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="account-types">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">👥</div>
+        <h2>Types of Accounts</h2>
+        <span class="section-time">00:39:37</span>
+      </div>
+      <div class="card">
+        <h3>Account Types in Entra ID</h3>
+        <table class="data-table">
+          <thead><tr><th>Type</th><th>Description</th><th>Use Case</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Member user</strong></td><td>Full member of the Entra ID tenant</td><td>Employees</td></tr>
+            <tr><td><strong>Guest user</strong></td><td>External user invited via B2B collaboration</td><td>Partners, contractors</td></tr>
+            <tr><td><strong>Service principal</strong></td><td>Identity for an application or service</td><td>Apps accessing Azure resources</td></tr>
+            <tr><td><strong>Managed identity</strong></td><td>Auto-managed service principal for Azure resources</td><td>VM, App Service accessing Key Vault</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two-col">
+        <div class="key-concept highlight-purple">
+          <div class="kc-label">System-Assigned Managed Identity</div>
+          <p>Tied to one Azure resource. Deleted when resource is deleted. 1:1 relationship.</p>
+        </div>
+        <div class="key-concept highlight-purple">
+          <div class="kc-label">User-Assigned Managed Identity</div>
+          <p>Standalone identity resource. Can be assigned to multiple Azure resources. Survives resource deletion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mfa">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">📱</div>
+        <h2>Multi-Factor Authentication (MFA)</h2>
+        <span class="section-time">00:45:12</span>
+      </div>
+      <div class="key-concept highlight-purple">
+        <div class="kc-label">Core Concept</div>
+        <p>Requiring 2 or more verification factors. Even if one factor is compromised, the attacker still can't authenticate.</p>
+      </div>
+      <div class="card">
+        <h3>MFA Methods (Microsoft)</h3>
+        <ul>
+          <li><strong>Microsoft Authenticator app</strong> — Push notification with number matching</li>
+          <li><strong>SMS / Voice call</strong> — Least secure MFA (SIM swapping risk)</li>
+          <li><strong>OATH TOTP tokens</strong> — Time-based one-time passwords (e.g. Google Authenticator)</li>
+          <li><strong>FIDO2 keys</strong> — Most secure, phishing resistant</li>
+          <li><strong>Certificate-based auth</strong> — Smart card or software certificate</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Conditional Access (CA)</h3>
+        <p>The <em>if/then</em> policy engine of Entra ID. Signals → Decisions → Enforcement.</p>
+        <ul>
+          <li><strong>Signals</strong>: User/group, IP location, device platform, device compliance, application, real-time risk</li>
+          <li><strong>Access decisions</strong>: Block access, Grant access, Require MFA, Require compliant device, Require terms of use</li>
+          <li>Requires Entra ID P1 or P2 licence</li>
+        </ul>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Security Defaults (free tier) enable basic MFA for all users. Conditional Access (P1/P2) gives granular, policy-based control.</div>
+      </div>
+    </section>
+
+    <section class="section" id="authorization">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">🎫</div>
+        <h2>Authorization — RBAC & Access Management</h2>
+        <span class="section-time">00:51:19</span>
+      </div>
+      <div class="key-concept highlight-purple">
+        <div class="kc-label">Role-Based Access Control (RBAC)</div>
+        <p>Grant access based on <em>roles</em> rather than to individuals. WHO (principal) + WHAT (role definition) + WHERE (scope).</p>
+      </div>
+      <div class="card">
+        <h3>Azure RBAC Structure</h3>
+        <ul>
+          <li><strong>Security principal</strong>: User, Group, Service Principal, Managed Identity</li>
+          <li><strong>Role definition</strong>: Collection of permissions (Actions, NotActions, DataActions)</li>
+          <li><strong>Scope</strong>: Management group → Subscription → Resource group → Resource</li>
+          <li>Roles are <strong>additive</strong> and <strong>inherited</strong> — lower scope inherits parent scope roles</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Key Built-in Roles</h3>
+        <table class="data-table">
+          <thead><tr><th>Role</th><th>Access Level</th></tr></thead>
+          <tbody>
+            <tr><td>Owner</td><td>Full control + assign access to others</td></tr>
+            <tr><td>Contributor</td><td>Create/manage all resources, cannot assign roles</td></tr>
+            <tr><td>Reader</td><td>View resources only</td></tr>
+            <tr><td>User Access Administrator</td><td>Manage user access only</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Privileged Identity Management (PIM)</h3>
+        <ul>
+          <li>Provides <strong>Just-In-Time (JIT)</strong> privileged access</li>
+          <li>Users <em>activate</em> roles when needed (for a limited time)</li>
+          <li>Requires justification and optional approval</li>
+          <li>Full audit log of privilege use</li>
+          <li>Requires Entra ID P2</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="audit">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">📊</div>
+        <h2>Audit & Identity Governance</h2>
+        <span class="section-time">00:56:23</span>
+      </div>
+      <div class="card">
+        <h3>Identity Governance Features</h3>
+        <ul>
+          <li><strong>Access Reviews</strong> — Periodic reviews to confirm users still need their access</li>
+          <li><strong>Entitlement Management</strong> — Self-service access packages for external/internal users</li>
+          <li><strong>Lifecycle Workflows</strong> — Automate onboarding, offboarding, and role changes</li>
+          <li><strong>Terms of Use</strong> — Require users to accept policies before accessing resources</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Entra ID Logs</h3>
+        <ul>
+          <li><strong>Sign-in logs</strong> — Who signed in, from where, what app, success/failure</li>
+          <li><strong>Audit logs</strong> — Administrative changes (user created, group changed, policy updated)</li>
+          <li><strong>Provisioning logs</strong> — Automatic user provisioning activity</li>
+          <li>Logs integrate with Microsoft Sentinel and Azure Monitor</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="entra-access">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(124,58,237,.12)">🌐</div>
+        <h2>Entra Private Access & Internet Access</h2>
+        <span class="section-time">01:01:03</span>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>🔒 Entra Private Access</h3>
+          <ul>
+            <li>Zero Trust Network Access (ZTNA) solution</li>
+            <li>Replaces traditional VPN</li>
+            <li>Per-app access, not full network tunnel</li>
+            <li>User identity verified before each connection</li>
+            <li>Works for on-prem or private cloud resources</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🌍 Entra Internet Access</h3>
+          <ul>
+            <li>Secure Web Gateway (SWG)</li>
+            <li>Controls internet-bound traffic from managed devices</li>
+            <li>Web content filtering, threat protection</li>
+            <li>Microsoft 365 traffic optimisation</li>
+            <li>Complements Conditional Access</li>
+          </ul>
+        </div>
+      </div>
+      <div class="key-concept highlight-purple">
+        <div class="kc-label">Global Secure Access</div>
+        <p>The umbrella product combining Entra Private Access + Internet Access = Microsoft's SSE (Security Service Edge) solution.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ SECURITY ═══════════ -->
+    <span class="chapter-tag">Domain 3 — Microsoft Security Solutions</span>
+
+    <section class="section" id="ddos">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🌊</div>
+        <h2>DDoS Protection</h2>
+        <span class="section-time">01:06:03</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">DDoS = Distributed Denial of Service</div>
+        <p>Flooding a target with traffic from many sources to make it unavailable. Attacks availability (the A in CIA).</p>
+      </div>
+      <div class="card">
+        <h3>Azure DDoS Protection Tiers</h3>
+        <table class="data-table">
+          <thead><tr><th>Tier</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Network Protection (Basic)</strong></td><td>Free, automatic, always on for Azure infrastructure. Protects all Azure services.</td></tr>
+            <tr><td><strong>IP Protection</strong></td><td>Per-IP paid tier. Enhanced mitigation, rapid response support, cost protection guarantee.</td></tr>
+            <tr><td><strong>Network Protection (Premium)</strong></td><td>Per-VNet pricing. Telemetry, alerts, reports. DDoS Rapid Response team access.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Attack Types</h3>
+        <ul>
+          <li><strong>Volumetric</strong> — Flood bandwidth (DNS amplification, UDP floods)</li>
+          <li><strong>Protocol</strong> — Exploit network protocol weaknesses (SYN floods)</li>
+          <li><strong>Application layer (L7)</strong> — HTTP floods targeting app logic (Azure WAF handles this)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="firewall">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🔥</div>
+        <h2>Azure Firewall</h2>
+        <span class="section-time">01:07:39</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">Managed Cloud Firewall</div>
+        <p>Fully stateful, cloud-native firewall-as-a-service with built-in high availability and unrestricted cloud scalability.</p>
+      </div>
+      <div class="card">
+        <h3>Key Features</h3>
+        <ul>
+          <li>Network and application traffic filtering</li>
+          <li>FQDN (Fully Qualified Domain Name) filtering — e.g. *.microsoft.com</li>
+          <li>Threat intelligence-based filtering — blocks known malicious IPs/domains</li>
+          <li>Outbound SNAT, inbound DNAT</li>
+          <li>TLS inspection (Premium SKU)</li>
+          <li>Centralised policy management via Azure Firewall Manager</li>
+        </ul>
+      </div>
+      <div class="two-col">
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Azure Firewall Standard</div>
+          <p>L3-L7 filtering, threat intelligence, FQDN filtering. Good for most workloads.</p>
+        </div>
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Azure Firewall Premium</div>
+          <p>Adds TLS inspection, IDPS (Intrusion Detection and Prevention), URL filtering, web categories.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="waf">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🛡️</div>
+        <h2>Web Application Firewall (WAF)</h2>
+        <span class="section-time">01:08:33</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">Application Layer (L7) Protection</div>
+        <p>Protects web applications from common exploits like SQL injection, cross-site scripting (XSS), and OWASP Top 10 threats.</p>
+      </div>
+      <div class="card">
+        <h3>WAF Deployment Options</h3>
+        <ul>
+          <li><strong>Azure Application Gateway</strong> — WAF for web apps in a region, supports SSL offload</li>
+          <li><strong>Azure Front Door</strong> — Global WAF at Microsoft's edge/CDN layer</li>
+          <li><strong>Azure CDN</strong> — WAF at edge (Akamai/Verizon profiles)</li>
+        </ul>
+      </div>
+      <div class="two-col">
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Detection Mode</div>
+          <p>Logs and monitors threats but does not block. Good for initial tuning.</p>
+        </div>
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Prevention Mode</div>
+          <p>Actively blocks malicious requests. Recommended for production.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vnet-nsg">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🔌</div>
+        <h2>Virtual Networks (VNET) & NSG</h2>
+        <span class="section-time">01:10:19</span>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>Azure Virtual Network (VNET)</h3>
+          <ul>
+            <li>Logical isolation of Azure network resources</li>
+            <li>Segmented into <strong>subnets</strong></li>
+            <li>VNETs can be connected via <strong>peering</strong></li>
+            <li>Private IP addresses within VNETs</li>
+            <li>No internet routing by default</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Network Security Group (NSG)</h3>
+          <ul>
+            <li>Filter network traffic with security rules</li>
+            <li>Applied to subnets or NICs</li>
+            <li>Rules based on: source/dest IP, port, protocol</li>
+            <li>Priority-based (lower number = higher priority)</li>
+            <li>Default: deny all inbound, allow all outbound</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Service Endpoints vs Private Endpoints</h3>
+        <table class="data-table">
+          <thead><tr><th></th><th>Service Endpoint</th><th>Private Endpoint</th></tr></thead>
+          <tbody>
+            <tr><td>Traffic path</td><td>Azure backbone (still public IP)</td><td>Private IP in your VNET</td></tr>
+            <tr><td>Exposure</td><td>Still accessible from internet</td><td>Fully private, no internet exposure</td></tr>
+            <tr><td>Cost</td><td>Free</td><td>Per hour + data cost</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="bastion">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🏰</div>
+        <h2>Azure Bastion</h2>
+        <span class="section-time">01:14:19</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">Secure Remote Access</div>
+        <p>PaaS service providing secure RDP/SSH access to VMs directly through the Azure portal — without exposing public IP addresses on VMs.</p>
+      </div>
+      <div class="card">
+        <h3>Key Benefits</h3>
+        <ul>
+          <li>No need to open RDP (3389) or SSH (22) ports to the internet</li>
+          <li>Access via HTTPS (port 443) through browser</li>
+          <li>Protects against port scanning and zero-day exploits on RDP/SSH</li>
+          <li>Deployed per VNET</li>
+          <li>Fully managed, no patching required</li>
+        </ul>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Azure Bastion eliminates the need for a "jump server" / bastion host VM that you'd otherwise have to manage and patch yourself.</div>
+      </div>
+    </section>
+
+    <section class="section" id="keyvault">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🗝️</div>
+        <h2>Azure Key Vault</h2>
+        <span class="section-time">01:16:18</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">Secrets Management</div>
+        <p>Centralised, secure storage for secrets, keys, and certificates. Eliminates the need to store credentials in code or config files.</p>
+      </div>
+      <div class="card">
+        <h3>Three Categories of Stored Items</h3>
+        <ul>
+          <li><strong>Secrets</strong> — Connection strings, passwords, API keys</li>
+          <li><strong>Keys</strong> — Cryptographic keys (RSA, EC) for encryption operations</li>
+          <li><strong>Certificates</strong> — TLS/SSL certificates with auto-renewal</li>
+        </ul>
+      </div>
+      <div class="two-col">
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Standard Tier</div>
+          <p>Software-protected keys. Keys encrypted at rest by FIPS 140-2 Level 1.</p>
+        </div>
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Premium Tier</div>
+          <p>HSM-protected keys (Hardware Security Module). FIPS 140-2 Level 2/3. For regulatory requirements.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="defender-cloud">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">☁️</div>
+        <h2>Microsoft Defender for Cloud</h2>
+        <span class="section-time">01:18:20</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">Cloud Security Posture Management (CSPM) + CWPP</div>
+        <p>Provides security posture assessment and threat protection across Azure, AWS, and GCP. Know your security state and protect workloads.</p>
+      </div>
+      <div class="card">
+        <h3>Core Capabilities</h3>
+        <ul>
+          <li><strong>Secure Score</strong> — Numeric score of your security posture. Higher = better. Follow recommendations to improve.</li>
+          <li><strong>Security recommendations</strong> — Actionable items to harden your environment</li>
+          <li><strong>Security alerts</strong> — Real-time threat detections with remediation guidance</li>
+          <li><strong>Regulatory compliance dashboard</strong> — How you fare against standards (NIST, ISO 27001, PCI DSS)</li>
+          <li><strong>Defender plans</strong> — Per-resource type enhanced protection (VMs, databases, containers, storage)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Defender Plans (CWPP)</h3>
+        <div class="pill-grid">
+          <span class="pill pill-green">Defender for Servers</span>
+          <span class="pill pill-green">Defender for SQL</span>
+          <span class="pill pill-green">Defender for Storage</span>
+          <span class="pill pill-green">Defender for Containers</span>
+          <span class="pill pill-green">Defender for App Service</span>
+          <span class="pill pill-green">Defender for Key Vault</span>
+          <span class="pill pill-green">Defender for DNS</span>
+          <span class="pill pill-green">Defender for APIs</span>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Defender for Cloud has a <em>free</em> CSPM tier (Secure Score, recommendations). Defender plans are paid and enable threat protection. Multicloud = Azure + AWS + GCP.</div>
+      </div>
+    </section>
+
+    <section class="section" id="sentinel">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🔭</div>
+        <h2>Microsoft Sentinel</h2>
+        <span class="section-time">01:22:32</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">SIEM + SOAR</div>
+        <p>Cloud-native Security Information and Event Management (SIEM) and Security Orchestration, Automation and Response (SOAR) solution.</p>
+      </div>
+      <div class="card">
+        <h3>Core Functions</h3>
+        <ul>
+          <li><strong>Collect</strong> — Ingest security data at cloud scale from any source (connectors for 200+ services)</li>
+          <li><strong>Detect</strong> — AI-driven analytics, custom rules, Microsoft threat intelligence</li>
+          <li><strong>Investigate</strong> — Interactive investigation graph, entity mapping, timeline</li>
+          <li><strong>Respond</strong> — Playbooks (Azure Logic Apps) for automated or manual response</li>
+        </ul>
+      </div>
+      <div class="two-col">
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Workbooks</div>
+          <p>Visualisation dashboards built on Azure Monitor Workbooks. Monitor and report on data.</p>
+        </div>
+        <div class="key-concept highlight-red">
+          <div class="kc-label">Playbooks</div>
+          <p>Automated response workflows built on Azure Logic Apps. Triggered by alerts or incidents.</p>
+        </div>
+      </div>
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Sentinel stores data in a Log Analytics Workspace. It's SIEM (collect/detect/investigate) + SOAR (respond/automate). Defender for Cloud sends alerts TO Sentinel.</div>
+      </div>
+    </section>
+
+    <section class="section" id="copilot">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🤖</div>
+        <h2>Microsoft Security Copilot</h2>
+        <span class="section-time">01:24:57</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">AI-Powered Security</div>
+        <p>Generative AI security assistant that helps analysts investigate threats, summarise incidents, and generate reports at machine speed.</p>
+      </div>
+      <div class="card">
+        <h3>Key Capabilities</h3>
+        <ul>
+          <li>Natural language queries against security data</li>
+          <li>Summarise incidents and generate executive reports</li>
+          <li>Analyse scripts, code, and files for threats</li>
+          <li>Guided investigation steps</li>
+          <li>Embedded into Defender XDR, Sentinel, Purview, Intune</li>
+          <li>Responds to prompts in <strong>promptbooks</strong> (repeatable workflows)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="defender-xdr">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(239,68,68,.12)">🦅</div>
+        <h2>Microsoft Defender XDR</h2>
+        <span class="section-time">01:26:24</span>
+      </div>
+      <div class="key-concept highlight-red">
+        <div class="kc-label">Extended Detection & Response</div>
+        <p>Unified XDR platform that correlates signals across endpoints, identities, email, apps, and cloud to detect and respond to advanced attacks.</p>
+      </div>
+      <div class="card">
+        <h3>Defender XDR Components</h3>
+        <table class="data-table">
+          <thead><tr><th>Product</th><th>Protects</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Defender for Endpoint (MDE)</strong></td><td>Windows/Linux/macOS/mobile devices, EDR</td></tr>
+            <tr><td><strong>Defender for Identity (MDI)</strong></td><td>On-prem AD DS, lateral movement, identity attacks</td></tr>
+            <tr><td><strong>Defender for Office 365 (MDO)</strong></td><td>Email, Teams, SharePoint — anti-phishing, malware</td></tr>
+            <tr><td><strong>Defender for Cloud Apps (MDCA)</strong></td><td>Cloud app visibility, CASB, shadow IT discovery</td></tr>
+            <tr><td><strong>Defender for Cloud</strong></td><td>Azure/AWS/GCP workload protection</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Unified Incident Queue</h3>
+        <p>All alerts across the Defender suite are correlated into <strong>incidents</strong> in the Microsoft Defender portal. Analysts work from one place to see the full attack story across all products.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ COMPLIANCE ═══════════ -->
+    <span class="chapter-tag">Domain 4 — Microsoft Compliance Solutions</span>
+
+    <section class="section" id="compliance">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(16,185,129,.12)">⚖️</div>
+        <h2>Compliance Concepts</h2>
+        <span class="section-time">01:29:47</span>
+      </div>
+      <div class="card">
+        <h3>Microsoft's Compliance Approach</h3>
+        <ul>
+          <li><strong>Data residency</strong> — Where data is stored geographically</li>
+          <li><strong>Data sovereignty</strong> — Data subject to laws of where it resides</li>
+          <li><strong>Data privacy</strong> — How personal data is collected, used, shared</li>
+          <li>Microsoft maintains 100+ compliance certifications globally</li>
+          <li><strong>Service Trust Portal</strong> — Microsoft's public resource for audit reports and compliance docs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Microsoft Privacy Principles</h3>
+        <div class="pill-grid">
+          <span class="pill pill-green">Control</span>
+          <span class="pill pill-green">Transparency</span>
+          <span class="pill pill-green">Security</span>
+          <span class="pill pill-green">Strong legal protections</span>
+          <span class="pill pill-green">No content-based targeting</span>
+          <span class="pill pill-green">Benefits to you</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="purview">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(16,185,129,.12)">🔍</div>
+        <h2>Microsoft Purview, Priva & Compliance Manager</h2>
+        <span class="section-time">01:33:55 – 01:52:02</span>
+      </div>
+      <div class="card">
+        <h3>Microsoft Purview Overview</h3>
+        <p>Unified data governance and compliance platform. Covers data security, compliance, and data governance across on-prem, multi-cloud, and SaaS.</p>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h3>🏷️ Sensitivity Labels</h3>
+          <ul>
+            <li>Classify and protect data (e.g. Confidential, Internal)</li>
+            <li>Applied manually or automatically</li>
+            <li>Can encrypt files, add watermarks, restrict access</li>
+            <li>Persistent — label travels with the file</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>📦 Retention Labels & Policies</h3>
+          <ul>
+            <li>Define how long to keep or delete data</li>
+            <li>Retention policies = org-wide scope</li>
+            <li>Retention labels = item-level, more granular</li>
+            <li>Supports regulatory requirements (7-year retention etc.)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Data Loss Prevention (DLP)</h3>
+        <ul>
+          <li>Detect and prevent sharing of sensitive information (credit card numbers, NI numbers, medical data)</li>
+          <li>Policies applied to: Exchange, SharePoint, Teams, Endpoint devices, Power BI</li>
+          <li>Actions: Block, Audit, Notify, Restrict</li>
+          <li>Uses <strong>Sensitive Information Types (SITs)</strong> — built-in or custom patterns</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Insider Risk Management</h3>
+        <ul>
+          <li>Detect and investigate risky activities by internal users</li>
+          <li>Scenarios: Data theft by departing employees, data leaks, security policy violations</li>
+          <li>Privacy by design — users anonymised until escalation</li>
+          <li>Requires E5 compliance or add-on</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>eDiscovery</h3>
+        <ul>
+          <li>Legal process of identifying, collecting electronic evidence</li>
+          <li><strong>Content Search</strong> — Search across M365 (no case required)</li>
+          <li><strong>eDiscovery Standard</strong> — Cases, holds, export</li>
+          <li><strong>eDiscovery Premium</strong> — Advanced analytics, custodian management, review sets</li>
+          <li>Supports litigation holds — preserves content even if user tries to delete</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Compliance Manager</h3>
+        <ul>
+          <li>Dashboard showing compliance posture across regulations</li>
+          <li><strong>Compliance Score</strong> — Percentage of controls implemented</li>
+          <li>Provides <strong>improvement actions</strong> to increase score</li>
+          <li>Pre-built assessments for GDPR, ISO 27001, NIST, SOC 2, HIPAA etc.</li>
+          <li>Controls map to both Microsoft-managed and customer-managed responsibilities</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Microsoft Priva</h3>
+        <ul>
+          <li>Privacy management solution for Microsoft 365</li>
+          <li><strong>Privacy Risk Management</strong> — Identify privacy risks (data overexposure, data transfers, data minimisation)</li>
+          <li><strong>Subject Rights Requests</strong> — Automate GDPR/CCPA data subject access requests</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Purview Audit</h3>
+        <ul>
+          <li><strong>Audit Standard</strong> — 90-day log retention of M365 audit events (included in E3)</li>
+          <li><strong>Audit Premium</strong> — 1-year (or 10-year add-on) retention, high-value event logs (mail access, search queries)</li>
+          <li>Logs are immutable — cannot be altered</li>
+          <li>Used for forensic investigations and compliance reporting</li>
+        </ul>
+      </div>
+
+      <div class="exam-tip">
+        <span class="exam-tip-icon">⚡</span>
+        <div class="exam-tip-body"><strong>Exam Tip:</strong> Know the differences: <strong>Sensitivity Labels</strong> = protect and classify data. <strong>Retention Labels</strong> = keep or delete data. <strong>DLP</strong> = prevent data from leaving. <strong>Insider Risk</strong> = detect risky user behaviour. <strong>eDiscovery</strong> = legal holds and evidence.</div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="card" style="margin-top:2rem; border-color: rgba(79,142,247,.3); background: rgba(79,142,247,.04);">
+        <h3>🎯 Exam Quick Reference</h3>
+        <table class="data-table">
+          <thead><tr><th>Domain</th><th>Weight</th><th>Key Topics</th></tr></thead>
+          <tbody>
+            <tr><td>Security, Compliance & Identity Concepts</td><td>~10–15%</td><td>Shared responsibility, CIA, Zero Trust, Encryption, GRC</td></tr>
+            <tr><td>Microsoft Entra (Identity & Access)</td><td>~25–30%</td><td>Entra ID, Auth, MFA, Conditional Access, RBAC, PIM, Governance</td></tr>
+            <tr><td>Microsoft Security Solutions</td><td>~35–40%</td><td>DDoS, Firewall, WAF, Defender for Cloud, Sentinel, XDR</td></tr>
+            <tr><td>Microsoft Compliance Solutions</td><td>~20–25%</td><td>Purview, DLP, Sensitivity Labels, eDiscovery, Compliance Manager</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / total) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+  });
+
+  // Mobile TOC toggle
+  function toggleToc() {
+    const drawer = document.getElementById('tocDrawer');
+    drawer.classList.toggle('open');
+  }
+
+  // Close TOC on link click
+  document.querySelectorAll('.toc-drawer a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('tocDrawer').classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
