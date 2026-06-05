@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life in the UK Test — Chapter 4 Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e1117;
+    --surface: #161b27;
+    --surface2: #1e2535;
+    --border: #2a3349;
+    --accent: #e8b84b;
+    --accent2: #5b8dee;
+    --accent3: #6ee7b7;
+    --accent4: #f87171;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --heading: #f8f9fb;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* LAYOUT */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 270px;
+    min-width: 270px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-title {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .search-wrap {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 8px 12px 8px 34px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238892a4' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+  }
+  .search-input:focus { border-color: var(--accent2); }
+  .search-input::placeholder { color: var(--muted); }
+
+  .nav-section {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 6px 20px 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--text);
+    background: var(--surface2);
+    border-left-color: var(--accent);
+  }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .progress-wrap {
+    padding: 16px 20px;
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* MAIN */
+  .main {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .topbar-crumb {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .topbar-crumb span { color: var(--accent); }
+
+  .menu-btn {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 36px 80px;
+  }
+
+  /* HERO */
+  .hero {
+    margin-bottom: 48px;
+    padding: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(232,184,75,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(232,184,75,0.15);
+    border: 1px solid rgba(232,184,75,0.3);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 900;
+    color: var(--heading);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 48px;
+    scroll-margin-top: 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1.3;
+  }
+
+  .section-num {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-2px);
+  }
+
+  .card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--heading);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h4 .badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: rgba(91,141,238,0.15);
+    color: var(--accent2);
+    border: 1px solid rgba(91,141,238,0.2);
+  }
+
+  .card p, .card li {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .card ul { padding-left: 16px; }
+  .card li { margin-bottom: 3px; }
+
+  /* FACT TABLE */
+  .fact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .fact-table th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .fact-table td {
+    padding: 9px 16px;
+    border-bottom: 1px solid rgba(42,51,73,0.5);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  .fact-table tr:last-child td { border-bottom: none; }
+  .fact-table tr:hover td { background: rgba(30,37,53,0.5); }
+
+  .fact-table td:first-child {
+    font-weight: 500;
+    color: var(--heading);
+    white-space: nowrap;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13px;
+  }
+
+  .callout-warn {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: #fca5a5;
+  }
+
+  .callout-tip {
+    background: rgba(110,231,183,0.08);
+    border: 1px solid rgba(110,231,183,0.2);
+    color: var(--accent3);
+  }
+
+  .callout-info {
+    background: rgba(91,141,238,0.08);
+    border: 1px solid rgba(91,141,238,0.2);
+    color: var(--accent2);
+  }
+
+  .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* HIGHLIGHT LIST */
+  .hl-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .hl-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hl-list li::before {
+    content: '›';
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* KEY FACT CHIP */
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .chip span { color: var(--accent); font-weight: 600; }
+
+  /* PERSON CARD */
+  .person-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .person-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    border-left: 3px solid var(--accent2);
+    transition: border-color 0.2s;
+  }
+
+  .person-card:hover { border-left-color: var(--accent); }
+
+  .person-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--heading);
+    margin-bottom: 2px;
+  }
+
+  .person-dates {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 5px;
+  }
+
+  .person-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* QUIZ */
+  .quiz-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 48px;
+  }
+
+  .quiz-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 6px;
+  }
+
+  .quiz-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .quiz-q {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    display: none;
+  }
+
+  .quiz-q.active { display: block; }
+
+  .quiz-q-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--heading);
+    margin-bottom: 14px;
+  }
+
+  .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+
+  .quiz-opt {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    width: 100%;
+  }
+
+  .quiz-opt:hover { border-color: var(--accent2); color: var(--heading); }
+  .quiz-opt.correct { border-color: var(--accent3); background: rgba(110,231,183,0.1); color: var(--accent3); }
+  .quiz-opt.wrong { border-color: var(--accent4); background: rgba(248,113,113,0.1); color: var(--accent4); }
+  .quiz-opt:disabled { cursor: default; }
+
+  .quiz-feedback {
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(110,231,183,0.1); color: var(--accent3); }
+  .quiz-feedback.no { background: rgba(248,113,113,0.1); color: var(--accent4); }
+
+  .quiz-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+  }
+
+  .btn-primary { background: var(--accent); color: #1a1200; }
+  .btn-primary:hover { background: #f5cc6a; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .quiz-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(42,51,73,0.4);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .checklist li:hover { color: var(--heading); }
+
+  .checklist li input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s;
+    background: var(--surface2);
+  }
+
+  .checklist li input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .checklist li input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -1px; left: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a1200;
+  }
+
+  .checklist li.done { text-decoration: line-through; color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      left: 0; top: 0;
+      transform: translateX(-100%);
+      z-index: 200;
+    }
+
+    .sidebar.open { transform: translateX(0); }
+
+    .menu-btn { display: flex; align-items: center; gap: 6px; }
+
+    .topbar { padding: 12px 20px; }
+    .content { padding: 24px 20px 60px; }
+
+    .card-grid { grid-template-columns: 1fr; }
+    .person-grid { grid-template-columns: 1fr 1fr; }
+
+    .overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 150;
+    }
+    .overlay.show { display: block; }
+  }
+
+  /* SEARCH HIGHLIGHT */
+  .search-highlight { background: rgba(232,184,75,0.25); border-radius: 2px; padding: 0 1px; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 24px 0;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--heading);
+    margin: 20px 0 10px;
+  }
+
+  p { margin-bottom: 12px; color: var(--muted); font-size: 14px; }
+
+  strong { color: var(--text); font-weight: 600; }
+
+  .tag {
+    display: inline-block;
+    background: rgba(110,231,183,0.1);
+    border: 1px solid rgba(110,231,183,0.2);
+    color: var(--accent3);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .person-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Print */
+  @media print {
+    .sidebar, .topbar, .quiz-section, .progress-wrap { display: none; }
+    .main { width: 100%; }
+    .content { padding: 0; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-logo">Life in the UK Test</span>
+      <span class="sidebar-title">Chapter 4 — Study Guide</span>
+    </div>
+
+    <div class="search-wrap">
+      <input class="search-input" type="text" id="searchInput" placeholder="Search notes…" oninput="doSearch(this.value)">
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Sections</div>
+      <a class="nav-item" href="#overview" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#e8b84b"></span>Overview
+      </a>
+      <a class="nav-item" href="#uk-today" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#5b8dee"></span>The UK Today
+      </a>
+      <a class="nav-item" href="#religion" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#a78bfa"></span>Religion
+      </a>
+      <a class="nav-item" href="#customs" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#f87171"></span>Customs &amp; Traditions
+      </a>
+      <a class="nav-item" href="#sport" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#6ee7b7"></span>Sport
+      </a>
+      <a class="nav-item" href="#arts" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#fbbf24"></span>Arts &amp; Culture
+      </a>
+      <a class="nav-item" href="#leisure" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#34d399"></span>Leisure
+      </a>
+      <a class="nav-item" href="#places" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#60a5fa"></span>Places of Interest
+      </a>
+      <a class="nav-item" href="#quiz" onclick="setActive(this)">
+        <span class="nav-dot" style="background:#e8b84b"></span>Practice Quiz
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Revision Checklist</div>
+      <ul class="checklist" style="padding: 8px 16px;" id="checklist">
+        <li onclick="toggleCheck(this)"><input type="checkbox">UK population &amp; cities</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Ethnic &amp; religious groups</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">National celebrations</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Religious festivals</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Sports origins &amp; facts</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Notable authors &amp; poets</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Music &amp; theatre</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Architects &amp; artists</li>
+        <li onclick="toggleCheck(this)"><input type="checkbox">Landmarks &amp; places</li>
+      </ul>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Checklist progress</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-crumb">Life in the UK Test › <span>Chapter 4: A Modern, Thriving Society</span></div>
+      <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+    </div>
+
+    <div class="content" id="mainContent">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-tag">📺 IB Academy Playlist</div>
+        <h1>Chapter 4: A Modern,<br>Thriving Society</h1>
+        <p>Comprehensive study notes covering UK demographics, religion, customs, sport, arts, culture, leisure, and places of interest. All key facts for the Life in the UK citizenship test.</p>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">7</span><span class="stat-lbl">Topics</span></div>
+          <div class="stat"><span class="stat-num">24</span><span class="stat-lbl">Test Qs total</span></div>
+          <div class="stat"><span class="stat-num">18</span><span class="stat-lbl">Pass mark</span></div>
+          <div class="stat"><span class="stat-num">45<small style="font-size:13px">min</small></span><span class="stat-lbl">Exam time</span></div>
+        </div>
+      </div>
+
+      <!-- OVERVIEW -->
+      <section class="section" id="overview">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(232,184,75,0.1);">🇬🇧</div>
+          <div>
+            <div class="section-num">Section 0</div>
+            <h2>Chapter Overview</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <span class="callout-icon">💡</span>
+          <span>Chapter 4 covers modern British life. Together with Chapter 3 (History) and Chapter 5 (Government), these chapters form the bulk of the 24 exam questions. Focus heavily on specific names, dates, and facts — the test tests precision, not general understanding.</span>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>🏙️ The UK Today</h4>
+            <p>Population, major cities, diversity, geography overview.</p>
+          </div>
+          <div class="card">
+            <h4>🕌 Religion</h4>
+            <p>Christian denominations, other faiths, census figures.</p>
+          </div>
+          <div class="card">
+            <h4>🎉 Customs &amp; Traditions</h4>
+            <p>National celebrations, religious festivals, Bank Holidays.</p>
+          </div>
+          <div class="card">
+            <h4>⚽ Sport</h4>
+            <p>Origins, famous events, Olympic successes.</p>
+          </div>
+          <div class="card">
+            <h4>🎭 Arts &amp; Culture</h4>
+            <p>Literature, music, theatre, film, fashion, architecture.</p>
+          </div>
+          <div class="card">
+            <h4>🎮 Leisure</h4>
+            <p>Gardening, pubs, betting, countryside, National Trust.</p>
+          </div>
+          <div class="card">
+            <h4>🏰 Places of Interest</h4>
+            <p>Landmarks, museums, galleries, national parks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UK TODAY -->
+      <section class="section" id="uk-today">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(91,141,238,0.1);">📊</div>
+          <div>
+            <div class="section-num">Section 1</div>
+            <h2>The UK Today</h2>
+          </div>
+        </div>
+
+        <h3>Population &amp; Geography</h3>
+
+        <div class="chip-row">
+          <div class="chip">Population <span>~67 million</span></div>
+          <div class="chip">Length N–S <span>~870 miles</span></div>
+          <div class="chip">John O'Groats → Land's End</div>
+        </div>
+
+        <div class="callout callout-info">
+          <span class="callout-icon">📌</span>
+          <span>The longest mainland distance is from <strong>John O'Groats</strong> (north Scotland) to <strong>Land's End</strong> (south-west England) — approximately <strong>870 miles / 1,400 km</strong>.</span>
+        </div>
+
+        <table class="fact-table">
+          <thead>
+            <tr><th>Country</th><th>Capital</th><th>Key Cities</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>England</td><td>London</td><td>Birmingham, Leeds, Sheffield, Bradford, Newcastle, Manchester, Liverpool</td></tr>
+            <tr><td>Scotland</td><td>Edinburgh</td><td>Glasgow, Aberdeen, Dundee</td></tr>
+            <tr><td>Wales</td><td>Cardiff</td><td>Swansea, Newport</td></tr>
+            <tr><td>Northern Ireland</td><td>Belfast</td><td>Derry/Londonderry</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Diversity &amp; Immigration</h3>
+        <ul class="hl-list">
+          <li>The UK today is more ethnically and religiously diverse than 100 years ago.</li>
+          <li>Post-war immigration means nearly <strong>10% of the population</strong> has a parent or grandparent born outside the UK.</li>
+          <li>The UK is described as a <strong>multinational and multiracial</strong> society with a rich and varied culture.</li>
+          <li>Most people live in <strong>towns and cities</strong>, but much of Britain is still countryside.</li>
+        </ul>
+
+        <h3>Ethnic Groups (census data)</h3>
+        <table class="fact-table">
+          <thead><tr><th>Group</th><th>Approximate %</th></tr></thead>
+          <tbody>
+            <tr><td>White</td><td>~87%</td></tr>
+            <tr><td>Asian / Asian British</td><td>~7%</td></tr>
+            <tr><td>Black / Black British</td><td>~3%</td></tr>
+            <tr><td>Mixed / Other</td><td>~3%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">⚠️</span>
+          <span>Know that <strong>England</strong> is by far the most populous country of the UK. Scotland and Wales are less populous; Northern Ireland is smallest by population.</span>
+        </div>
+      </section>
+
+      <!-- RELIGION -->
+      <section class="section" id="religion">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(167,139,250,0.1);">🕌</div>
+          <div>
+            <div class="section-num">Section 2</div>
+            <h2>Religion in the UK</h2>
+          </div>
+        </div>
+
+        <p>The UK is a <strong>Christian country</strong> but also has a wide variety of other religions. There is <em>no legal requirement</em> to follow any faith.</p>
+
+        <h3>Christianity — The Established Churches</h3>
+        <table class="fact-table">
+          <thead><tr><th>Church</th><th>Country</th><th>Head</th></tr></thead>
+          <tbody>
+            <tr><td>Church of England (Anglican)</td><td>England</td><td>The King (Supreme Governor)</td></tr>
+            <tr><td>Church of Scotland (Presbyterian)</td><td>Scotland</td><td>No royal head (independent)</td></tr>
+            <tr><td>Roman Catholic Church</td><td>All UK</td><td>The Pope</td></tr>
+            <tr><td>Church in Wales</td><td>Wales</td><td>Archbishop of Wales</td></tr>
+            <tr><td>Methodist Church</td><td>All UK</td><td>—</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">⚠️</span>
+          <span>The <strong>Church of Scotland</strong> is Presbyterian — the monarch is NOT its head. This is a common exam trick. In England, the King IS the Supreme Governor of the Church of England.</span>
+        </div>
+
+        <h3>Other Religions</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>☪️ Islam</h4>
+            <ul><li>About 3% of the UK population</li><li>Largest non-Christian faith</li><li>Key festivals: Eid ul-Fitr (end of Ramadan), Eid ul-Adha</li></ul>
+          </div>
+          <div class="card">
+            <h4>🕉️ Hinduism</h4>
+            <ul><li>About 1% of population</li><li>Key festival: Diwali (Festival of Lights)</li><li>Also celebrates Holi</li></ul>
+          </div>
+          <div class="card">
+            <h4>✡️ Judaism</h4>
+            <ul><li>Long history in UK</li><li>Key festival: Hannukah, Yom Kippur, Passover</li><li>Shabbat observed weekly</li></ul>
+          </div>
+          <div class="card">
+            <h4>🪬 Sikhism</h4>
+            <ul><li>Strong presence especially in Punjab-heritage communities</li><li>Festival: Vaisakhi (New Year / harvest)</li></ul>
+          </div>
+          <div class="card">
+            <h4>☸️ Buddhism</h4>
+            <ul><li>Growing community in UK</li><li>Festival: Vesak (Buddha's birthday)</li></ul>
+          </div>
+          <div class="card">
+            <h4>🚫 No religion</h4>
+            <ul><li>A significant and growing portion of the population identifies as non-religious</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CUSTOMS -->
+      <section class="section" id="customs">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(248,113,113,0.1);">🎉</div>
+          <div>
+            <div class="section-num">Section 3</div>
+            <h2>Customs &amp; Traditions</h2>
+          </div>
+        </div>
+
+        <h3>National Celebrations &amp; Bank Holidays</h3>
+        <table class="fact-table">
+          <thead><tr><th>Celebration</th><th>Date</th><th>Key Facts</th></tr></thead>
+          <tbody>
+            <tr><td>New Year's Eve / Day</td><td>31 Dec / 1 Jan</td><td>Big Ben countdown; Edinburgh's Hogmanay is world-famous; Auld Lang Syne sung</td></tr>
+            <tr><td>Valentine's Day</td><td>14 February</td><td>Cards &amp; flowers; not a Bank Holiday</td></tr>
+            <tr><td>Mother's Day</td><td>3rd Sunday in Lent</td><td>Also called Mothering Sunday; children give flowers &amp; cards</td></tr>
+            <tr><td>Easter</td><td>March / April</td><td>Christian celebration of Jesus's resurrection; Good Friday &amp; Easter Monday are Bank Holidays; chocolate eggs given</td></tr>
+            <tr><td>April Fools' Day</td><td>1 April</td><td>Practical jokes played until noon</td></tr>
+            <tr><td>St George's Day</td><td>23 April</td><td>England's patron saint; not a Bank Holiday</td></tr>
+            <tr><td>Guy Fawkes Night</td><td>5 November</td><td>Bonfire Night; commemorates failed Gunpowder Plot (1605) to blow up Parliament; bonfires &amp; fireworks</td></tr>
+            <tr><td>Remembrance Day</td><td>11 November</td><td>Honours WWI &amp; WWII dead; 2-minute silence at 11am on 11th; red poppies worn; Remembrance Sunday (2nd Sunday in November)</td></tr>
+            <tr><td>Christmas</td><td>25–26 Dec</td><td>Celebrates birth of Jesus; family gatherings, gifts, Christmas cards, Carol concerts; Boxing Day (26 Dec) is Bank Holiday</td></tr>
+            <tr><td>Boxing Day</td><td>26 December</td><td>Bank Holiday; traditionally giving to the poor; now shopping &amp; sport</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Patron Saints' Days <tag>Know all four</tag></h3>
+        <table class="fact-table">
+          <thead><tr><th>Saint</th><th>Country</th><th>Date</th><th>Bank Holiday?</th></tr></thead>
+          <tbody>
+            <tr><td>St David</td><td>Wales</td><td>1 March</td><td>No</td></tr>
+            <tr><td>St Patrick</td><td>Northern Ireland &amp; Ireland</td><td>17 March</td><td>Yes (N. Ireland)</td></tr>
+            <tr><td>St George</td><td>England</td><td>23 April</td><td>No</td></tr>
+            <tr><td>St Andrew</td><td>Scotland</td><td>30 November</td><td>Yes (Scotland)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">⚠️</span>
+          <span>Only St Patrick's Day (Northern Ireland) and St Andrew's Day (Scotland) are official Bank Holidays. St George's and St David's are NOT. Exam tests this distinction!</span>
+        </div>
+
+        <h3>Other Religious Festivals</h3>
+        <div class="two-col">
+          <div class="card">
+            <h4>🕎 Hannukah <span class="badge">Jewish</span></h4>
+            <p>8-day Jewish festival of lights; typically November/December; commemorates rededication of the Temple in Jerusalem.</p>
+          </div>
+          <div class="card">
+            <h4>🪔 Diwali <span class="badge">Hindu / Sikh</span></h4>
+            <p>Festival of Lights; October/November; celebrated by Hindus, Sikhs and Jains; lamps lit, fireworks, sweets exchanged.</p>
+          </div>
+          <div class="card">
+            <h4>🌙 Eid ul-Fitr <span class="badge">Muslim</span></h4>
+            <p>End of Ramadan fasting month; prayers, feasting, gifts to children; date varies by Islamic calendar.</p>
+          </div>
+          <div class="card">
+            <h4>🐂 Eid ul-Adha <span class="badge">Muslim</span></h4>
+            <p>Festival of Sacrifice; commemorates Ibrahim's willingness to sacrifice his son; prayers and sharing of food.</p>
+          </div>
+          <div class="card">
+            <h4>🌼 Vaisakhi <span class="badge">Sikh</span></h4>
+            <p>14 April; Sikh New Year and harvest festival; also marks founding of the Khalsa in 1699; celebrated with processions.</p>
+          </div>
+          <div class="card">
+            <h4>🔥 Holi <span class="badge">Hindu</span></h4>
+            <p>Spring festival of colour; celebrated widely in Hindu communities in UK; throwing coloured powder.</p>
+          </div>
+        </div>
+
+        <h3>Remembrance Sunday — Key Details</h3>
+        <ul class="hl-list">
+          <li>Held on the 2nd Sunday in November each year.</li>
+          <li>Commemorates those who died in WWI, WWII and other conflicts.</li>
+          <li>A <strong>2-minute silence</strong> is observed at <strong>11:00am on 11 November</strong> (marking the end of WWI in 1918).</li>
+          <li>People wear <strong>red poppies</strong> as a symbol of remembrance, inspired by Flanders fields in Belgium.</li>
+          <li>Services held at the Cenotaph in Whitehall, London.</li>
+        </ul>
+      </section>
+
+      <!-- SPORT -->
+      <section class="section" id="sport">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(110,231,183,0.1);">⚽</div>
+          <div>
+            <div class="section-num">Section 4</div>
+            <h2>Sport</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <span class="callout-icon">💡</span>
+          <span>Many popular sports were <strong>invented in Britain</strong>. The test frequently asks which sport originated where and which is the national sport of which country.</span>
+        </div>
+
+        <h3>Sports Invented in Britain</h3>
+        <table class="fact-table">
+          <thead><tr><th>Sport</th><th>Origin</th><th>Key Fact</th></tr></thead>
+          <tbody>
+            <tr><td>Cricket</td><td>England</td><td>National sport of England; Test matches played internationally; The Ashes (England vs Australia) is famous series</td></tr>
+            <tr><td>Football (Soccer)</td><td>England</td><td>FA (Football Association) founded 1863; FA Cup oldest football competition; Premier League most watched globally</td></tr>
+            <tr><td>Rugby</td><td>England (Rugby school)</td><td>Said to originate when William Webb Ellis picked up a football in 1823; Rugby Union &amp; Rugby League are different codes</td></tr>
+            <tr><td>Golf</td><td>Scotland</td><td>Played for 500+ years; St Andrews in Scotland is considered the "home of golf"</td></tr>
+            <tr><td>Tennis</td><td>England</td><td>Wimbledon is oldest Grand Slam (since 1877); held at the All England Club</td></tr>
+            <tr><td>Rowing</td><td>England</td><td>Oxford–Cambridge Boat Race held annually on River Thames</td></tr>
+            <tr><td>Horse Racing</td><td>England</td><td>The Grand National (Aintree), Royal Ascot, The Derby (Epsom)</td></tr>
+            <tr><td>Cycling</td><td>—</td><td>Tour de France sometimes starts in UK; British cyclists very successful in Olympics</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Famous Sporting Events</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>🎾 Wimbledon</h4>
+            <p>World's oldest tennis Grand Slam. Held at the All England Club since <strong>1877</strong>. Strawberries and cream are a tradition.</p>
+          </div>
+          <div class="card">
+            <h4>🏇 The Grand National</h4>
+            <p>Famous horse race at <strong>Aintree racecourse</strong>, Liverpool. One of the most watched TV events in UK.</p>
+          </div>
+          <div class="card">
+            <h4>🚣 Oxford–Cambridge Boat Race</h4>
+            <p>Annual rowing race on the <strong>River Thames</strong>. First held in <strong>1829</strong>.</p>
+          </div>
+          <div class="card">
+            <h4>⛳ The Open Championship</h4>
+            <p>One of golf's four Grand Slams; rotates around UK courses; often held at <strong>St Andrews</strong>.</p>
+          </div>
+          <div class="card">
+            <h4>🏏 The Ashes</h4>
+            <p>Cricket series between England and Australia played since <strong>1882</strong>. Highly competitive and historic.</p>
+          </div>
+          <div class="card">
+            <h4>🏆 FA Cup</h4>
+            <p>World's oldest football competition, started in <strong>1872</strong>. Open to all English football clubs.</p>
+          </div>
+        </div>
+
+        <h3>Olympics &amp; Paralympics</h3>
+        <ul class="hl-list">
+          <li>The UK has hosted the Olympics <strong>three times</strong>: 1908, 1948, and <strong>2012</strong> (London).</li>
+          <li>The 2012 London Olympics and Paralympics were considered hugely successful.</li>
+          <li>The <strong>Paralympics</strong> began in <strong>1948</strong> at Stoke Mandeville Hospital by Sir Ludwig Guttmann, a German-born doctor.</li>
+          <li>British athletes have performed exceptionally well in cycling, rowing, sailing, and athletics at modern Olympics.</li>
+          <li>Notable British Olympians: <strong>Sir Chris Hoy</strong> (cycling), <strong>Bradley Wiggins</strong> (cycling/Tour de France), <strong>Jessica Ennis-Hill</strong> (heptathlon), <strong>Mo Farah</strong> (long distance running), <strong>Andy Murray</strong> (tennis — won 2012 Olympic gold).</li>
+        </ul>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">⚠️</span>
+          <span>Know that <strong>Sir Roger Bannister</strong> was the first person to run a mile in under 4 minutes (1954). <strong>Sir Steve Redgrave</strong> won gold medals at <strong>5 consecutive Olympics</strong> in rowing.</span>
+        </div>
+      </section>
+
+      <!-- ARTS -->
+      <section class="section" id="arts">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(251,191,36,0.1);">🎭</div>
+          <div>
+            <div class="section-num">Section 5</div>
+            <h2>Arts &amp; Culture</h2>
+          </div>
+        </div>
+
+        <h3>Literature — Key Authors</h3>
+        <div class="person-grid">
+          <div class="person-card">
+            <div class="person-name">William Shakespeare</div>
+            <div class="person-dates">1564–1616</div>
+            <div class="person-desc">Greatest playwright in English; wrote 37 plays &amp; 154 sonnets. Globe Theatre, London. Famous works: Hamlet, Macbeth, A Midsummer Night's Dream.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Jane Austen</div>
+            <div class="person-dates">1775–1817</div>
+            <div class="person-desc">Novels about women in society. Pride and Prejudice, Sense and Sensibility, Emma. Featured on £10 note.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Charles Dickens</div>
+            <div class="person-dates">1812–1870</div>
+            <div class="person-desc">Novels depicting Victorian poverty. Oliver Twist, A Christmas Carol, Great Expectations, David Copperfield.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Robert Burns</div>
+            <div class="person-dates">1759–1796</div>
+            <div class="person-desc">National poet of Scotland. "Bard of Ayrshire." Auld Lang Syne. Burns Night celebrated 25 January.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Thomas Hardy</div>
+            <div class="person-dates">1840–1928</div>
+            <div class="person-desc">Author &amp; poet; rural society. Far from the Madding Crowd, Jude the Obscure.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Sir Arthur Conan Doyle</div>
+            <div class="person-dates">1859–1930</div>
+            <div class="person-desc">Scottish doctor &amp; writer. Creator of Sherlock Holmes — one of the first fictional detectives.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Evelyn Waugh</div>
+            <div class="person-dates">1903–1966</div>
+            <div class="person-desc">Satirical novels: Decline and Fall, Scoop, Brideshead Revisited.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Graham Greene</div>
+            <div class="person-dates">1904–1991</div>
+            <div class="person-desc">Novels exploring moral ambiguity. The Third Man, Brighton Rock.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Roald Dahl</div>
+            <div class="person-dates">1916–1990</div>
+            <div class="person-desc">Children's stories: Charlie and the Chocolate Factory, James and the Giant Peach, Matilda.</div>
+          </div>
+        </div>
+
+        <h3>Poetry — Key Poets</h3>
+        <div class="person-grid">
+          <div class="person-card">
+            <div class="person-name">Geoffrey Chaucer</div>
+            <div class="person-dates">c.1340–1400</div>
+            <div class="person-desc">The Canterbury Tales — one of first works in English language. "Father of English literature."</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">William Wordsworth</div>
+            <div class="person-dates">1770–1850</div>
+            <div class="person-desc">Romantic poet; Lake District. Daffodils ("I Wandered Lonely as a Cloud"). Co-wrote Lyrical Ballads with Coleridge.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Lord Byron</div>
+            <div class="person-dates">1788–1824</div>
+            <div class="person-desc">Romantic poet. Childe Harold's Pilgrimage. Famous for wild lifestyle.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Wilfred Owen</div>
+            <div class="person-dates">1893–1918</div>
+            <div class="person-desc">WWI war poetry. Dulce et Decorum Est — critique of glorifying war. Killed 1 week before Armistice.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Dylan Thomas</div>
+            <div class="person-dates">1914–1953</div>
+            <div class="person-desc">Welsh poet. Do Not Go Gentle into That Good Night. Radio play Under Milk Wood.</div>
+          </div>
+          <div class="person-card">
+            <div class="person-name">Sir Walter Scott</div>
+            <div class="person-dates">1771–1832</div>
+            <div class="person-desc">Scottish novelist &amp; poet. Ivanhoe, Rob Roy. Hugely popular in 19th century.</div>
+          </div>
+        </div>
+
+        <h3>Music</h3>
+        <ul class="hl-list">
+          <li><strong>Henry Purcell</strong> (1659–1695) — Baroque composer; organist at Westminster Abbey.</li>
+          <li><strong>George Frideric Handel</strong> (1685–1759) — German-born, became British citizen; composed Messiah, Water Music, Music for the Royal Fireworks.</li>
+          <li><strong>The Beatles</strong> (1960s) — John Lennon, Paul McCartney, George Harrison, Ringo Starr; most successful band in popular music history; from Liverpool.</li>
+          <li><strong>The Rolling Stones</strong> — alongside The Beatles, led the British Invasion of American music in 1960s.</li>
+          <li><strong>Andrew Lloyd Webber</strong> — hugely successful composer of musicals; Cats, The Phantom of the Opera, Jesus Christ Superstar.</li>
+          <li>UK has strong tradition of <strong>choral music</strong>, orchestras, and classical music via <strong>BBC Proms</strong> (annual summer festival at Royal Albert Hall).</li>
+          <li>The <strong>BRIT Awards</strong> are the UK's equivalent of the Grammys.</li>
+        </ul>
+
+        <h3>Theatre &amp; Film</h3>
+        <ul class="hl-list">
+          <li>The UK has a proud theatrical tradition. <strong>West End</strong> (London) is world-famous for musicals and theatre alongside Broadway.</li>
+          <li>Shakespeare's <strong>Globe Theatre</strong> was built in 1599 in Southwark, London.</li>
+          <li>Famous British directors: <strong>Alfred Hitchcock</strong> (the "Master of Suspense"; Psycho, The Birds), <strong>Sir Ridley Scott</strong>.</li>
+          <li>The <strong>BAFTA</strong> awards are the UK's film &amp; television awards.</li>
+          <li>Notable British films: The Third Man, Brief Encounter, Lawrence of Arabia, Four Weddings and a Funeral, Chariots of Fire, The Full Monty.</li>
+          <li><strong>Pinewood Studios</strong> near London is a major film production centre (James Bond films made there).</li>
+          <li>British actors who became international stars: Sir Laurence Olivier, Sir Alec Guinness, Dame Judi Dench, Sir Anthony Hopkins, Helen Mirren.</li>
+        </ul>
+
+        <h3>Architecture</h3>
+        <div class="two-col">
+          <div class="card">
+            <h4>Sir Christopher Wren <span class="badge">1632–1723</span></h4>
+            <p>Designed <strong>St Paul's Cathedral</strong> and 50+ London churches after the Great Fire of 1666. Also designed the Royal Observatory at Greenwich.</p>
+          </div>
+          <div class="card">
+            <h4>Inigo Jones <span class="badge">1573–1652</span></h4>
+            <p>Introduced Palladian architecture to England. Designed the <strong>Banqueting House</strong> in Whitehall.</p>
+          </div>
+          <div class="card">
+            <h4>Sir Norman Foster <span class="badge">b. 1935</span></h4>
+            <p>Contemporary architect. The Gherkin (30 St Mary Axe), the Millennium Bridge, new Wembley Stadium.</p>
+          </div>
+          <div class="card">
+            <h4>Dame Zaha Hadid <span class="badge">1950–2016</span></h4>
+            <p>Iraqi-born British architect. First woman to win the Pritzker Prize. Aquatics Centre for 2012 Olympics.</p>
+          </div>
+        </div>
+
+        <h3>Art &amp; Fashion</h3>
+        <ul class="hl-list">
+          <li><strong>National Gallery</strong> (Trafalgar Square, London) — houses 2,300+ paintings from the 13th–19th centuries; free entry.</li>
+          <li><strong>Tate Modern</strong> (Bankside, London) — UK's gallery for modern and contemporary art; free entry.</li>
+          <li><strong>Mary Quant</strong> — British fashion designer who invented the <strong>mini skirt</strong> in the 1960s; symbol of the "Swinging Sixties."</li>
+          <li><strong>Alexander McQueen</strong> — world-renowned British fashion designer.</li>
+          <li><strong>Turner Prize</strong> — prestigious annual award for British visual artists.</li>
+          <li><strong>Chelsea Flower Show</strong> — world's most famous horticultural show, held in London each May by the Royal Horticultural Society (RHS).</li>
+        </ul>
+      </section>
+
+      <!-- LEISURE -->
+      <section class="section" id="leisure">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(52,211,153,0.1);">🎮</div>
+          <div>
+            <div class="section-num">Section 6</div>
+            <h2>Leisure</h2>
+          </div>
+        </div>
+
+        <p>Leisure and recreation are important in British life. The UK has a wide variety of activities, many of which are deeply rooted in culture and history.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h4>🌸 Gardening</h4>
+            <p>One of the most popular pastimes. The UK has a strong gardening culture; famous for its parks and garden shows (Chelsea Flower Show).</p>
+          </div>
+          <div class="card">
+            <h4>🍺 Pubs &amp; Social Life</h4>
+            <p>Pubs (public houses) are central to British social life — meeting points for communities. Many have pub quizzes, sports screens and live music.</p>
+          </div>
+          <div class="card">
+            <h4>🏞️ Countryside</h4>
+            <p>Thousands of public footpaths and trails. Walking, camping, fishing, and cycling are popular outdoor activities.</p>
+          </div>
+          <div class="card">
+            <h4>🎲 Gambling &amp; Betting</h4>
+            <p>Carefully regulated in the UK. Horse racing betting is traditional. Strict age limits apply (18+).</p>
+          </div>
+          <div class="card">
+            <h4>🍳 Cooking</h4>
+            <p>Growing popularity; reflects multicultural society. British food culture has expanded enormously since the 1990s.</p>
+          </div>
+          <div class="card">
+            <h4>📺 Television &amp; Reading</h4>
+            <p>Television is very popular. The BBC is the world's oldest national broadcaster. Reading remains widespread — UK has a strong literary culture.</p>
+          </div>
+        </div>
+
+        <h3>National Trust &amp; Conservation</h3>
+        <ul class="hl-list">
+          <li>The <strong>National Trust</strong> (England, Wales, NI) and <strong>National Trust for Scotland</strong> protect historic buildings, coastlines, and countryside.</li>
+          <li>They are charities funded by membership fees and donations.</li>
+          <li>The UK has <strong>15 national parks</strong> across England, Scotland, and Wales, protecting wildlife and landscapes.</li>
+          <li>Notable national parks: Lake District, Snowdonia, Dartmoor, Peak District, Cairngorms (Scotland's largest).</li>
+        </ul>
+      </section>
+
+      <!-- PLACES -->
+      <section class="section" id="places">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(96,165,250,0.1);">🏰</div>
+          <div>
+            <div class="section-num">Section 7</div>
+            <h2>Places of Interest</h2>
+          </div>
+        </div>
+
+        <h3>Landmarks &amp; Historic Sites</h3>
+        <table class="fact-table">
+          <thead><tr><th>Place</th><th>Location</th><th>Key Facts</th></tr></thead>
+          <tbody>
+            <tr><td>Stonehenge</td><td>Wiltshire, England</td><td>Prehistoric monument; ~3000 BC; UNESCO World Heritage Site; built by Bronze Age people</td></tr>
+            <tr><td>Tower of London</td><td>London</td><td>Historic fortress; Royal Mint, Crown Jewels, ravens; 900+ year history</td></tr>
+            <tr><td>Buckingham Palace</td><td>London</td><td>Official residence of the King; Changing of the Guard ceremony</td></tr>
+            <tr><td>Edinburgh Castle</td><td>Edinburgh, Scotland</td><td>Sits on volcanic rock; crown jewels of Scotland; Military Tattoo held annually</td></tr>
+            <tr><td>Windsor Castle</td><td>Windsor, Berkshire</td><td>Oldest inhabited castle in the world; Royal residence; St George's Chapel</td></tr>
+            <tr><td>Hadrian's Wall</td><td>Northern England</td><td>Built by Roman Emperor Hadrian ~122 AD; crossed northern England; UNESCO World Heritage Site</td></tr>
+            <tr><td>Giant's Causeway</td><td>Northern Ireland</td><td>Natural basalt columns; UNESCO World Heritage Site; legend of Finn McCool</td></tr>
+            <tr><td>Snowdonia</td><td>Wales</td><td>National park; Mount Snowdon is highest peak in Wales; 1,085m</td></tr>
+            <tr><td>Ben Nevis</td><td>Scotland</td><td>Highest mountain in UK; 1,345m; in the Highlands near Fort William</td></tr>
+            <tr><td>Lake District</td><td>Cumbria, England</td><td>National park; UNESCO World Heritage Site; associated with Wordsworth; Scafell Pike is highest peak in England</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Museums &amp; Galleries</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>🏛️ British Museum</h4>
+            <p>London. Free entry. One of the world's greatest museums — houses the Rosetta Stone, Elgin Marbles and millions of artefacts from across human history.</p>
+          </div>
+          <div class="card">
+            <h4>🖼️ National Gallery</h4>
+            <p>Trafalgar Square, London. Free. Houses over 2,300 European paintings from the 13th–19th century.</p>
+          </div>
+          <div class="card">
+            <h4>🎨 Tate Modern</h4>
+            <p>South Bank, London. Free. UK's national gallery for international modern and contemporary art, inside a former power station.</p>
+          </div>
+          <div class="card">
+            <h4>🔭 Science Museum</h4>
+            <p>South Kensington, London. Free. One of the world's leading science &amp; technology museums.</p>
+          </div>
+          <div class="card">
+            <h4>🦕 Natural History Museum</h4>
+            <p>South Kensington, London. Free. Famous for its dinosaur exhibits and the Hope, a blue whale skeleton.</p>
+          </div>
+          <div class="card">
+            <h4>🏺 Victoria &amp; Albert Museum</h4>
+            <p>South Kensington, London. Free. World's largest museum of art and design — ceramics, textiles, fashion, sculpture.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <span class="callout-icon">ℹ️</span>
+          <span>Most major national museums and galleries in the UK are <strong>free to enter</strong>. This is an important and distinctive feature of UK public life.</span>
+        </div>
+
+        <h3>Cathedrals &amp; Religious Sites</h3>
+        <ul class="hl-list">
+          <li><strong>Westminster Abbey</strong> — London; site of coronations since 1066 and many royal weddings and funerals; burial place of kings and notable figures.</li>
+          <li><strong>St Paul's Cathedral</strong> — London; designed by Sir Christopher Wren; venue for major national services including Princess Diana's funeral and Charles &amp; Diana's wedding.</li>
+          <li><strong>Canterbury Cathedral</strong> — Kent; seat of the Archbishop of Canterbury; UNESCO World Heritage Site; pilgrimage site since the Middle Ages (Chaucer's Canterbury Tales).</li>
+          <li><strong>York Minster</strong> — York; one of the largest Gothic cathedrals in Northern Europe.</li>
+          <li><strong>St Giles' Cathedral</strong> — Edinburgh; High Kirk of Edinburgh; seat of the Church of Scotland.</li>
+        </ul>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- QUIZ -->
+      <div class="quiz-section" id="quiz">
+        <div class="quiz-header">📝 Practice Quiz</div>
+        <div class="quiz-sub">Test your knowledge of Chapter 4. 10 questions covering all sections.</div>
+
+        <div id="quizContainer"></div>
+
+        <div class="quiz-controls">
+          <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="display:none">Next Question →</button>
+          <button class="btn btn-outline" onclick="restartQuiz()">↺ Restart</button>
+          <span class="quiz-score" id="scoreDisplay"></span>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+// ─── QUIZ DATA ───────────────────────────────────────────────
+const questions = [
+  {
+    q: "What is the approximate distance from John O'Groats to Land's End?",
+    opts: ["700 miles","870 miles","1,000 miles","600 miles"],
+    ans: 1,
+    explain: "The handbook states it is about 870 miles (approximately 1,400 km)."
+  },
+  {
+    q: "Who is the Supreme Governor of the Church of England?",
+    opts: ["The Archbishop of Canterbury","The Prime Minister","The King","The Pope"],
+    ans: 2,
+    explain: "The monarch (the King) is the Supreme Governor of the Church of England."
+  },
+  {
+    q: "Which patron saint's day IS an official Bank Holiday in their country?",
+    opts: ["St George (England, 23 April)","St David (Wales, 1 March)","St Andrew (Scotland, 30 November)","None of the above"],
+    ans: 2,
+    explain: "St Andrew's Day (30 Nov) is a Bank Holiday in Scotland. St Patrick's Day is a Bank Holiday in Northern Ireland too, but St George's and St David's are NOT."
+  },
+  {
+    q: "The Paralympic Games are said to have originated at which location in 1948?",
+    opts: ["Wembley Stadium","Stoke Mandeville Hospital","St Thomas' Hospital","The Royal Military College"],
+    ans: 1,
+    explain: "Sir Ludwig Guttmann organised sports competitions for WWII veterans with spinal injuries at Stoke Mandeville Hospital in 1948, which grew into the Paralympic Games."
+  },
+  {
+    q: "Which sport was William Webb Ellis associated with when he allegedly 'invented' rugby in 1823?",
+    opts: ["Football","Cricket","Athletics","He was playing football and picked it up"],
+    ans: 3,
+    explain: "The story goes that William Webb Ellis was playing football at Rugby School when he picked up the ball and ran with it, creating the new sport of rugby."
+  },
+  {
+    q: "Which novelist created Sherlock Holmes, described as one of the first fictional detectives?",
+    opts: ["Evelyn Waugh","Graham Greene","Sir Arthur Conan Doyle","Thomas Hardy"],
+    ans: 2,
+    explain: "Sir Arthur Conan Doyle (1859–1930), a Scottish doctor and writer, created Sherlock Holmes."
+  },
+  {
+    q: "Who designed St Paul's Cathedral after the Great Fire of London?",
+    opts: ["Inigo Jones","Sir Norman Foster","Dame Zaha Hadid","Sir Christopher Wren"],
+    ans: 3,
+    explain: "Sir Christopher Wren designed St Paul's Cathedral and over 50 other London churches after the Great Fire of 1666."
+  },
+  {
+    q: "The annual Wimbledon tennis tournament has been held since which year?",
+    opts: ["1852","1877","1900","1920"],
+    ans: 1,
+    explain: "Wimbledon has been held at the All England Club since 1877, making it the world's oldest Grand Slam tournament."
+  },
+  {
+    q: "Which British fashion designer is credited with inventing the mini skirt?",
+    opts: ["Stella McCartney","Alexander McQueen","Vivienne Westwood","Mary Quant"],
+    ans: 3,
+    explain: "Mary Quant invented the mini skirt in the 1960s during the 'Swinging Sixties' fashion revolution."
+  },
+  {
+    q: "Which of these is NOT a Bank Holiday throughout the entire UK?",
+    opts: ["Good Friday","Christmas Day","New Year's Day","Easter Monday (in Scotland)"],
+    ans: 3,
+    explain: "Easter Monday is a Bank Holiday in England, Wales and Northern Ireland but NOT in Scotland. Good Friday and Christmas Day are Bank Holidays across the whole UK."
+  }
+];
+
+let current = 0, score = 0, answered = false;
+
+function renderQ() {
+  const container = document.getElementById('quizContainer');
+  const q = questions[current];
+  container.innerHTML = `
+    <div class="quiz-q active" id="qBox">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace;">
+        Question ${current+1} of ${questions.length}
+      </div>
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-opts">
+        ${q.opts.map((o,i) => `<button class="quiz-opt" onclick="answer(${i})" id="opt${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="feedback"></div>
+    </div>
+  `;
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('scoreDisplay').textContent = `Score: ${score}/${current}`;
+  answered = false;
+}
+
+function answer(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const feedback = document.getElementById('feedback');
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  if (i === q.ans) {
+    score++;
+    document.getElementById('opt'+i).classList.add('correct');
+    feedback.textContent = '✓ Correct! ' + q.explain;
+    feedback.className = 'quiz-feedback show ok';
+  } else {
+    document.getElementById('opt'+i).classList.add('wrong');
+    document.getElementById('opt'+q.ans).classList.add('correct');
+    feedback.textContent = '✗ The correct answer is ' + String.fromCharCode(65+q.ans) + '. ' + q.explain;
+    feedback.className = 'quiz-feedback show no';
+  }
+  document.getElementById('scoreDisplay').textContent = `Score: ${score}/${current+1}`;
+  if (current < questions.length - 1) {
+    document.getElementById('nextBtn').style.display = 'inline-block';
+  } else {
+    setTimeout(showFinal, 400);
+  }
+}
+
+function nextQ() {
+  current++;
+  renderQ();
+}
+
+function showFinal() {
+  const pct = Math.round(score/questions.length*100);
+  const msg = pct >= 75 ? '🎉 Great score! You\'re on track to pass.' : pct >= 50 ? '📚 Good effort — review the sections you missed.' : '📖 Keep studying — review Chapter 4 thoroughly.';
+  document.getElementById('quizContainer').innerHTML = `
+    <div style="text-align:center;padding:32px 0;">
+      <div style="font-size:48px;font-family:'Playfair Display',serif;color:var(--accent)">${score}/${questions.length}</div>
+      <div style="font-size:14px;color:var(--muted);margin-top:8px">${pct}% — ${msg}</div>
+    </div>
+  `;
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('scoreDisplay').textContent = '';
+}
+
+function restartQuiz() { current = 0; score = 0; answered = false; renderQ(); }
+
+// ─── SEARCH ──────────────────────────────────────────────────
+function doSearch(val) {
+  const content = document.getElementById('mainContent');
+  if (!val.trim()) {
+    clearHighlights(content);
+    return;
+  }
+  clearHighlights(content);
+  highlight(content, val.trim());
+}
+
+function highlight(el, text) {
+  if (el.nodeType === 3) {
+    const idx = el.nodeValue.toLowerCase().indexOf(text.toLowerCase());
+    if (idx >= 0) {
+      const span = document.createElement('span');
+      span.className = 'search-highlight';
+      const match = el.splitText(idx);
+      match.splitText(text.length);
+      const clone = match.cloneNode(true);
+      span.appendChild(clone);
+      match.parentNode.replaceChild(span, match);
+    }
+  } else if (el.nodeType === 1 && el.childNodes && !['SCRIPT','STYLE','INPUT'].includes(el.nodeName)) {
+    Array.from(el.childNodes).forEach(child => highlight(child, text));
+  }
+}
+
+function clearHighlights(el) {
+  el.querySelectorAll('.search-highlight').forEach(s => {
+    s.replaceWith(document.createTextNode(s.textContent));
+  });
+}
+
+// ─── SIDEBAR ─────────────────────────────────────────────────
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+}
+
+function setActive(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── CHECKLIST ───────────────────────────────────────────────
+function toggleCheck(li) {
+  const cb = li.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  li.classList.toggle('done', cb.checked);
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('#checklist li').length;
+  const done = document.querySelectorAll('#checklist li.done').length;
+  const pct = Math.round(done/total*100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+renderQ();
+
+// Intersection observer for active nav
+const sections = document.querySelectorAll('.section');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.nav-item').forEach(n => {
+        n.classList.toggle('active', n.getAttribute('href') === '#'+id);
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
