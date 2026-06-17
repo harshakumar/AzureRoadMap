@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4 Quiz — A Modern, Thriving Society</title>
+<style>
+  :root{
+    --bg:#11151c;
+    --surface:#1a2029;
+    --surface-2:#202836;
+    --rule:#33404e;
+    --rule-soft:#283240;
+    --ink:#e8e4d9;
+    --ink-muted:#9aa6b2;
+    --gold:#c9a227;
+    --gold-soft:#9c8442;
+    --crimson:#9c2b3e;
+    --crimson-soft:#7a2230;
+    --good:#4f9d6e;
+    --good-bg:#1d2f24;
+    --bad:#c1574f;
+    --bad-bg:#2f1e1c;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse at top, #161c25 0%, var(--bg) 55%),
+      repeating-linear-gradient(135deg, rgba(201,162,39,0.025) 0px, rgba(201,162,39,0.025) 1px, transparent 1px, transparent 14px);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 64px;
+    line-height:1.5;
+  }
+  .wrap{width:100%;max-width:720px;}
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:18px;
+    margin-bottom:26px;
+  }
+  .title-block .eyebrow{
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+  }
+  h1{
+    font-family:var(--serif);
+    font-size:28px;
+    margin:6px 0 4px;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .title-block p{
+    margin:0;
+    color:var(--ink-muted);
+    font-size:14px;
+    max-width:46ch;
+  }
+
+  /* seal / stamp badge */
+  .seal{
+    flex-shrink:0;
+    width:74px;height:74px;
+    border:2px solid var(--gold-soft);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:rotate(-6deg);
+    position:relative;
+    background:radial-gradient(circle at 35% 30%, #232c39, #161c25);
+    box-shadow:0 0 0 4px rgba(201,162,39,0.08), inset 0 0 12px rgba(0,0,0,.4);
+  }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border:1px dashed rgba(201,162,39,0.35);
+    border-radius:50%;
+  }
+  .seal-score{
+    font-family:var(--serif);
+    font-size:18px;
+    font-weight:700;
+    color:var(--gold);
+    text-align:center;
+    line-height:1.1;
+  }
+  .seal-score small{display:block;font-size:8.5px;letter-spacing:.1em;color:var(--ink-muted);font-weight:400;text-transform:uppercase;margin-top:1px;}
+
+  /* ---------- Screens ---------- */
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-top:3px solid var(--gold-soft);
+    border-radius:3px;
+    padding:26px 26px 22px;
+  }
+
+  /* ---------- Start screen ---------- */
+  .panel p.lead{color:var(--ink-muted);font-size:14.5px;margin-top:0;}
+  .cat-section h2{
+    font-family:var(--serif);
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--ink-muted);
+    margin:22px 0 10px;
+    font-weight:600;
+  }
+  .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  @media (max-width:520px){ .cat-grid{grid-template-columns:1fr;} }
+  .cat-chip{
+    display:flex;align-items:center;gap:10px;
+    border:1px solid var(--rule);
+    background:var(--surface-2);
+    border-radius:3px;
+    padding:10px 12px;
+    cursor:pointer;
+    font-size:14px;
+    user-select:none;
+  }
+  .cat-chip input{accent-color:var(--gold);width:15px;height:15px;flex-shrink:0;}
+  .cat-chip .count{margin-left:auto;color:var(--ink-muted);font-size:12px;}
+  .cat-chip.checked{border-color:var(--gold-soft);}
+
+  .row-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+  .link-btn{
+    background:none;border:none;color:var(--gold);
+    font-size:12.5px;letter-spacing:.03em;cursor:pointer;padding:2px 0;
+    text-decoration:underline;text-decoration-color:rgba(201,162,39,.4);
+  }
+
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:14px;color:var(--ink-muted);}
+  .toggle-row input{accent-color:var(--gold);width:15px;height:15px;}
+
+  .btn{
+    font-family:var(--sans);
+    font-size:15px;
+    font-weight:600;
+    padding:13px 22px;
+    border-radius:3px;
+    border:1px solid var(--crimson);
+    background:var(--crimson);
+    color:#f6efe4;
+    cursor:pointer;
+    letter-spacing:.02em;
+  }
+  .btn:hover{background:var(--crimson-soft);}
+  .btn:focus-visible, .opt-btn:focus-visible, .cat-chip:focus-within{outline:2px solid var(--gold);outline-offset:2px;}
+  .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--rule);}
+  .btn.secondary:hover{border-color:var(--gold-soft);}
+  .btn-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
+  .error-msg{color:var(--bad);font-size:13.5px;margin-top:10px;display:none;}
+
+  /* ---------- Quiz screen ---------- */
+  .progress-bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-bottom:18px;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-soft),var(--gold));width:0%;transition:width .3s ease;}
+  .q-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .q-counter{font-size:12.5px;color:var(--ink-muted);letter-spacing:.02em;}
+  .q-cat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .q-text{
+    font-family:var(--serif);
+    font-size:21px;
+    line-height:1.4;
+    margin:10px 0 22px;
+  }
+  .opt-btn{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    width:100%;
+    text-align:left;
+    background:var(--surface-2);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    padding:13px 14px;
+    border-radius:3px;
+    margin-bottom:10px;
+    cursor:pointer;
+  }
+  .opt-btn:hover:not(:disabled){border-color:var(--gold-soft);}
+  .opt-letter{
+    font-family:var(--serif);
+    font-weight:700;
+    color:var(--ink-muted);
+    flex-shrink:0;
+    width:18px;
+  }
+  .opt-btn.correct{background:var(--good-bg);border-color:var(--good);}
+  .opt-btn.correct .opt-letter{color:var(--good);}
+  .opt-btn.incorrect{background:var(--bad-bg);border-color:var(--bad);}
+  .opt-btn.incorrect .opt-letter{color:var(--bad);}
+  .opt-btn:disabled{cursor:default;}
+  .opt-btn:disabled:not(.correct):not(.incorrect){opacity:.5;}
+
+  .feedback{
+    margin-top:6px;
+    padding:14px 16px;
+    border-radius:3px;
+    border-left:3px solid var(--rule);
+    font-size:14px;
+    display:none;
+  }
+  .feedback.show{display:block;}
+  .feedback.is-correct{background:var(--good-bg);border-left-color:var(--good);}
+  .feedback.is-incorrect{background:var(--bad-bg);border-left-color:var(--bad);}
+  .feedback .verdict{font-weight:700;margin-bottom:4px;font-family:var(--serif);font-size:15px;}
+  .feedback.is-correct .verdict{color:var(--good);}
+  .feedback.is-incorrect .verdict{color:var(--bad);}
+  .feedback p{margin:0;color:var(--ink);}
+
+  .next-row{display:flex;justify-content:flex-end;margin-top:20px;}
+
+  /* ---------- Results screen ---------- */
+  .score-display{text-align:center;padding:14px 0 6px;}
+  .score-display .big-seal{
+    width:120px;height:120px;margin:0 auto 14px;
+    border:3px solid var(--gold-soft);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 35% 30%, #232c39, #161c25);
+    box-shadow:0 0 0 6px rgba(201,162,39,0.08), inset 0 0 16px rgba(0,0,0,.4);
+  }
+  .score-display .big-seal-inner{font-family:var(--serif);font-weight:700;color:var(--gold);}
+  .score-display .big-seal-inner .pct{font-size:30px;display:block;}
+  .score-display .big-seal-inner .frac{font-size:11px;color:var(--ink-muted);letter-spacing:.06em;}
+  .score-msg{font-family:var(--serif);font-size:18px;margin:10px 0 4px;}
+  .score-sub{color:var(--ink-muted);font-size:14px;margin-bottom:8px;}
+
+  .cat-results{margin-top:24px;}
+  .cat-result-row{display:grid;grid-template-columns:150px 1fr 56px;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule-soft);font-size:13.5px;}
+  .cat-result-row .cname{color:var(--ink);}
+  .bar-track{height:8px;background:var(--surface-2);border-radius:3px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-soft),var(--gold));}
+  .cat-result-row .cfrac{text-align:right;color:var(--ink-muted);}
+
+  .pass-note{margin-top:22px;font-size:13px;color:var(--ink-muted);border-top:1px solid var(--rule);padding-top:14px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="title-block">
+      <div class="eyebrow">Life in the UK · Chapter 4</div>
+      <h1>A Modern, Thriving Society</h1>
+      <p>100 questions covering the nations, religion, customs, sport, arts &amp; culture, and leisure sections of the handbook.</p>
+    </div>
+    <div class="seal" aria-hidden="true">
+      <div class="seal-score" id="headerSeal">—<small>score</small></div>
+    </div>
+  </header>
+
+  <!-- START SCREEN -->
+  <section class="screen active" id="startScreen">
+    <div class="panel">
+      <p class="lead">Choose which topics to revise. Leave everything ticked for a full run-through, or focus on the areas you scored weakest on.</p>
+
+      <div class="cat-section">
+        <h2>Topics</h2>
+        <div class="cat-grid" id="catGrid"></div>
+        <div class="row-actions">
+          <button class="link-btn" id="selectAllBtn" type="button">Select all</button>
+          <button class="link-btn" id="selectNoneBtn" type="button">Clear all</button>
+        </div>
+      </div>
+
+      <label class="toggle-row">
+        <input type="checkbox" id="shuffleToggle" checked>
+        Shuffle question order
+      </label>
+
+      <div class="btn-row">
+        <button class="btn" id="startBtn" type="button">Begin quiz</button>
+      </div>
+      <p class="error-msg" id="startError">Pick at least one topic to begin.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ SCREEN -->
+  <section class="screen" id="quizScreen">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="panel">
+      <div class="q-meta">
+        <span class="q-cat" id="qCat"></span>
+        <span class="q-counter" id="qCounter"></span>
+      </div>
+      <div class="q-text" id="qText"></div>
+      <div id="optionsContainer"></div>
+      <div class="feedback" id="feedback">
+        <div class="verdict" id="feedbackVerdict"></div>
+        <p id="feedbackText"></p>
+      </div>
+      <div class="next-row">
+        <button class="btn" id="nextBtn" style="display:none;" type="button">Next question →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section class="screen" id="resultsScreen">
+    <div class="panel">
+      <div class="score-display">
+        <div class="big-seal"><div class="big-seal-inner"><span class="pct" id="resultPct"></span><span class="frac" id="resultFrac"></span></div></div>
+        <div class="score-msg" id="resultMsg"></div>
+        <div class="score-sub" id="resultSub"></div>
+      </div>
+
+      <div class="cat-results" id="catResults"></div>
+
+      <p class="pass-note">Tip: re-run with just the topics you missed most until each one feels solid — that targeted repetition is what moves the needle before the real test.</p>
+
+      <div class="btn-row">
+        <button class="btn" id="retakeBtn" type="button">Retake these topics</button>
+        <button class="btn secondary" id="changeTopicsBtn" type="button">Choose different topics</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const QUESTIONS = [
+{c:"UK Today", q:"What is the capital city of Northern Ireland?", o:["Cardiff","Edinburgh","Belfast","Dublin"], a:2, e:"Belfast is the capital city of Northern Ireland. London is the UK capital, Edinburgh is Scotland's capital, and Cardiff is the Welsh capital."},
+{c:"UK Today", q:"What is the capital city of Wales?", o:["Swansea","Newport","Cardiff","Bangor"], a:2, e:"Cardiff is the capital of Wales. Swansea and Newport are also Welsh cities but neither is the capital."},
+{c:"UK Today", q:"What is the capital city of Scotland?", o:["Glasgow","Edinburgh","Aberdeen","Dundee"], a:1, e:"Edinburgh is the capital of Scotland, even though Glasgow is Scotland's largest city."},
+{c:"UK Today", q:"Approximately how far is it from John O'Groats to Land's End, the longest distance on the British mainland?", o:["500 miles (800km)","650 miles (1,050km)","870 miles (1,400km)","1,200 miles (1,930km)"], a:2, e:"The distance from John O'Groats in the north of Scotland to Land's End in south-west England is about 870 miles (roughly 1,400 kilometres)."},
+{c:"UK Today", q:"Roughly what proportion of the UK population has a parent or grandparent born outside the UK, due to post-war immigration?", o:["Nearly 10%","Around 25%","Just under 50%","Less than 1%"], a:0, e:"Post-war immigration means that nearly 10% of the UK population has a parent or grandparent who was born outside the UK."},
+{c:"UK Today", q:"Which language, completely different from English, is taught in schools and universities in Wales?", o:["Gaelic","Welsh","Irish Gaelic","Cornish"], a:1, e:"Welsh is a completely different language from English and is taught in schools and universities in Wales."},
+{c:"UK Today", q:"In which parts of Scotland is Gaelic spoken?", o:["The Lowlands and Borders","The Highlands and Islands","Edinburgh and Glasgow only","Throughout all of Scotland equally"], a:1, e:"Gaelic, a language distinct from English, is spoken in parts of the Highlands and Islands of Scotland."},
+{c:"UK Today", q:"How many pence make up one pound sterling?", o:["10","100","1,000","50"], a:1, e:"There are 100 pence in a pound sterling (£), the currency of the UK."},
+{c:"UK Today", q:"Which two parts of the UK issue their own banknotes, valid everywhere in the UK although shops don't have to accept them?", o:["England and Wales","Scotland and Northern Ireland","Wales and Northern Ireland","England and Scotland"], a:1, e:"Northern Ireland and Scotland both issue their own banknotes. These are valid currency throughout the UK, but shops and businesses aren't obliged to accept them."},
+{c:"UK Today", q:"Roughly what percentage of the UK's total population does England make up?", o:["50%","65%","84%","95%"], a:2, e:"England consistently makes up about 84% of the total UK population, with Scotland around 8%, Wales around 5%, and Northern Ireland less than 3%."},
+{c:"UK Today", q:"According to the handbook's population table, what was the UK's population in 1951?", o:["40 million","50 million","57 million","62 million"], a:1, e:"The UK's population was 50 million in 1951, up from 40 million in 1901. Growth has accelerated in more recent decades."},
+{c:"UK Today", q:"What two factors are identified as having driven recent UK population growth?", o:["Higher birth rates and lower taxes","Migration into the UK and longer life expectancy","Lower migration and shorter life expectancy","Better weather and lower housing costs"], a:1, e:"Migration into the UK and longer life expectancy have both played a part in driving population growth, especially in recent years."},
+{c:"UK Today", q:"Which statement reflects UK equality law?", o:["Men and women have equal rights to work, own property, marry and divorce","Only men can own property after marriage","Married women cannot work outside the home","Childcare responsibility falls only on mothers"], a:0, e:"It is a legal requirement that men and women aren't discriminated against because of gender or marital status. Both have equal rights to work, own property, marry and divorce, and both parents are equally responsible for their children."},
+{c:"UK Today", q:"Roughly what share of the UK workforce do women make up today?", o:["About a quarter","About a third","About half","Nearly all"], a:2, e:"Women in Britain today make up about half of the workforce, and employment opportunities for women are far greater than in the past."},
+{c:"UK Today", q:"On average, who tends to leave school with better qualifications?", o:["Boys","Girls","There is no difference","It varies equally each year"], a:1, e:"On average, girls leave school with better qualifications than boys, and more women than men go on to study at university."},
+
+{c:"Religion", q:"In the 2011 Census, what percentage of people in the UK identified as Christian?", o:["25%","40%","59%","75%"], a:2, e:"The 2011 Census recorded 59% of people identifying as Christian, the largest religious group in the UK."},
+{c:"Religion", q:"What percentage identified as Muslim in the 2011 Census?", o:["0.8%","1.5%","4.8%","10%"], a:2, e:"4.8% of people identified as Muslim in the 2011 Census, with smaller proportions identifying as Hindu (1.5%), Sikh (0.8%), and Jewish or Buddhist (each under 0.5%)."},
+{c:"Religion", q:"What percentage of people in the 2011 Census said they had no religion?", o:["10%","15%","25%","40%"], a:2, e:"25% of people in the 2011 Census said they had no religion. Everyone has the legal right to choose, or not practise, a religion."},
+{c:"Religion", q:"What is the official Church of the state in England called?", o:["The Roman Catholic Church","The Church of England (Anglican Church)","The Church of Scotland","The Methodist Church"], a:1, e:"The Church of England, known as the Anglican Church in other countries, is the official Church of the state in England and has existed since the Reformation in the 1530s."},
+{c:"Religion", q:"Who is the spiritual leader of the Church of England?", o:["The Prime Minister","The Moderator","The monarch","The Archbishop of Canterbury"], a:3, e:"The Archbishop of Canterbury is the spiritual leader of the Church of England, although the monarch is its constitutional head."},
+{c:"Religion", q:"Who is the constitutional head of the Church of England?", o:["The Pope","The monarch","The Prime Minister","The Archbishop of Canterbury"], a:1, e:"The monarch is the head of the Church of England and has the right to select the Archbishop, although in practice the choice is made by the Prime Minister and a Church committee."},
+{c:"Religion", q:"What type of church is the Church of Scotland?", o:["Anglican","Roman Catholic","Presbyterian","Methodist"], a:2, e:"The Church of Scotland is a Presbyterian Church, governed by ministers and elders rather than bishops."},
+{c:"Religion", q:"What is the title of the person who chairs the General Assembly of the Church of Scotland for one year?", o:["The Archbishop","The Moderator","The Primate","The Dean"], a:1, e:"The Moderator chairs the General Assembly of the Church of Scotland and is appointed for one year only, often speaking on the Church's behalf."},
+{c:"Religion", q:"Which two parts of the UK have no established (official) Church?", o:["England and Scotland","Wales and Northern Ireland","England and Wales","Scotland and Northern Ireland"], a:1, e:"There is no established Church in Wales or Northern Ireland, unlike England (Church of England) and Scotland (Church of Scotland)."},
+{c:"Religion", q:"When is St David's Day, the patron saint's day of Wales?", o:["17 March","1 March","23 April","30 November"], a:1, e:"St David's Day is celebrated on 1 March. The others are St Patrick's Day (17 March, Northern Ireland), St George's Day (23 April, England), and St Andrew's Day (30 November, Scotland)."},
+
+{c:"Customs & Traditions", q:"What is Boxing Day?", o:["The day before Christmas Eve","The day after Christmas Day, a public holiday","Another name for New Year's Day","A sporting festival held in summer"], a:1, e:"Boxing Day is the day after Christmas Day (26 December) and is a public holiday in the UK."},
+{c:"Customs & Traditions", q:"How many days does Lent last before Easter?", o:["7 days","21 days","40 days","100 days"], a:2, e:"Lent lasts 40 days before Easter and is traditionally a time of fasting and reflection for Christians."},
+{c:"Customs & Traditions", q:"What is the day before Lent begins traditionally called?", o:["Ash Wednesday","Good Friday","Shrove Tuesday (Pancake Day)","Palm Sunday"], a:2, e:"Shrove Tuesday, also called Pancake Day, is the day before Lent begins on Ash Wednesday. Pancakes were traditionally made to use up eggs, fat and milk before fasting."},
+{c:"Customs & Traditions", q:"Which festival, often called the 'Festival of Lights', is celebrated by Hindus and Sikhs and marks the victory of good over evil?", o:["Hanukkah","Vaisakhi","Diwali","Eid al-Fitr"], a:2, e:"Diwali, the Festival of Lights, normally falls in October or November, lasts five days, and is celebrated by Hindus and Sikhs."},
+{c:"Customs & Traditions", q:"During Hanukkah, how many candles sit on the menorah, with one lit each day of the festival?", o:["Five","Six","Seven","Eight"], a:3, e:"Hanukkah is celebrated for eight days, with a candle lit each day on an eight-candle stand called a menorah, recalling oil that lasted eight days instead of one."},
+{c:"Customs & Traditions", q:"What does Eid al-Fitr celebrate?", o:["The founding of the Sikh community","The end of the month of fasting (Ramadan)","Ibrahim's willingness to sacrifice his son","The Jewish struggle for religious freedom"], a:1, e:"Eid al-Fitr celebrates the end of Ramadan, the month during which Muslims fast, and is a time to thank Allah for the strength to complete the fast."},
+{c:"Customs & Traditions", q:"What does Eid ul Adha commemorate?", o:["The prophet Ibrahim's willingness to sacrifice his son","The founding of the Khalsa","The end of Ramadan","The death of Jesus Christ"], a:0, e:"Eid ul Adha remembers the prophet Ibrahim's willingness to sacrifice his son when commanded by God, reminding Muslims of their own commitment to God."},
+{c:"Customs & Traditions", q:"Which Sikh festival, celebrated on 14 April, marks the founding of the Khalsa community?", o:["Diwali","Vaisakhi (Baisakhi)","Eid ul Adha","Hanukkah"], a:1, e:"Vaisakhi, also spelled Baisakhi, celebrates the founding of the Khalsa and is marked on 14 April each year with parades, dancing and singing."},
+{c:"Customs & Traditions", q:"What is 31 December called in Scotland, sometimes regarded as a bigger holiday there than Christmas?", o:["Hogmanay","Burns Night","St Andrew's Eve","Yuletide"], a:0, e:"31 December is called Hogmanay in Scotland, and 2 January is also a public holiday there. For some Scots, Hogmanay is the bigger celebration."},
+{c:"Customs & Traditions", q:"When does Mothering Sunday (Mother's Day) fall?", o:["The first Sunday in May","The Sunday three weeks before Easter","The third Sunday in June","The Sunday after Christmas"], a:1, e:"Mothering Sunday falls on the Sunday three weeks before Easter. Father's Day, by contrast, is the third Sunday in June."},
+{c:"Customs & Traditions", q:"On what date is Halloween, when people often dress in costumes for 'trick or treat'?", o:["5 November","31 October","1 April","11 November"], a:1, e:"Halloween falls on 31 October and has roots in an ancient pagan festival marking the beginning of winter."},
+{c:"Customs & Traditions", q:"What historical event is commemorated on Bonfire Night, 5 November?", o:["The Battle of the Boyne","The signing of the Magna Carta","The failed Gunpowder Plot to blow up the Houses of Parliament in 1605","The end of the First World War"], a:2, e:"Bonfire Night marks the failure, in 1605, of a plot led by Guy Fawkes and a group of Catholics to kill the Protestant king by bombing the Houses of Parliament."},
+{c:"Customs & Traditions", q:"At what time is the two-minute silence held on Remembrance Day, 11 November?", o:["9.00 am","11.00 am","12 noon","3.00 pm"], a:1, e:"At 11.00 am on Remembrance Day there is a two-minute silence, and wreaths are laid at the Cenotaph in Whitehall, London."},
+{c:"Customs & Traditions", q:"What flower is traditionally worn to commemorate Remembrance Day?", o:["The rose","The poppy","The daffodil","The thistle"], a:1, e:"The poppy, the red flower found on the battlefields of the First World War, is worn to mark Remembrance Day."},
+{c:"Customs & Traditions", q:"What is a 'bank holiday'?", o:["A religious festival celebrated only by banks","A public holiday, with no religious significance, when banks and many businesses close","A day when banks open for extended hours","A holiday celebrated only in Scotland"], a:1, e:"Bank holidays are public holidays of no religious significance, occurring at points such as early May, late May/early June, and August."},
+
+{c:"Sport", q:"In which years has the UK hosted the Olympic Games?", o:["1908, 1948, 2012","1912, 1952, 2008","1900, 1936, 2000","1924, 1960, 2016"], a:0, e:"The UK has hosted the Olympic Games three times: 1908, 1948 and 2012, with the 2012 Games centred in Stratford, East London."},
+{c:"Sport", q:"Where was the main site for the 2012 London Olympics?", o:["Wembley","Stratford, East London","Greenwich","Twickenham"], a:1, e:"The main Olympic site for the 2012 Games was in Stratford, East London. The British team finished third in the medal table."},
+{c:"Sport", q:"Who developed treatment methods for spinal injuries at Stoke Mandeville Hospital that led to the origin of the Paralympic Games?", o:["Sir Roger Bannister","Dr Sir Ludwig Guttmann","Sir Steve Redgrave","Sir Chris Hoy"], a:1, e:"Dr Sir Ludwig Guttmann, a German refugee, developed new treatments for spinal injuries at Stoke Mandeville Hospital and encouraged patients into sport, leading to the Paralympic Games."},
+{c:"Sport", q:"Who was the first person in the world to run a mile in under four minutes, in 1954?", o:["Sir Mo Farah","Sir Roger Bannister","Sir Jackie Stewart","David Weir"], a:1, e:"Sir Roger Bannister became the first person to run a mile in under four minutes, in 1954."},
+{c:"Sport", q:"Who captained the England football team that won the World Cup in 1966?", o:["Bobby Moore","Sir Ian Botham","Sir Bradley Wiggins","Sir Andy Murray"], a:0, e:"Bobby Moore captained the England team that won the 1966 World Cup, the only time England has won an international football tournament — which was hosted in the UK."},
+{c:"Sport", q:"In 2012, who became the first Briton to win the Tour de France?", o:["Sir Chris Hoy","Sir Bradley Wiggins","Sir Mo Farah","Jenson Button"], a:1, e:"Sir Bradley Wiggins became the first Briton to win the Tour de France in 2012, and went on to win Olympic gold that same year."},
+{c:"Sport", q:"Which sport's most famous competition, played between England and Australia, is called 'The Ashes'?", o:["Rugby","Football","Cricket","Golf"], a:2, e:"The Ashes is the most famous cricket competition, a series of Test matches played between England and Australia."},
+{c:"Sport", q:"When were the first professional football clubs formed in the UK?", o:["Early 18th century","Late 19th century","Early 20th century","Mid-20th century"], a:1, e:"The first professional football clubs were formed in the late 19th century, and football remains the UK's most popular sport."},
+{c:"Sport", q:"What is the most famous rugby union competition, contested between England, Ireland, Scotland, Wales, France and Italy?", o:["The Super League","The Six Nations Championship","The Premiership","The Calcutta Cup"], a:1, e:"The Six Nations Championship is the most famous rugby union competition, contested annually between England, Ireland, Scotland, Wales, France and Italy."},
+{c:"Sport", q:"The modern game of golf can be traced back to 15th-century where?", o:["England","Wales","Scotland","Northern Ireland"], a:2, e:"The modern game of golf traces back to 15th-century Scotland, and St Andrews in Scotland is known as the home of golf."},
+{c:"Sport", q:"Which is the oldest tennis tournament in the world, and the only Grand Slam played on grass?", o:["The US Open","The French Open","Wimbledon","The Australian Open"], a:2, e:"The Wimbledon Championships are the oldest tennis tournament in the world and the only Grand Slam event played on grass."},
+{c:"Sport", q:"Who was the first person to sail single-handed around the world via the Cape of Good Hope and Cape Horn, in 1966/67?", o:["Sir Robin Knox-Johnston","Dame Ellen MacArthur","Sir Francis Chichester","Baroness Tanni Grey-Thompson"], a:2, e:"Sir Francis Chichester was the first to sail single-handed around the world by this route in 1966/67. Two years later, Sir Robin Knox-Johnston became the first to do so without stopping."},
+{c:"Sport", q:"Which famous horse race takes place at Aintree, near Liverpool?", o:["Royal Ascot","The Grand National","The Scottish Grand National","The Derby"], a:1, e:"The Grand National is held at Aintree near Liverpool. Royal Ascot is held in Berkshire and the Scottish Grand National at Ayr."},
+{c:"Sport", q:"In what year did motor-car racing in the UK begin?", o:["1885","1902","1920","1950"], a:1, e:"Motor-car racing in the UK started in 1902, and the UK continues to be a world leader in motor-sport technology."},
+{c:"Sport", q:"Who won 16 Paralympic medals, including 11 gold, and also won the London Marathon six times?", o:["Ellie Simmonds","David Weir","Baroness Tanni Grey-Thompson","Dame Jessica Ennis-Hill"], a:2, e:"Baroness Tanni Grey-Thompson won 16 Paralympic medals (11 gold) across five Paralympic Games, and won the London Marathon six times."},
+
+{c:"Arts & Culture", q:"Since what year has the BBC organised The Proms, an eight-week season of orchestral music?", o:["1900","1927","1945","1960"], a:1, e:"The BBC has organised The Proms since 1927. The Last Night of the Proms, often at the Royal Albert Hall, is the best-known concert in the series."},
+{c:"Arts & Culture", q:"Which composer wrote 'Water Music' for King George I?", o:["Henry Purcell","George Frederick Handel","Gustav Holst","Sir Edward Elgar"], a:1, e:"George Frederick Handel, a German-born composer who became a British citizen in 1727, wrote Water Music for King George I and Music for the Royal Fireworks for George II."},
+{c:"Arts & Culture", q:"Whose suite 'The Planets' includes 'Jupiter', later adapted as the hymn 'I Vow to Thee, My Country'?", o:["Ralph Vaughan Williams","Sir William Walton","Gustav Holst","Benjamin Britten"], a:2, e:"Gustav Holst wrote The Planets, a suite themed around the solar system, and adapted its 'Jupiter' movement into the popular hymn 'I Vow to Thee, My Country'."},
+{c:"Arts & Culture", q:"Whose best-known work, 'Pomp and Circumstance March No.1' ('Land of Hope and Glory'), is traditionally played at the Last Night of the Proms?", o:["Sir Edward Elgar","Henry Purcell","Sir William Walton","Ralph Vaughan Williams"], a:0, e:"Sir Edward Elgar's March No.1, known as 'Land of Hope and Glory', is usually played at the Last Night of the Proms at the Royal Albert Hall."},
+{c:"Arts & Culture", q:"Which composer wrote 'A Young Person's Guide to the Orchestra' and founded the Aldeburgh Festival?", o:["Benjamin Britten","Sir William Walton","Gustav Holst","Henry Purcell"], a:0, e:"Benjamin Britten, best known for operas such as Peter Grimes, wrote A Young Person's Guide to the Orchestra and founded the Aldeburgh Festival in Suffolk."},
+{c:"Arts & Culture", q:"The Mercury Music Prize is awarded annually for what?", o:["Best British solo artist","Best album from the UK and Ireland","Best newcomer in classical music","Best live performance"], a:1, e:"The Mercury Music Prize, awarded each September, recognises the best album from the UK and Ireland. The Brit Awards separately honour categories such as best British group and best British solo artist."},
+{c:"Arts & Culture", q:"Which Agatha Christie play has run continuously in London's West End since 1952, the longest initial run of any show?", o:["The Mousetrap","Cats","Jesus Christ Superstar","The Phantom of the Opera"], a:0, e:"The Mousetrap, a murder-mystery play by Dame Agatha Christie, has been running in the West End since 1952."},
+{c:"Arts & Culture", q:"Which writing duo created comic operas in the 19th century, including HMS Pinafore and The Mikado?", o:["Lloyd Webber and Rice","Gilbert and Sullivan","Wordsworth and Coleridge","Shaw and Wilde"], a:1, e:"Gilbert and Sullivan wrote comic operas in the 19th century, often satirising popular culture and politics, including HMS Pinafore, The Pirates of Penzance, and The Mikado."},
+{c:"Arts & Culture", q:"What is the largest and best-known part of the Edinburgh Festival, a showcase mainly for theatre and comedy?", o:["The Edinburgh Tattoo","The Edinburgh Festival Fringe","The National Eisteddfod","The Hogmanay Festival"], a:1, e:"The Edinburgh Festival Fringe ('the Fringe') is the biggest and best-known part of the Edinburgh Festival, showcasing largely experimental theatre and comedy."},
+{c:"Arts & Culture", q:"The Laurence Olivier Awards are named after an actor best known for roles in which type of plays?", o:["Shakespeare plays","Pantomimes","Gilbert and Sullivan operas","Modern musicals"], a:0, e:"The Laurence Olivier Awards are named after Sir Laurence Olivier, best known for his roles in various Shakespeare plays."},
+{c:"Arts & Culture", q:"Which artist, after whom the Turner Prize is named, is considered to have raised the profile of landscape painting?", o:["Thomas Gainsborough","Joseph Turner","John Constable","David Hockney"], a:1, e:"Joseph Turner (1775-1851) was an influential landscape painter, and the Turner Prize for contemporary art was named in his honour."},
+{c:"Arts & Culture", q:"John Constable is most famous for his landscape paintings of which area?", o:["The Lake District","Dedham Vale, on the Suffolk-Essex border","Snowdonia","The Scottish Highlands"], a:1, e:"John Constable was a landscape painter most famous for his works depicting Dedham Vale on the Suffolk-Essex border."},
+{c:"Arts & Culture", q:"Which group of 19th-century artists, including Holman Hunt and Dante Gabriel Rossetti, painted detailed pictures on religious or literary themes in bright colours?", o:["The Pre-Raphaelites","The Impressionists","The Bloomsbury Group","The Vorticists"], a:0, e:"The Pre-Raphaelites were an important group of artists in the second half of the 19th century, painting detailed, brightly coloured works on religious or literary themes."},
+{c:"Arts & Culture", q:"Which English sculptor and artist is best known for his large bronze abstract sculptures?", o:["Lucian Freud","Henry Moore","David Hockney","Sir John Lavery"], a:1, e:"Henry Moore (1898-1986) was an English sculptor and artist best known for his large bronze abstract sculptures."},
+{c:"Arts & Culture", q:"Who designed the Queen's House at Greenwich, drawing on classical architecture in the 17th century?", o:["Sir Christopher Wren","Inigo Jones","Robert Adam","Sir Edwin Lutyens"], a:1, e:"Inigo Jones took inspiration from classical architecture to design the Queen's House at Greenwich and the Banqueting House in Whitehall."},
+{c:"Arts & Culture", q:"Who helped develop a British version of Europe's ornate architectural styles, designing the new St Paul's Cathedral?", o:["Sir Christopher Wren","Robert Adam","Inigo Jones","Sir Norman Foster"], a:0, e:"Sir Christopher Wren helped develop a distinctly British version of Europe's ornate architectural styles, designing buildings including the new St Paul's Cathedral."},
+{c:"Arts & Culture", q:"Which Scottish architect influenced the design of the Royal Crescent in Bath?", o:["Sir Edwin Lutyens","Robert Adam","Lancelot 'Capability' Brown","Sir Christopher Wren"], a:1, e:"Robert Adam, a Scottish architect, influenced architecture across the UK, Europe and America, designing both buildings and their interiors; his ideas influenced the Royal Crescent in Bath."},
+{c:"Arts & Culture", q:"Who designed New Delhi as the seat of government in India, and was responsible for many First World War memorials including the Cenotaph?", o:["Sir Edwin Lutyens","Lord Richard Rogers","Dame Zaha Hadid","Sir Norman Foster"], a:0, e:"Sir Edwin Lutyens designed New Delhi and, after the First World War, designed many war memorials worldwide, including the Cenotaph in Whitehall."},
+{c:"Arts & Culture", q:"Who designed the grounds of country houses to look natural, with grass, trees and lakes, in the 18th century?", o:["Gertrude Jekyll","Lancelot 'Capability' Brown","Robert Adam","Inigo Jones"], a:1, e:"Lancelot 'Capability' Brown designed landscaped grounds around country houses to appear naturally beautiful, often remarking that a place had 'capabilities'."},
+{c:"Arts & Culture", q:"Which 18th-century designer is known for designing furniture?", o:["Clarice Cliff","Thomas Chippendale","Sir Terence Conran","Vivienne Westwood"], a:1, e:"Thomas Chippendale designed furniture in the 18th century, one of many great British designers alongside Art Deco ceramicist Clarice Cliff and 20th-century interior designer Sir Terence Conran."},
+{c:"Arts & Culture", q:"Which of these is named in the handbook as a leading British fashion designer of recent years?", o:["Vivienne Westwood","Coco Chanel","Christian Dior","Giorgio Armani"], a:0, e:"Leading recent British fashion designers named include Mary Quant, Alexander McQueen and Vivienne Westwood."},
+{c:"Arts & Culture", q:"In a 2003 vote, which novel was named the UK's best-loved?", o:["Pride and Prejudice","Oliver Twist","The Lord of the Rings","Harry Potter and the Philosopher's Stone"], a:2, e:"In 2003, The Lord of the Rings by JRR Tolkien was voted the country's best-loved novel."},
+{c:"Arts & Culture", q:"The Man Booker Prize for Fiction is awarded to authors from where?", o:["The UK only","The Commonwealth, Ireland or Zimbabwe","English-speaking countries worldwide","The European Union"], a:1, e:"The Man Booker Prize for Fiction has been awarded since 1968 for the best novel by an author from the Commonwealth, Ireland or Zimbabwe."},
+{c:"Arts & Culture", q:"Which Anglo-Saxon poem tells of its hero's battles against monsters, and is still translated into modern English today?", o:["Beowulf","Paradise Lost","The Canterbury Tales","Sir Gawain and the Green Knight"], a:0, e:"Beowulf is the Anglo-Saxon poem telling of its hero's battles against monsters, and it is still translated into modern English today."},
+{c:"Arts & Culture", q:"Which poet, inspired by Protestant religious views, wrote 'Paradise Lost'?", o:["John Milton","William Blake","William Wordsworth","Lord Byron"], a:0, e:"John Milton, inspired by Protestant religious ideas, wrote Paradise Lost."},
+
+{c:"Leisure", q:"What is rented land where people grow their own fruit and vegetables called?", o:["A smallholding","An allotment","A homestead","A paddock"], a:1, e:"An allotment is a piece of rented land, often used by people without large gardens, to grow fruit and vegetables."},
+{c:"Leisure", q:"Which flower is associated with England?", o:["The thistle","The rose","The daffodil","The shamrock"], a:1, e:"The rose is the flower associated with England. Scotland has the thistle, Wales the daffodil, and Northern Ireland the shamrock."},
+{c:"Leisure", q:"Which flower is associated with Scotland?", o:["The rose","The daffodil","The thistle","The shamrock"], a:2, e:"The thistle is the flower associated with Scotland, sometimes worn on St Andrew's Day."},
+{c:"Leisure", q:"Which flower is associated with Wales?", o:["The rose","The thistle","The daffodil","The shamrock"], a:2, e:"The daffodil is the flower associated with Wales, often worn on St David's Day."},
+{c:"Leisure", q:"Which flower is associated with Northern Ireland?", o:["The rose","The thistle","The daffodil","The shamrock"], a:3, e:"The shamrock is the flower associated with Northern Ireland, often worn on St Patrick's Day."},
+{c:"Leisure", q:"What is a traditional Welsh snack made from flour, dried fruits and spices, served hot or cold?", o:["Ulster fry","Welsh cakes","Yorkshire pudding","Haggis"], a:1, e:"Welsh cakes are a traditional Welsh snack made from flour, dried fruits and spices, served hot or cold."},
+{c:"Leisure", q:"What is haggis traditionally made from?", o:["Minced beef and onions","A sheep's stomach stuffed with offal, suet, onions and oatmeal","Fish wrapped in batter","Black pudding and potato bread"], a:1, e:"Haggis, a traditional Scottish dish, is a sheep's stomach stuffed with offal, suet, onions and oatmeal."},
+{c:"Leisure", q:"What is the traditional Northern Irish fried breakfast meal called?", o:["Ulster fry","Full English","Welsh rarebit","Scotch fry"], a:0, e:"The Ulster fry, a Northern Irish dish, includes bacon, eggs, sausage, black pudding, tomatoes, mushrooms, soda bread and potato bread."},
+{c:"Leisure", q:"In what year were films first shown publicly in the UK?", o:["1885","1896","1910","1927"], a:1, e:"Films were first shown publicly in the UK in 1896, and film screenings quickly became popular."},
+{c:"Leisure", q:"Which silent-film actor became famous worldwide for his 'tramp' character?", o:["David Niven","Sir Rex Harrison","Sir Charles (Charlie) Chaplin","Richard Burton"], a:2, e:"Sir Charles (Charlie) Chaplin became famous in silent movies for his tramp character, one of many British actors who built a career in Hollywood."},
+{c:"Leisure", q:"Which renowned director, who later moved to Hollywood, remained influential until his death in 1980?", o:["Sir Alexander Korda","Sir Alfred Hitchcock","Sir David Lean","Ridley Scott"], a:1, e:"Sir Alfred Hitchcock was an eminent British director who later moved to Hollywood and remained an important director until his death in 1980."},
+{c:"Leisure", q:"Which animator has won four Oscars, three of them for films featuring Wallace and Gromit?", o:["Nick Park","Sir David Lean","Carol Reed","Mike Newell"], a:0, e:"Nick Park has won four Oscars for his animated films, three of them for films featuring Wallace and Gromit, reflecting Britain's strength in animation and special effects."},
+{c:"Leisure", q:"What is the British equivalent of the Oscars, hosted by BAFTA, called?", o:["The Olivier Awards","The Brit Awards","The British Academy Film Awards","The Mercury Film Prize"], a:2, e:"The annual British Academy Film Awards, hosted by the British Academy of Film and Television Arts (BAFTA), are the British equivalent of the Oscars."},
+{c:"Leisure", q:"What was the most famous satirical magazine, first published in the 1840s?", o:["Private Eye","Punch","The Spectator","Vanity Fair"], a:1, e:"Punch was the most famous satirical magazine, first published in the 1840s. Private Eye continues the tradition of satire today."},
+{c:"Leisure", q:"Which 1969 television show introduced a new type of progressive comedy?", o:["Spitting Image","That Was The Week That Was","Monty Python's Flying Circus","Morecambe and Wise"], a:2, e:"Monty Python's Flying Circus, first broadcast in 1969, introduced a new and progressive style of comedy to British television."},
+{c:"Leisure", q:"What must everyone in the UK who has a TV, computer, or similar device used for watching TV possess?", o:["A television licence","A BBC membership card","A subscription to Sky","A radio permit"], a:0, e:"Everyone with a TV, computer, or other device used to watch TV in the UK must have a television licence; failure to do so can result in a fine of up to £1,000."},
+{c:"Leisure", q:"At what age must you be to buy alcohol in a pub or nightclub?", o:["16","17","18","21"], a:2, e:"You must be 18 or over to buy alcohol in a pub or nightclub. At 16, people may drink wine or beer with a meal if accompanied by someone over 18."},
+{c:"Leisure", q:"At what minimum age can people participate in the UK's National Lottery?", o:["16","18","21","There is no minimum age"], a:1, e:"People must be 18 to participate in the National Lottery; those under 18 aren't allowed to buy tickets or scratch cards."},
+{c:"Leisure", q:"What must all dogs wear in public places in the UK?", o:["A muzzle","A licence tag issued by the council","A collar showing the owner's name and address","A vaccination certificate"], a:2, e:"All dogs in public places must wear a collar showing the name and address of the owner, who is responsible for keeping the dog under control."},
+{c:"Leisure", q:"What was Big Ben's clock tower officially renamed, in honour of Queen Elizabeth II's Diamond Jubilee in 2012?", o:["Victoria Tower","Elizabeth Tower","Westminster Tower","Jubilee Tower"], a:1, e:"The clock tower at the Houses of Parliament, commonly nicknamed 'Big Ben' (technically the name of the great bell), was renamed 'Elizabeth Tower' in 2012 to mark the Queen's Diamond Jubilee."}
+];
+
+const CATEGORIES = ["UK Today","Religion","Customs & Traditions","Sport","Arts & Culture","Leisure"];
+
+let pool = [];
+let current = 0;
+let answered = false;
+let totals = {}; // {cat:{correct,total}}
+let selectedCats = new Set(CATEGORIES);
+
+const startScreen = document.getElementById('startScreen');
+const quizScreen = document.getElementById('quizScreen');
+const resultsScreen = document.getElementById('resultsScreen');
+
+function showScreen(el){
+  [startScreen, quizScreen, resultsScreen].forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function buildCatGrid(){
+  const grid = document.getElementById('catGrid');
+  grid.innerHTML = '';
+  CATEGORIES.forEach(cat=>{
+    const count = QUESTIONS.filter(q=>q.c===cat).length;
+    const label = document.createElement('label');
+    label.className = 'cat-chip checked';
+    label.innerHTML = `<input type="checkbox" value="${cat}" checked><span>${cat}</span><span class="count">${count}</span>`;
+    const input = label.querySelector('input');
+    input.addEventListener('change', ()=>{
+      if(input.checked){ selectedCats.add(cat); label.classList.add('checked'); }
+      else { selectedCats.delete(cat); label.classList.remove('checked'); }
+    });
+    grid.appendChild(label);
+  });
+}
+buildCatGrid();
+
+document.getElementById('selectAllBtn').addEventListener('click', ()=>{
+  selectedCats = new Set(CATEGORIES);
+  document.querySelectorAll('#catGrid input').forEach(i=>{i.checked=true; i.closest('.cat-chip').classList.add('checked');});
+});
+document.getElementById('selectNoneBtn').addEventListener('click', ()=>{
+  selectedCats = new Set();
+  document.querySelectorAll('#catGrid input').forEach(i=>{i.checked=false; i.closest('.cat-chip').classList.remove('checked');});
+});
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+document.getElementById('startBtn').addEventListener('click', ()=>{
+  const errEl = document.getElementById('startError');
+  if(selectedCats.size===0){ errEl.style.display='block'; return; }
+  errEl.style.display='none';
+  pool = QUESTIONS.filter(q=>selectedCats.has(q.c));
+  if(document.getElementById('shuffleToggle').checked){ pool = shuffle(pool); }
+  current = 0;
+  totals = {};
+  CATEGORIES.forEach(c=>totals[c]={correct:0,total:0});
+  updateHeaderSeal();
+  showScreen(quizScreen);
+  renderQuestion();
+});
+
+function updateHeaderSeal(){
+  let correct=0, total=0;
+  Object.values(totals).forEach(t=>{correct+=t.correct; total+=t.total;});
+  document.getElementById('headerSeal').innerHTML = total ? `${correct}/${total}<small>score</small>` : `—<small>score</small>`;
+}
+
+function renderQuestion(){
+  answered = false;
+  const item = pool[current];
+  document.getElementById('progressFill').style.width = ((current)/pool.length*100)+'%';
+  document.getElementById('qCat').textContent = item.c;
+  document.getElementById('qCounter').textContent = `Question ${current+1} of ${pool.length}`;
+  document.getElementById('qText').textContent = item.q;
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  item.o.forEach((opt, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span>${opt}</span>`;
+    btn.addEventListener('click', ()=>selectOption(idx));
+    container.appendChild(btn);
+  });
+  document.getElementById('feedback').classList.remove('show','is-correct','is-incorrect');
+  document.getElementById('nextBtn').style.display = 'none';
+}
+
+function selectOption(idx){
+  if(answered) return;
+  answered = true;
+  const item = pool[current];
+  const correctIdx = item.a;
+  const buttons = document.querySelectorAll('.opt-btn');
+  buttons.forEach((b,i)=>{
+    b.disabled = true;
+    if(i===correctIdx) b.classList.add('correct');
+    if(i===idx && idx!==correctIdx) b.classList.add('incorrect');
+  });
+
+  const isCorrect = idx===correctIdx;
+  totals[item.c].total++;
+  if(isCorrect) totals[item.c].correct++;
+  updateHeaderSeal();
+
+  const fb = document.getElementById('feedback');
+  fb.classList.add('show', isCorrect ? 'is-correct' : 'is-incorrect');
+  document.getElementById('feedbackVerdict').textContent = isCorrect ? 'Correct' : 'Not quite';
+  document.getElementById('feedbackText').textContent = item.e;
+
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.style.display = 'inline-block';
+  nextBtn.textContent = (current === pool.length-1) ? 'See results →' : 'Next question →';
+}
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  if(current === pool.length-1){
+    showResults();
+  } else {
+    current++;
+    renderQuestion();
+  }
+});
+
+// keyboard support: 1-4 selects an option
+document.addEventListener('keydown', (e)=>{
+  if(!quizScreen.classList.contains('active') || answered) return;
+  const map = {'1':0,'2':1,'3':2,'4':3};
+  if(map[e.key]!==undefined){
+    const btn = document.querySelectorAll('.opt-btn')[map[e.key]];
+    if(btn) btn.click();
+  }
+});
+
+function showResults(){
+  document.getElementById('progressFill').style.width = '100%';
+  let correct=0, total=0;
+  Object.values(totals).forEach(t=>{correct+=t.correct; total+=t.total;});
+  const pct = total ? Math.round(correct/total*100) : 0;
+  document.getElementById('resultPct').textContent = pct+'%';
+  document.getElementById('resultFrac').textContent = `${correct} / ${total}`;
+
+  let msg, sub;
+  if(pct>=90){ msg = 'Excellent recall.'; sub = "You're comfortably ahead of the pass mark on this chapter — keep this pace up across the rest of the handbook."; }
+  else if(pct>=75){ msg = 'Solid result.'; sub = "You're around the test's pass threshold for this material. A second pass on the categories below will firm things up."; }
+  else if(pct>=50){ msg = 'Good progress, more revision needed.'; sub = 'Roughly half the chapter is solid. Focus another session on the weaker topics below before moving on.'; }
+  else { msg = 'This chapter needs another pass.'; sub = "That's completely normal on a first run through dense material — re-read the weak sections below, then retake."; }
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('resultSub').textContent = sub;
+
+  const catResults = document.getElementById('catResults');
+  catResults.innerHTML = '';
+  CATEGORIES.forEach(cat=>{
+    const t = totals[cat];
+    if(!t || t.total===0) return;
+    const p = Math.round(t.correct/t.total*100);
+    const row = document.createElement('div');
+    row.className = 'cat-result-row';
+    row.innerHTML = `<span class="cname">${cat}</span><div class="bar-track"><div class="bar-fill" style="width:${p}%"></div></div><span class="cfrac">${t.correct}/${t.total}</span>`;
+    catResults.appendChild(row);
+  });
+
+  showScreen(resultsScreen);
+}
+
+document.getElementById('retakeBtn').addEventListener('click', ()=>{
+  pool = QUESTIONS.filter(q=>selectedCats.has(q.c));
+  if(document.getElementById('shuffleToggle').checked){ pool = shuffle(pool); }
+  current = 0;
+  totals = {};
+  CATEGORIES.forEach(c=>totals[c]={correct:0,total:0});
+  updateHeaderSeal();
+  showScreen(quizScreen);
+  renderQuestion();
+});
+
+document.getElementById('changeTopicsBtn').addEventListener('click', ()=>{
+  showScreen(startScreen);
+});
+</script>
+</body>
+</html>
