@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Life in the UK — History Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2740;
+    --ink-soft:#3a4566;
+    --parchment:#f3ecd9;
+    --parchment-deep:#e8dcb8;
+    --card:#fbf7ec;
+    --burgundy:#8c1f2c;
+    --burgundy-deep:#6e1622;
+    --gold:#c2952f;
+    --gold-soft:#e0c887;
+    --green:#2f6b4f;
+    --green-soft:#dcebe1;
+    --red:#a33b3b;
+    --red-soft:#f3dede;
+    --charcoal:#241f1a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--parchment);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(140,31,44,0.05) 0%, transparent 35%),
+      radial-gradient(circle at 85% 80%, rgba(28,39,64,0.06) 0%, transparent 40%);
+    font-family:'Source Serif 4', Georgia, serif;
+    color:var(--charcoal);
+    min-height:100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:28px 16px 60px;
+  }
+  .app{ width:100%; max-width:700px; }
+
+  .masthead{
+    text-align:center;
+    margin-bottom:18px;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    margin:0 0 6px;
+  }
+  .title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:clamp(28px,6vw,40px);
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin:8px 0 0;
+  }
+
+  .ribbon-wrap{
+    margin:20px 0 0;
+  }
+  .ribbon-track{
+    height:8px;
+    border-radius:5px;
+    background:var(--parchment-deep);
+    border:1px solid rgba(28,39,64,0.15);
+    overflow:hidden;
+  }
+  .ribbon-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--burgundy), var(--gold));
+    transition:width .35s ease;
+  }
+  .ribbon-meta{
+    display:flex;
+    justify-content:space-between;
+    margin-top:7px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+  }
+  .ribbon-meta b{color:var(--ink);}
+
+  .card{
+    background:var(--card);
+    border:1px solid rgba(28,39,64,0.14);
+    border-radius:10px;
+    box-shadow:0 1px 0 rgba(28,39,64,0.04), 0 14px 32px -18px rgba(28,39,64,0.35);
+    margin-top:18px;
+    padding:30px 28px 28px;
+    position:relative;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;left:24px;right:24px;
+    height:3px;
+    background:repeating-linear-gradient(90deg, var(--gold) 0 10px, transparent 10px 16px);
+    opacity:0.6;
+  }
+
+  /* ---- Start screen ---- */
+  .start-body p{ line-height:1.65; font-size:15.5px; color:var(--ink); }
+  .start-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:22px 0 26px;
+  }
+  .stat-box{
+    border:1px solid rgba(28,39,64,0.14);
+    border-radius:8px;
+    padding:14px 10px;
+    text-align:center;
+    background:rgba(194,149,47,0.07);
+  }
+  .stat-num{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:26px;
+    color:var(--burgundy-deep);
+    display:block;
+  }
+  .stat-label{
+    font-family:'Space Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  .seal-btn{
+    font-family:'Space Mono',monospace;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-size:13px;
+    font-weight:700;
+    color:#fff8e8;
+    background:radial-gradient(circle at 30% 25%, #a8324a 0%, var(--burgundy) 55%, var(--burgundy-deep) 100%);
+    border:none;
+    border-radius:999px;
+    padding:16px 38px;
+    cursor:pointer;
+    box-shadow:0 8px 18px -8px rgba(140,31,44,0.6), inset 0 0 0 2px rgba(255,255,255,0.08);
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:block;
+    margin:0 auto;
+  }
+  .seal-btn:hover{ transform:translateY(-1px) scale(1.02); box-shadow:0 12px 22px -8px rgba(140,31,44,0.65); }
+  .seal-btn:active{ transform:translateY(0) scale(0.99); }
+  .seal-btn.secondary{
+    background:transparent;
+    color:var(--burgundy-deep);
+    box-shadow:none;
+    border:1.5px solid var(--burgundy-deep);
+    padding:13px 30px;
+  }
+  .center{ text-align:center; }
+
+  /* ---- Question screen ---- */
+  .q-eyebrow{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .q-category{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    background:rgba(140,31,44,0.08);
+    border:1px solid rgba(140,31,44,0.25);
+    padding:4px 10px;
+    border-radius:999px;
+  }
+  .q-count{
+    font-family:'Space Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+  .q-text{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:21px;
+    line-height:1.4;
+    color:var(--ink);
+    margin:0 0 20px;
+  }
+  .options{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    text-align:left;
+    width:100%;
+    border:1.5px solid rgba(28,39,64,0.22);
+    background:#fff;
+    border-radius:8px;
+    padding:13px 16px;
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:15px;
+    color:var(--charcoal);
+    cursor:pointer;
+    transition:border-color .12s ease, background .12s ease, transform .08s ease;
+  }
+  .opt:hover:not(.locked){ border-color:var(--burgundy); background:rgba(140,31,44,0.04); }
+  .opt:active:not(.locked){ transform:scale(0.995); }
+  .opt-letter{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    border:1.5px solid rgba(28,39,64,0.25);
+    border-radius:50%;
+    width:24px;height:24px;
+    min-width:24px;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:1px;
+  }
+  .opt.correct{ border-color:var(--green); background:var(--green-soft); }
+  .opt.correct .opt-letter{ border-color:var(--green); color:var(--green); background:#fff; }
+  .opt.incorrect{ border-color:var(--red); background:var(--red-soft); }
+  .opt.incorrect .opt-letter{ border-color:var(--red); color:var(--red); background:#fff; }
+  .opt.dim{ opacity:0.55; }
+  .opt.locked{ cursor:default; }
+
+  .feedback{
+    margin-top:18px;
+    border-radius:8px;
+    padding:16px 18px;
+    border:1.5px solid;
+    animation:fadeIn .25s ease;
+  }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+  .feedback.right{ border-color:var(--green); background:var(--green-soft); }
+  .feedback.wrong{ border-color:var(--red); background:var(--red-soft); }
+  .feedback-head{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:0 0 7px;
+  }
+  .feedback.right .feedback-head{ color:var(--green); }
+  .feedback.wrong .feedback-head{ color:var(--red); }
+  .feedback p{ margin:0; font-size:14.5px; line-height:1.6; color:var(--charcoal); }
+
+  .controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:22px;
+  }
+  .score-pill{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .next-btn{
+    font-family:'Space Mono',monospace;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-size:12.5px;
+    font-weight:700;
+    color:#fff8e8;
+    background:var(--ink);
+    border:none;
+    border-radius:6px;
+    padding:11px 22px;
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .15s ease, transform .12s ease;
+  }
+  .next-btn.show{ opacity:1; pointer-events:auto; }
+  .next-btn:hover{ transform:translateY(-1px); }
+
+  /* ---- Results screen ---- */
+  .result-score{
+    text-align:center;
+    margin:6px 0 22px;
+  }
+  .result-num{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:54px;
+    color:var(--burgundy-deep);
+    line-height:1;
+  }
+  .result-of{
+    font-family:'Space Mono',monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+  .result-verdict{
+    font-size:15.5px;
+    text-align:center;
+    color:var(--ink);
+    margin:0 0 24px;
+    line-height:1.6;
+  }
+  .breakdown{
+    border-top:1px solid rgba(28,39,64,0.15);
+    padding-top:16px;
+    margin-bottom:22px;
+  }
+  .breakdown-title{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+  .bd-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+    font-size:13px;
+  }
+  .bd-label{ width:170px; flex-shrink:0; color:var(--ink); }
+  .bd-bar-track{
+    flex:1;
+    height:6px;
+    background:var(--parchment-deep);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .bd-bar-fill{ height:100%; background:var(--gold); }
+  .bd-frac{ font-family:'Space Mono',monospace; font-size:11.5px; color:var(--ink-soft); width:34px; text-align:right; }
+
+  .review-toggle{
+    text-align:center;
+    margin-bottom:18px;
+  }
+  .link-btn{
+    background:none;border:none;
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    text-decoration:underline;
+    color:var(--burgundy);
+    cursor:pointer;
+  }
+  .miss-item{
+    border-left:3px solid var(--red);
+    padding:6px 0 6px 12px;
+    margin-bottom:10px;
+    font-size:13.5px;
+  }
+  .miss-q{ font-weight:600; color:var(--ink); margin:0 0 3px; }
+  .miss-a{ color:var(--ink-soft); margin:0; }
+
+  .footer-note{
+    text-align:center;
+    margin-top:18px;
+    font-family:'Space Mono',monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.03em;
+  }
+
+  @media (max-width:480px){
+    .card{ padding:22px 18px 20px; }
+    .q-text{ font-size:18.5px; }
+    .bd-label{ width:120px; font-size:12px;}
+  }
+  .hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="masthead">
+    <p class="eyebrow">Life in the UK — Settlement &amp; Citizenship Test Prep</p>
+    <h1 class="title">A Long History of Britain</h1>
+    <p class="subtitle">200 questions drawn from the official history chapter, in chronological order.</p>
+  </div>
+
+  <div class="ribbon-wrap">
+    <div class="ribbon-track"><div class="ribbon-fill" id="ribbonFill"></div></div>
+    <div class="ribbon-meta">
+      <span id="ribbonEra">Not started</span>
+      <span id="ribbonCount">0 / 0</span>
+    </div>
+  </div>
+
+  <div class="card" id="card"></div>
+
+  <p class="footer-note">Read each question, choose an answer, and you'll see why every option is right or wrong before moving on.</p>
+</div>
+
+<script>
+const QUESTIONS = [
+{c:'Early Britain',q:'About how long ago did Britain become permanently separated from the European continent by the Channel?',o:['4,000 years ago','6,000 years ago','10,000 years ago','2,000 years ago'],a:2,e:'Britain became permanently separated from the continent by the Channel about 10,000 years ago, at the end of the Stone Age land-bridge period. 4,000 years ago is when bronze-working began (the Bronze Age); 6,000 years ago is roughly when the first farmers arrived; 2,000 years ago is during the Iron Age, well after separation.'},
+{c:'Early Britain',q:'Who were the first people to live in Britain?',o:['Iron Age farmers','Hunter-gatherers of the Stone Age','Roman settlers','Bronze Age metalworkers'],a:1,e:'The first people to live in Britain were Stone Age hunter-gatherers who followed herds of deer and horses. Iron Age farmers and Bronze Age metalworkers came much later, and the Romans did not arrive until 55 BC at the earliest.'},
+{c:'Early Britain',q:'Where did the ancestors of Britain’s first farmers, who arrived 6,000 years ago, probably come from?',o:['Scandinavia','South-east Europe','North Africa','Western France'],a:1,e:'The first farmers’ ancestors probably came from south-east Europe. Scandinavia is associated with later Viking settlers, North Africa is not mentioned, and while France is linked to the later Norman Conquest, it is not the origin given for the first farmers.'},
+{c:'Early Britain',q:'What was Stonehenge probably used for?',o:['A defensive hill fort','A royal burial ground only','A special gathering place for seasonal ceremonies','A Roman administrative centre'],a:2,e:'Stonehenge was probably a special gathering place for seasonal ceremonies. It was not built as a hill fort (those came later in the Iron Age), it is not described as solely a royal burial ground, and it long predates the Romans.'},
+{c:'Early Britain',q:'In which English county does Stonehenge stand?',o:['Dorset','Suffolk','Wiltshire','Cheshire'],a:2,e:'Stonehenge stands in Wiltshire. Dorset is home to the Iron Age hill fort Maiden Castle, Suffolk is where Sutton Hoo (an Anglo-Saxon ship burial) was found, and Cheshire is linked to the much later Jodrell Bank telescope.'},
+{c:'Early Britain',q:'What is Skara Brae, on Orkney?',o:['A Roman fort','A Viking burial mound','The best-preserved prehistoric village in northern Europe','A medieval monastery'],a:2,e:'Skara Brae is the best-preserved prehistoric village in northern Europe and has helped archaeologists understand late Stone Age life. It is not Roman, Viking, or medieval — it predates all of those periods.'},
+{c:'Early Britain',q:'What metal did people in Britain learn to work around 4,000 years ago, giving its name to an age?',o:['Iron','Bronze','Steel','Gold'],a:1,e:'This period is called the Bronze Age because people learned to make bronze. Iron-working came later in the following Iron Age, steel is a much later industrial development, and gold was worked for ornaments but did not name the era.'},
+{c:'Early Britain',q:'What were Bronze Age burial tombs called?',o:['Round barrows','Long barrows','Hill forts','Henges'],a:0,e:'Bronze Age people buried their dead in tombs called round barrows. Hill forts were defended Iron Age settlements, and henges (like Stonehenge) were ceremonial monuments, not the burial tombs described here.'},
+{c:'Early Britain',q:'Which age followed the Bronze Age?',o:['The Stone Age','The Iron Age','The Viking Age','The Roman Age'],a:1,e:'The Bronze Age was followed by the Iron Age, when people learned to make tools and weapons from iron. The Stone Age came before the Bronze Age, and the Viking and Roman periods came much later.'},
+{c:'Early Britain',q:'Where can an impressive Iron Age hill fort still be seen today?',o:['Maiden Castle, Dorset','Hadrian’s Wall, Northumberland','Sutton Hoo, Suffolk','Skara Brae, Orkney'],a:0,e:'Maiden Castle in Dorset is a very impressive surviving Iron Age hill fort. Hadrian’s Wall is a Roman structure, Sutton Hoo is an Anglo-Saxon burial site, and Skara Brae is a Stone Age village.'},
+{c:'Early Britain',q:'What language family did people speak in Iron Age Britain?',o:['Germanic','Celtic','Romance','Norse'],a:1,e:'Iron Age Britons spoke languages from the Celtic family, related to languages still spoken today in parts of Wales, Scotland and Ireland. Germanic languages arrived with the Anglo-Saxons, Norse with the Vikings, and Romance languages are not described as spoken in Britain at this time.'},
+{c:'Early Britain',q:'What development is said to mark the beginnings of British history?',o:['The building of Stonehenge','The Roman invasion of 55 BC','Iron Age Britons minting the first coins in Britain','The arrival of the first farmers'],a:2,e:'The text states that Iron Age people making the first coins minted in Britain, some inscribed with kings’ names, marks the beginnings of British history. Stonehenge and the first farmers belong to the earlier Stone Age, and the Roman invasion came after this point.'},
+{c:'The Romans',q:'Who led the first Roman invasion of Britain in 55 BC?',o:['Emperor Claudius','Julius Caesar','Emperor Hadrian','Emperor Augustus'],a:1,e:'Julius Caesar led the unsuccessful invasion of 55 BC. Claudius led the successful invasion almost a century later in AD 43, Hadrian came later still and built the famous wall, and Augustus is not mentioned in connection with the invasions.'},
+{c:'The Romans',q:'Which Roman Emperor led the successful invasion of Britain in AD 43?',o:['Julius Caesar','Hadrian','Claudius','Nero'],a:2,e:'The Emperor Claudius led the successful AD 43 invasion that brought most of Britain under Roman control. Julius Caesar’s earlier attempt in 55 BC failed, Hadrian came later and built the wall, and Nero is not mentioned.'},
+{c:'The Romans',q:'Who was the queen of the Iceni who led resistance against the Romans?',o:['Mary, Queen of Scots','Boudicca','Elizabeth I','Catherine of Aragon'],a:1,e:'Boudicca, queen of the Iceni in eastern England, led resistance against Roman occupation and is commemorated with a statue near the Houses of Parliament. The other women are much later figures from the Tudor and Stuart periods.'},
+{c:'The Romans',q:'Where in London is there a statue commemorating Boudicca?',o:['Trafalgar Square','Westminster Bridge','Hyde Park','Tower of London'],a:1,e:'A statue of Boudicca stands on Westminster Bridge, near the Houses of Parliament. Trafalgar Square is associated with Nelson’s Column, Hyde Park with the Great Exhibition, and the Tower of London with later executions such as Anne Boleyn’s.'},
+{c:'The Romans',q:'Why did Emperor Hadrian build a wall in the north of England?',o:['To mark a trade boundary','To keep out the Picts','To divide Wales from England','To defend against Viking raids'],a:1,e:'Hadrian’s Wall was built to keep out the Picts, ancestors of the Scottish people, since areas of what is now Scotland were never conquered by Rome. It was not built against Vikings, who arrived centuries later, or to divide Wales from England.'},
+{c:'The Romans',q:'Which forts can still be seen along Hadrian’s Wall?',o:['Conwy and Caernarvon','Housesteads and Vindolanda','Edinburgh and Windsor','Dover and Portsmouth'],a:1,e:'Housesteads and Vindolanda are forts that survive along Hadrian’s Wall. Conwy and Caernarvon are medieval Welsh castles, Edinburgh and Windsor are castles still in use today, and Dover and Portsmouth are coastal towns from later history.'},
+{c:'The Romans',q:'What international status does Hadrian’s Wall hold today?',o:['A UNESCO World Heritage Site','A royal palace','A national park headquarters','An active military base'],a:0,e:'Hadrian’s Wall is a UNESCO World Heritage Site and a popular area for walkers. It is not a royal palace, park headquarters, or active military base.'},
+{c:'The Romans',q:'Roughly how long did the Romans remain in Britain?',o:['100 years','250 years','400 years','600 years'],a:2,e:'The Romans remained in Britain for about 400 years, from AD 43 until their army left in AD 410. The other figures do not match the timeline given in the text.'},
+{c:'The Romans',q:'Which of these did the Romans introduce to Britain?',o:['The printing press','Roads, public buildings and a structure of law','The English Parliament','Gunpowder'],a:1,e:'The Romans built roads and public buildings, created a structure of law, and introduced new plants and animals. The printing press came with Caxton in the 15th century, Parliament developed in the Middle Ages, and gunpowder is not mentioned.'},
+{c:'The Romans',q:'When did the first Christian communities begin to appear in Roman Britain?',o:['1st century AD','3rd and 4th centuries AD','6th century AD','After the Norman Conquest'],a:1,e:'The first Christian communities in Britain began to appear during the 3rd and 4th centuries AD, while Britain was still part of the Roman Empire — well before the Norman Conquest and after the initial 1st-century invasions.'},
+{c:'The Romans',q:'When did the Roman army leave Britain?',o:['AD 43','AD 410','AD 600','AD 789'],a:1,e:'The Roman army left Britain in AD 410 to defend other parts of the Empire and never returned. AD 43 was the year of the successful invasion, AD 600 is roughly when Anglo-Saxon kingdoms became established, and AD 789 is the first Viking raid.'},
+{c:'The Romans',q:'Which part of modern Britain was never conquered by the Romans?',o:['Wales','Areas of what is now Scotland','Cornwall','Kent'],a:1,e:'Areas of what is now Scotland were never conquered by the Romans, which is why Hadrian built his wall there. Wales, Cornwall and Kent all fell within the area of Roman Britain.'},
+{c:'Anglo-Saxons',q:'Which three tribes invaded Britain after the Romans left?',o:['Angles, Saxons and Normans','Jutes, Angles and Saxons','Picts, Scots and Britons','Vikings, Danes and Jutes'],a:1,e:'The Jutes, the Angles and the Saxons invaded from northern Europe after the Romans departed, and their languages form the basis of modern English. The Normans arrived centuries later in 1066, and Picts, Scots and Britons were already in Britain rather than invaders.'},
+{c:'Anglo-Saxons',q:'By about what date were Anglo-Saxon kingdoms established in Britain?',o:['AD 410','AD 600','AD 789','AD 1066'],a:1,e:'By about AD 600, Anglo-Saxon kingdoms had been established, mainly in what is now England. AD 410 is when the Romans left, AD 789 is the first Viking raid, and AD 1066 is the Norman Conquest.'},
+{c:'Anglo-Saxons',q:'In which modern county was the Anglo-Saxon ship-burial site of Sutton Hoo found?',o:['Suffolk','Kent','Yorkshire','Wiltshire'],a:0,e:'Sutton Hoo, the burial place of an Anglo-Saxon king buried with treasure and armour in a ship, is in modern Suffolk. Kent, Yorkshire and Wiltshire are not the location given.'},
+{c:'Anglo-Saxons',q:'Which missionary became known as the patron saint of Ireland?',o:['St Columba','St Augustine','St Patrick','St Andrew'],a:2,e:'St Patrick became the patron saint of Ireland. St Columba founded a monastery on Iona, St Augustine led the mission from Rome and became Archbishop of Canterbury, and St Andrew is the patron saint of Scotland, not a missionary described here.'},
+{c:'Anglo-Saxons',q:'Who founded a monastery on the island of Iona?',o:['St Patrick','St Columba','St Augustine','St George'],a:1,e:'St Columba founded a monastery on Iona, off the coast of what is now Scotland, helping spread Christianity in the north. St Patrick worked mainly in Ireland, St Augustine led the mission from Rome to the south, and St George is England’s patron saint, not a missionary in this story.'},
+{c:'Anglo-Saxons',q:'Who led missionaries from Rome and became the first Archbishop of Canterbury?',o:['St Columba','St Patrick','St Augustine','St Andrew'],a:2,e:'St Augustine led missionaries from Rome who spread Christianity in the south of Britain and became the first Archbishop of Canterbury. St Columba and St Patrick worked in the north and Ireland respectively, and St Andrew is not described as a missionary.'},
+{c:'Anglo-Saxons',q:'Were the Anglo-Saxons Christian when they first arrived in Britain?',o:['Yes, fully Christian','No, missionaries later converted them','They followed Roman state religion','They were already Protestant'],a:1,e:'The Anglo-Saxons were not Christians when they first arrived; missionaries later came to preach Christianity to them. Protestantism did not exist until the 16th-century Reformation, ruling out that option too.'},
+{c:'Anglo-Saxons',q:'Which parts of Britain remained largely free of Anglo-Saxon rule?',o:['Much of Wales and Scotland','Kent and Sussex','East Anglia','The Danelaw'],a:0,e:'Much of what is now Wales, and Scotland, remained free of Anglo-Saxon rule, which was mainly established in what is now England. Kent, Sussex and East Anglia were areas of Anglo-Saxon settlement, and the Danelaw was a later Viking-controlled area.'},
+{c:'The Vikings',q:'From which two countries did the Vikings mainly come?',o:['France and Spain','Denmark and Norway','Germany and Holland','Iceland and Ireland'],a:1,e:'The Vikings came from Denmark and Norway. France and Spain are linked to the later Normans and Spanish Armada, Germany and Holland to later migrants and trade, and Iceland and Ireland are not given as the Vikings’ origin here.'},
+{c:'The Vikings',q:'In what year did the Vikings first raid Britain?',o:['AD 600','AD 789','AD 1066','AD 1485'],a:1,e:'The Vikings first visited Britain in AD 789 to raid coastal towns. AD 600 is roughly when Anglo-Saxon kingdoms formed, AD 1066 is the Norman Conquest, and AD 1485 is the end of the Wars of the Roses.'},
+{c:'The Vikings',q:'What was the area of Viking settlement in eastern England and Scotland known as?',o:['The Pale','The Danelaw','The Commonwealth','Ulster'],a:1,e:'The area where many Viking invaders settled, especially in the east and north of England, was known as the Danelaw — place names like Grimsby and Scunthorpe come from Viking languages. The Pale was English-controlled Ireland, the Commonwealth was Cromwell’s republic, and Ulster is a province of Ireland.'},
+{c:'The Vikings',q:'Which Anglo-Saxon king united the English kingdoms and defeated the Vikings?',o:['King Alfred the Great','King Cnut','King Edward I','King John'],a:0,e:'King Alfred the Great united the Anglo-Saxon kingdoms and defeated the Vikings. Cnut was actually a Danish king who later ruled England, Edward I was a much later medieval king, and King John is remembered for the Magna Carta.'},
+{c:'The Vikings',q:'Who was the first Danish king to rule England?',o:['Cnut (Canute)','Alfred the Great','William the Conqueror','Kenneth MacAlpin'],a:0,e:'Cnut, also called Canute, was the first Danish king to rule England during a short period of Danish kingship. Alfred the Great was an Anglo-Saxon king, William the Conqueror was Norman, and Kenneth MacAlpin united Scotland, not England.'},
+{c:'The Vikings',q:'Who united the people in the north under one king due to the Viking threat, giving rise to the name ‘Scotland’?',o:['Robert the Bruce','Kenneth MacAlpin','James VI','William Wallace'],a:1,e:'Kenneth MacAlpin united the people of the north under one king in response to the Viking threat, and the term Scotland began to be used for that country. Robert the Bruce and William Wallace belong to the later medieval wars with England, and James VI lived much later.'},
+{c:'Norman Conquest',q:'In what year was the Battle of Hastings fought?',o:['1066','1215','1314','1485'],a:0,e:'The Battle of Hastings was fought in 1066. 1215 is the year of the Magna Carta, 1314 is the Battle of Bannockburn, and 1485 is the Battle of Bosworth Field ending the Wars of the Roses.'},
+{c:'Norman Conquest',q:'Who defeated King Harold at the Battle of Hastings?',o:['William, Duke of Normandy','Robert the Bruce','Oliver Cromwell','Edward I'],a:0,e:'William, Duke of Normandy, defeated Harold at Hastings and became William the Conqueror. Robert the Bruce fought the English at Bannockburn, Cromwell led Parliament’s forces centuries later, and Edward I was a later English king who fought the Welsh and Scots.'},
+{c:'Norman Conquest',q:'What happened to King Harold at the Battle of Hastings?',o:['He was captured and exiled','He was killed','He surrendered and fled to France','He was crowned co-king'],a:1,e:'Harold, the Saxon king of England, was killed in the battle. He was not captured and exiled, did not flee to France, and was not made a co-king.'},
+{c:'Norman Conquest',q:'What event does the Bayeux Tapestry depict?',o:['The signing of the Magna Carta','The Battle of Hastings and the Norman Conquest','The Spanish Armada','The Battle of Bosworth Field'],a:1,e:'The Bayeux Tapestry, a piece of embroidery nearly 70 metres long, commemorates the Battle of Hastings and the Norman Conquest of 1066. The other events belong to later centuries and are not its subject.'},
+{c:'Norman Conquest',q:'What lasting effect did Norman French have on Britain after the Conquest?',o:['It replaced English completely','It influenced the development of the English language','It became Scotland’s official language','It had no lasting effect'],a:1,e:'Norman French, the language of the new Norman ruling class, influenced the development of the English language as it is spoken today, blending with Anglo-Saxon over time. It did not replace English entirely, and it was not adopted as Scotland’s language.'},
+{c:'Norman Conquest',q:'What is notable about the Norman Conquest in the context of foreign invasions of England?',o:['It was the first of many such invasions','It was the last successful foreign invasion of England','It was reversed within a decade','It only affected Scotland'],a:1,e:'The Norman Conquest was the last successful foreign invasion of England. It was not reversed, was not the first of many, and it affected England and Wales rather than only Scotland, which the Normans did not invade.'},
+{c:'Norman Conquest',q:'What was the Domesday Book?',o:['A record of royal marriages','A list of towns, villages, people, landowners and animals in England','A collection of Anglo-Saxon poetry','A treaty between England and Scotland'],a:1,e:'William ordered surveys recording towns, villages, the people who lived there, landowners and animals — this became the Domesday Book, which still exists and shows society shortly after the Conquest. It is not a poetry collection, marriage record, or treaty.'},
+{c:'Norman Conquest',q:'Did the Normans succeed in conquering Scotland?',o:['Yes, fully and permanently','No — they fought on the border but did not invade Scotland','Only the Scottish Highlands were conquered','Scotland surrendered without a fight'],a:1,e:'The Scots and the Normans fought along the border, and the Normans took some border land but did not invade Scotland itself. Scotland was not conquered, fully or partially, and it did not surrender.'},
+{c:'Middle Ages',q:'In 1284, which statute did King Edward I introduce, annexing Wales to the Crown of England?',o:['The Statute of Rhuddlan','The Magna Carta','The Act of Union','The Statute of Westminster'],a:0,e:'Edward I introduced the Statute of Rhuddlan in 1284, annexing Wales to the Crown of England. The Magna Carta (1215) limited the king’s own power, the Act of Union (1707/1800) joined Scotland and Ireland respectively, and there is no Statute of Westminster mentioned in this context.'},
+{c:'Middle Ages',q:'Which castles were built to help maintain English power over Wales?',o:['Edinburgh and Stirling','Conwy and Caernarvon','Windsor and Dover','Housesteads and Vindolanda'],a:1,e:'Huge castles including Conwy and Caernarvon were built to maintain English power in Wales. Edinburgh and Stirling are Scottish castles, Windsor and Dover are English royal/coastal castles, and Housesteads and Vindolanda are Roman forts.'},
+{c:'Middle Ages',q:'Who defeated the English at the Battle of Bannockburn in 1314?',o:['William Wallace','Robert the Bruce','Kenneth MacAlpin','Bonnie Prince Charlie'],a:1,e:'The Scottish, led by Robert the Bruce, defeated the English at Bannockburn in 1314, keeping Scotland unconquered. William Wallace fought earlier campaigns, Kenneth MacAlpin united Scotland centuries before, and Bonnie Prince Charlie led a rebellion centuries later.'},
+{c:'Middle Ages',q:'What was the area around Dublin under English control by 1200 known as?',o:['The Danelaw','The Pale','Ulster','The Commonwealth'],a:1,e:'By 1200, the English ruled an area around Dublin known as the Pale. The Danelaw was an earlier Viking-controlled area of England, Ulster is a province in the north of Ireland, and the Commonwealth was the later English republic under Cromwell.'},
+{c:'Middle Ages',q:'Between which two countries was the Hundred Years War fought?',o:['England and Scotland','England and France','England and Spain','England and Ireland'],a:1,e:'English kings fought a long war with France known as the Hundred Years War. This was separate from the conflicts with Scotland, Spain, or Ireland described elsewhere in the chapter.'},
+{c:'Middle Ages',q:'How long did the Hundred Years War actually last?',o:['100 years exactly','80 years','116 years','150 years'],a:2,e:'Despite its name, the Hundred Years War actually lasted 116 years. It was not exactly 100 years, nor 80 or 150 years.'},
+{c:'Middle Ages',q:'At the Battle of Agincourt in 1415, who defeated a much larger French army?',o:['King Henry V','King Edward I','King Richard III','King John'],a:0,e:'King Henry V’s vastly outnumbered English army won a famous victory at Agincourt in 1415. Edward I fought in Wales and Scotland a century earlier, Richard III died at Bosworth Field in 1485, and King John is associated with the Magna Carta.'},
+{c:'Middle Ages',q:'When did the English finally leave France at the end of the Hundred Years War?',o:['The 1450s','The 1066s','The 1340s','The 1500s'],a:0,e:'The English left France in the 1450s, ending the Hundred Years War. 1066 is the year of the Norman Conquest, the 1340s is when the war began and the Black Death struck, and the 1500s is the Tudor period.'},
+{c:'Black Death',q:'What system of land ownership, in which the king gave land to lords in exchange for military service, did the Normans use?',o:['Feudalism','Capitalism','Federalism','Mercantilism'],a:0,e:'The Normans used feudalism, under which the king gave land to lords in return for help in war. Capitalism, federalism and mercantilism are later or unrelated economic/political systems not described in this period.'},
+{c:'Black Death',q:'What were peasants called who worked a small area of their lord’s land but could not move away?',o:['Serfs','Gentry','Chieftains','Yeomen'],a:0,e:'Most peasants were serfs, tied to their lord’s land in exchange for working it. The gentry were larger landowners who emerged after the Black Death, chieftains led clans in Scotland and Ireland, and yeomen are not mentioned in this passage.'},
+{c:'Black Death',q:'In what year did the Black Death arrive in Britain?',o:['1066','1215','1348','1485'],a:2,e:'The Black Death arrived in Britain in 1348. 1066 is the Norman Conquest, 1215 is the Magna Carta, and 1485 is the end of the Wars of the Roses.'},
+{c:'Black Death',q:'Roughly what proportion of the population of England died from the Black Death?',o:['One tenth','One third','Two thirds','Almost all'],a:1,e:'About one third of the population of England died, with a similar proportion in Scotland and Wales. It was devastating but did not kill only a tenth, nor two thirds or almost everyone.'},
+{c:'Black Death',q:'What new social class began to appear after the Black Death, made up of owners of large areas of land?',o:['The clergy','The gentry','The Chartists','The Jacobites'],a:1,e:'New social classes appeared after the Black Death, including owners of large areas of land later called the gentry. The clergy already existed as a class, while the Chartists and Jacobites are political movements from much later centuries.'},
+{c:'Black Death',q:'How did the Black Death affect English-controlled Ireland?',o:['It had no effect on the Pale','It killed many in the Pale and shrank the English-controlled area for a time','It strengthened English control of Ireland','It only affected Dublin’s nobility'],a:1,e:'In Ireland, the Black Death killed many people in the Pale, and for a time the area controlled by the English became smaller. It clearly had an effect, it weakened rather than strengthened English control, and it affected ordinary people, not only nobility.'},
+{c:'Black Death',q:'What effect did the resulting labour shortages have on peasants after the Black Death?',o:['They were forced into stricter serfdom','They began to demand higher wages','They were banned from working','They were given titles of nobility'],a:1,e:'With a smaller population and labour shortages, peasants began to demand higher wages. They were not pushed into stricter serfdom, banned from working, or automatically given noble titles.'},
+{c:'Black Death',q:'In the north of Scotland and Ireland during this period, land was typically owned by members of what?',o:['The clans (prominent families)','The Church only','The monarchy directly','Foreign merchants'],a:0,e:'In the north of Scotland and Ireland, land was owned by members of the clans, prominent families, rather than through the feudal system used elsewhere. It was not owned solely by the Church, the monarchy, or foreign merchants.'},
+{c:'Parliament & Law',q:'What charter did King John agree to in 1215 under pressure from his noblemen?',o:['The Bill of Rights','The Magna Carta','The Act of Union','The Statute of Rhuddlan'],a:1,e:'King John agreed to the Magna Carta in 1215. The Bill of Rights came after the Glorious Revolution in 1689, the Act of Union joined Scotland (1707) and Ireland (1800) to England, and the Statute of Rhuddlan annexed Wales decades later.'},
+{c:'Parliament & Law',q:'What key principle did the Magna Carta establish?',o:['That the king could tax freely','That even the king was subject to the law','That women could inherit the throne','That Parliament could declare war alone'],a:1,e:'The Magna Carta established that even the king was subject to the law, restricting his power to collect taxes or change laws without his noblemen. It did not give the king free taxing power, nor did it address female succession or sole war powers for Parliament.'},
+{c:'Parliament & Law',q:'Which House of the English Parliament did the nobility, great landowners and bishops sit in?',o:['The House of Commons','The House of Lords','The Privy Council','The Estates General'],a:1,e:'The nobility, great landowners and bishops sat in the House of Lords. The House of Commons was made up of knights and wealthy townspeople; the Privy Council and Estates General are not the bodies described in this English context.'},
+{c:'Parliament & Law',q:'Who was elected to sit in the House of Commons in medieval England?',o:['Only bishops','Knights and wealthy people from towns and cities','Only the royal family','Foreign ambassadors'],a:1,e:'Knights, who were usually smaller landowners, and wealthy people from towns and cities were elected to the House of Commons. Bishops sat in the Lords, the royal family did not sit in either House, and foreign ambassadors are not described as members.'},
+{c:'Parliament & Law',q:'What were the three Houses, or Estates, of the medieval Scottish Parliament?',o:['Lords, commons and clergy','Nobles, merchants and farmers','Kings, clans and chiefs','Bishops, knights and serfs'],a:0,e:'The Scottish Parliament had three Houses called Estates: the lords, the commons and the clergy. The other groupings listed do not match the Estates described in the text.'},
+{c:'Parliament & Law',q:'How did English judges develop ‘common law’ during the Middle Ages?',o:['By following previous decisions and tradition (precedent)','By consulting the Pope on each case','By holding annual public votes','By copying Roman law exactly'],a:0,e:'English judges developed common law by a process of precedent — following previous decisions — and tradition. This did not involve papal rulings, public votes, or simply copying Roman law.'},
+{c:'Parliament & Law',q:'How did the legal system in Scotland develop differently from England’s?',o:['Scottish laws were codified, written down','Scotland had no laws at all','Scotland adopted English common law unchanged','Scottish law was set entirely by the clergy'],a:0,e:'In Scotland, laws were ‘codified’, meaning written down, rather than developing mainly through precedent as in England. Scotland clearly had laws, did not simply copy English common law, and law was not set solely by the clergy.'},
+{c:'Parliament & Law',q:'What did medieval English kings typically need from Parliament when they wanted to act?',o:['Permission to raise money, especially through taxes','Permission to marry','Approval for foreign travel','Nothing at all'],a:0,e:'Parliaments were called mainly for the king to consult his nobles, particularly when he needed to raise money. Marriage and foreign travel are not the reasons given, and kings increasingly did need Parliament’s involvement rather than none.'},
+{c:'Language & Culture',q:'By 1400, what had become the preferred language of the English royal court and Parliament?',o:['Latin','Norman French','English','Gaelic'],a:2,e:'By 1400, official documents were being written in English, and English had become the preferred language of the royal court and Parliament. Latin and Norman French had been used earlier, and Gaelic was spoken mainly in parts of Scotland and Ireland.'},
+{c:'Language & Culture',q:'The modern English word ‘park’ is based on a word from which language?',o:['Anglo-Saxon','Norman French','Latin','Gaelic'],a:1,e:'‘Park’ and ‘beauty’ are examples of modern English words based on Norman French. Anglo-Saxon gave words like ‘apple’ and ‘cow’; Latin and Gaelic are not the source given for this particular example.'},
+{c:'Language & Culture',q:'The modern English word ‘apple’ is based on a word from which language?',o:['Norman French','Anglo-Saxon','Latin','Norse'],a:1,e:'‘Apple’, ‘cow’ and ‘summer’ are examples based on Anglo-Saxon words. Norman French gave words like ‘park’ and ‘beauty’, while Latin and Norse are not the source given for this example.'},
+{c:'Language & Culture',q:'Who wrote The Canterbury Tales?',o:['William Caxton','Geoffrey Chaucer','John Barbour','William Shakespeare'],a:1,e:'Geoffrey Chaucer wrote The Canterbury Tales in the years leading up to 1400. William Caxton later printed the work, John Barbour wrote The Bruce in Scots, and Shakespeare lived more than a century later.'},
+{c:'Language & Culture',q:'What is The Canterbury Tales about?',o:['A group of pilgrims telling stories on a journey to Canterbury','The reign of Henry VIII','The Battle of Hastings','A history of the Magna Carta'],a:0,e:'The Canterbury Tales describes travellers on a pilgrimage to Canterbury who tell each other stories along the way. It is not about Henry VIII, Hastings, or the Magna Carta, all of which belong to different periods or topics.'},
+{c:'Language & Culture',q:'Who was the first person in England to print books using a printing press?',o:['Geoffrey Chaucer','William Caxton','John Barbour','Robert the Bruce'],a:1,e:'William Caxton was the first person in England to print books using a printing press, and The Canterbury Tales was one of the first books he printed. Chaucer wrote the work rather than printing it, Barbour was a Scottish poet, and Robert the Bruce was a king, not a printer.'},
+{c:'Language & Culture',q:'Which Scottish poet wrote The Bruce, about the Battle of Bannockburn?',o:['Robert Burns','John Barbour','Geoffrey Chaucer','Dylan Thomas'],a:1,e:'John Barbour wrote The Bruce in the Scots language about the Battle of Bannockburn. Robert Burns and Dylan Thomas were poets from much later centuries, and Chaucer wrote in English about a pilgrimage to Canterbury.'},
+{c:'Language & Culture',q:'Besides Scots and English, what language did many people in Scotland continue to speak during the Middle Ages?',o:['Gaelic','Latin','Norman French','Welsh'],a:0,e:'Many people in Scotland continued to speak Gaelic, alongside the developing Scots language. Latin was a language of the Church and learning, Norman French was associated with England’s ruling class, and Welsh is the language of Wales, not Scotland.'},
+{c:'Language & Culture',q:'Which English cathedral is noted in the text for its famous stained-glass windows?',o:['Lincoln Cathedral','York Minster','St Paul’s Cathedral','Canterbury Cathedral'],a:1,e:'The text specifically highlights the stained glass of York Minster as a famous example, alongside other cathedrals like Lincoln. St Paul’s is associated with the later Great Fire of London rebuild, and Canterbury Cathedral, while important, is not the one singled out for its glass here.'},
+{c:'Language & Culture',q:'Skilled workers who came to England during the Middle Ages to trade and work included glass manufacturers from which country?',o:['Italy','Germany','Holland','France'],a:0,e:'Glass manufacturers came from Italy, alongside weavers from France, engineers from Germany, and canal builders from Holland. Each country is linked to a different specialist skill in the text, so Italy specifically matches glass manufacturing.'},
+{c:'Wars of the Roses',q:'Between which two royal houses was the Wars of the Roses fought?',o:['Tudor and Stuart','Lancaster and York','Plantagenet and Norman','Hanover and Stuart'],a:1,e:'The Wars of the Roses, beginning in 1455, were fought between the House of Lancaster and the House of York. Tudor and Stuart were later royal houses, and Plantagenet/Norman and Hanover/Stuart pairings are not the rival houses in this conflict.'},
+{c:'Wars of the Roses',q:'What symbol represented the House of Lancaster in the Wars of the Roses?',o:['A white rose','A red rose','A golden lion','A blue thistle'],a:1,e:'The symbol of Lancaster was a red rose, giving the wars their name. York’s symbol was a white rose, and a golden lion or blue thistle are not the emblems described.'},
+{c:'Wars of the Roses',q:'What symbol represented the House of York in the Wars of the Roses?',o:['A red rose','A white rose','A black eagle','A green dragon'],a:1,e:'The symbol of York was a white rose. Lancaster’s symbol was a red rose, and a black eagle or green dragon are not the emblems used by either house.'},
+{c:'Wars of the Roses',q:'Which battle in 1485 brought the Wars of the Roses to an end?',o:['The Battle of Bosworth Field','The Battle of Bannockburn','The Battle of Agincourt','The Battle of Hastings'],a:0,e:'The Battle of Bosworth Field in 1485 ended the Wars of the Roses, with Richard III killed and Henry Tudor victorious. Bannockburn (1314) and Hastings (1066) are from earlier periods, and Agincourt (1415) was part of the Hundred Years War against France.'},
+{c:'Wars of the Roses',q:'Who became king after defeating Richard III at the Battle of Bosworth Field?',o:['Henry Tudor, becoming Henry VII','Edward IV','Henry V','William the Conqueror'],a:0,e:'Henry Tudor, leader of the House of Lancaster, defeated Richard III and became King Henry VII, founding the Tudor dynasty. Edward IV was an earlier Yorkist king, Henry V won at Agincourt decades earlier, and William the Conqueror belongs to 1066.'},
+{c:'Wars of the Roses',q:'What symbol did the new House of Tudor adopt to show the uniting of Lancaster and York?',o:['A red rose with a white rose inside it','A purple rose','Two crossed swords','A golden crown on a shield'],a:0,e:'The Tudor symbol was a red rose with a white rose inside it, signifying that the Houses of York and Lancaster were now allied through Henry VII’s marriage to Elizabeth of York. The other symbols described are not the Tudor emblem.'},
+{c:'Tudors: Henry VIII',q:'After winning the Wars of the Roses, what did Henry VII do to secure his position as king?',o:['He gave most power to the nobles','He strengthened central administration and built up financial reserves','He moved the capital to York','He abolished Parliament entirely'],a:1,e:'Henry VII strengthened the central administration of England, reduced the power of the nobles, and was thrifty, building up the monarchy’s financial reserves. He did not hand power to the nobles, move the capital, or abolish Parliament.'},
+{c:'Tudors: Henry VIII',q:'What is Henry VIII most famous for?',o:['Founding the Royal Navy','Breaking away from the Church of Rome and marrying six times','Defeating the Spanish Armada','Signing the Magna Carta'],a:1,e:'Henry VIII is most famous for breaking away from the Church of Rome and marrying six times. The Spanish Armada was defeated under his daughter Elizabeth I, the Royal Navy’s founders are linked to that later period too, and the Magna Carta was signed centuries earlier by King John.'},
+{c:'Tudors: Henry VIII',q:'Who succeeded Henry VII as king of England?',o:['Henry VIII','Edward VI','Richard III','James I'],a:0,e:'Henry VIII, son of Henry VII, succeeded his father and continued the policy of centralising power. Edward VI was Henry VIII’s own son and successor, Richard III died before the Tudor dynasty began, and James I came generations later.'},
+{c:'Tudors: Henry VIII',q:'Which of Henry VIII’s wives was a Spanish princess and mother of his daughter Mary?',o:['Anne Boleyn','Catherine of Aragon','Jane Seymour','Catherine Parr'],a:1,e:'Catherine of Aragon was the Spanish princess whose only surviving child with Henry was Mary. Anne Boleyn was English and mother of Elizabeth, Jane Seymour was mother of Edward, and Catherine Parr was Henry’s last wife, who survived him.'},
+{c:'Tudors: Henry VIII',q:'Why did Henry VIII decide to divorce Catherine of Aragon?',o:['She refused to marry him','She was too old to give him another child and a male heir','She was unfaithful to him','She converted to Protestantism'],a:1,e:'When Catherine was too old to give him another child, Henry decided to divorce her, hoping a new wife would give him the son he wanted as heir. She was not accused of refusing marriage, infidelity, or converting religion.'},
+{c:'Tudors: Henry VIII',q:'Anne Boleyn, Henry VIII’s second wife, was the mother of which future monarch?',o:['Mary I','Elizabeth I','Edward VI','James I'],a:1,e:'Anne Boleyn and Henry had one daughter, Elizabeth, who later became Elizabeth I. Mary I was the daughter of Catherine of Aragon, Edward VI was the son of Jane Seymour, and James I came from the Scottish royal line generations later.'},
+{c:'Tudors: Henry VIII',q:'What happened to Anne Boleyn?',o:['She died of natural causes','She was executed at the Tower of London','She was sent back to France','She outlived Henry VIII'],a:1,e:'Anne Boleyn was unpopular and accused of taking lovers, and was executed at the Tower of London. She did not die naturally, was not sent to France (she was English), and did not outlive Henry.'},
+{c:'Tudors: Henry VIII',q:'Which wife gave Henry VIII the son, Edward, that he had long wanted?',o:['Catherine of Aragon','Anne Boleyn','Jane Seymour','Anne of Cleves'],a:2,e:'Jane Seymour gave Henry his son Edward but died shortly after the birth. Catherine of Aragon’s surviving child was Mary, Anne Boleyn’s was Elizabeth, and Anne of Cleves had no children with Henry.'},
+{c:'Tudors: Henry VIII',q:'Anne of Cleves was a princess from which country, married to Henry VIII largely for political reasons?',o:['Spain','France','Germany','Portugal'],a:2,e:'Anne of Cleves was a German princess whom Henry married for political reasons but divorced soon after. Catherine of Aragon was Spanish, and Anne of Cleves had no connection to France or Portugal.'},
+{c:'Tudors: Henry VIII',q:'What ultimately happened to Catherine Howard, a cousin of Anne Boleyn?',o:['She was divorced quietly','She was executed, accused of taking lovers','She survived Henry VIII','She fled abroad'],a:1,e:'Like her cousin Anne Boleyn, Catherine Howard was accused of taking lovers and was executed. She was not simply divorced, did not survive Henry, and did not flee abroad.'},
+{c:'Tudors: Henry VIII',q:'What happened to Catherine Parr, Henry VIII’s sixth and final wife?',o:['She was executed','She survived Henry, remarried, then died soon after','She divorced Henry and returned to Germany','She had no children and was set aside'],a:1,e:'Catherine Parr was a widow who married Henry late in his life, survived him, married again, and died soon after. She was not executed, was not German, and the text does not focus on her having no children as the key fact.'},
+{c:'Tudors: Henry VIII',q:'Why did Henry VIII establish the Church of England?',o:['The Pope refused to approve his divorce from Catherine of Aragon','He wanted to copy France’s religious system','Parliament forced him to do so','He was already a committed Protestant from childhood'],a:0,e:'To divorce his first wife, Henry needed the Pope’s approval; when the Pope refused, Henry established the Church of England with himself, not the Pope, in charge of appointing bishops and ordering worship. It was not modelled on France, forced by Parliament, or due to a childhood Protestant upbringing.'},
+{c:'Tudors: Henry VIII',q:'What power did Henry VIII give himself by creating the Church of England?',o:['The power to appoint bishops and order how people should worship','The power to abolish the monarchy','The power to crown himself Pope','The power to ban all religion'],a:0,e:'In the new Church of England, the king, not the Pope, had the power to appoint bishops and order how people should worship. He did not abolish the monarchy, declare himself Pope, or ban religion altogether.'},
+{c:'Tudors: Henry VIII',q:'What was the Reformation, happening across Europe at the same time as Henry VIII’s break from Rome?',o:['A movement against the Pope’s authority and Catholic Church practices','A war between England and Spain','A renaissance in English architecture','A reform of the English legal system'],a:0,e:'The Reformation was a movement against the authority of the Pope and the practices of the Roman Catholic Church, leading to the formation of Protestant churches. It was not a war, an architectural movement, or a legal reform.'},
+{c:'Tudors: Henry VIII',q:'What did Protestants do differently from Catholics regarding the Bible?',o:['They read it in their own languages instead of Latin','They refused to read it at all','They only allowed priests to own copies','They translated it only into French'],a:0,e:'Protestants read the Bible in their own languages instead of Latin, reflecting their belief in a direct personal relationship with God. They did not refuse to read it, restrict it to priests, or limit translation only to French.'},
+{c:'Tudors: Henry VIII',q:'What was the general result of English attempts to impose Protestantism in Ireland?',o:['Ireland converted peacefully','It led to rebellion from Irish chieftains and brutal fighting','Ireland became fully Protestant within a decade','It had no real impact on Ireland'],a:1,e:'Attempts to impose Protestantism, alongside new English inheritance laws, led to rebellion from Irish chieftains and much brutal fighting. Ireland did not convert peacefully or quickly, and the impact was clearly significant, not negligible.'},
+{c:'Tudors: Henry VIII',q:'Under Henry VIII, how did Wales become formally united with England?',o:['Through the Act for the Government of Wales','Through the Treaty of Union','Through the Statute of Rhuddlan','Through the Bill of Rights'],a:0,e:'During Henry VIII’s reign, the Act for the Government of Wales formally united Wales with England, giving Wales representation in the Commons and reforming its legal system. The Treaty of Union concerned Scotland, the Statute of Rhuddlan was earlier (1284), and the Bill of Rights came much later (1689).'},
+{c:'Tudors: Edward, Mary, Elizabeth',q:'What religious stance did Edward VI, Henry VIII’s son and successor, hold?',o:['Strongly Catholic','Strongly Protestant','Religiously neutral','Followed Islam'],a:1,e:'Edward VI was strongly Protestant, and the Book of Common Prayer was written for use in the Church of England during his reign. He was not Catholic, neutral, or of any other faith mentioned in the text.'},
+{c:'Tudors: Edward, Mary, Elizabeth',q:'Which book, still used in some churches today, was written for the Church of England during Edward VI’s reign?',o:['The King James Bible','The Book of Common Prayer','The Canterbury Tales','The Magna Carta'],a:1,e:'The Book of Common Prayer was written during Edward VI’s reign for use in the Church of England. The King James Bible came later under James I, The Canterbury Tales is unrelated medieval literature, and the Magna Carta is a legal charter, not a prayer book.'},
+{c:'Tudors: Edward, Mary, Elizabeth',q:'At roughly what age did Edward VI die, after ruling for just over six years?',o:['9','15','25','40'],a:1,e:'Edward VI died at the age of 15 after a reign of just over six years. He did not live to 25 or 40, and 9 is too young given the length of his reign described.'},
+{c:'Tudors: Edward, Mary, Elizabeth',q:'Why did Mary I become known as ‘Bloody Mary’?',o:['She fought in many wars personally','She was a devout Catholic who persecuted Protestants','She executed her own children','She banned all religion in England'],a:1,e:'Mary I was a devout Catholic and persecuted Protestants, earning her the nickname ‘Bloody Mary’. She did not fight personally in wars, had no children to execute, and did not ban religion outright — she enforced Catholicism.'},
+{c:'Tudors: Edward, Mary, Elizabeth',q:'Who succeeded Mary I as monarch of England?',o:['Lady Jane Grey','Elizabeth I','Mary, Queen of Scots','Edward VI'],a:1,e:'After Mary I’s short reign, her half-sister Elizabeth, daughter of Henry VIII and Anne Boleyn, became queen as Elizabeth I. Edward VI reigned before Mary, and Mary, Queen of Scots was a separate monarch of Scotland, not England’s successor here.'},
+{c:'Tudors: Edward, Mary, Elizabeth',q:'Elizabeth I was the daughter of Henry VIII and which of his wives?',o:['Catherine of Aragon','Anne Boleyn','Jane Seymour','Catherine Parr'],a:1,e:'Elizabeth I was the younger daughter of Henry VIII and Anne Boleyn. Catherine of Aragon was Mary I’s mother, Jane Seymour was Edward VI’s mother, and Catherine Parr had no children with Henry.'},
+{c:'Elizabethan Era',q:'What religion did Elizabeth I re-establish as the official religion of England?',o:['Roman Catholicism','Protestantism, through the Church of England','Presbyterianism','She made England officially non-religious'],a:1,e:'Elizabeth I, a Protestant, re-established the Church of England as the official Church. She did not restore Catholicism, establish Presbyterianism (which developed separately in Scotland), or make England non-religious.'},
+{c:'Elizabethan Era',q:'How did Elizabeth I generally treat people’s private religious beliefs, helping her avoid serious conflict?',o:['She demanded detailed confessions of belief from everyone','She did not ask about people’s real beliefs, focusing on outward conformity','She executed anyone suspected of being Catholic','She allowed open civil war between faiths'],a:1,e:'While everyone had to attend church and follow set forms of service, Elizabeth did not ask about people’s real beliefs, successfully balancing Catholic and Protestant views. She did not demand confessions, mass-execute Catholics, or allow open civil war over religion.'},
+{c:'Elizabethan Era',q:'In what year did England defeat the Spanish Armada?',o:['1558','1588','1605','1620'],a:1,e:'The Spanish Armada was defeated in 1588, a major event that boosted Elizabeth I’s popularity. 1558 is roughly when Elizabeth became queen, 1605 is the year of the Gunpowder Plot (not covered in this text), and 1620 relates to later colonial settlement.'},
+{c:'Elizabethan Era',q:'Why had Spain sent the Armada, a large fleet of ships, against England?',o:['To open new trade routes','To conquer England and restore Catholicism','To help England fight France','To deliver a royal marriage proposal'],a:1,e:'Spain sent the Armada to try to conquer England and restore Catholicism. It was not a trade mission, an alliance to fight France, or a marriage delegation.'},
+{c:'Elizabethan Era',q:'How is Elizabeth I generally remembered in English history?',o:['As a deeply unpopular monarch','As one of the most popular monarchs in English history','As a monarch who lost most of her wars','As a monarch with no interest in the arts'],a:1,e:'Elizabeth I became one of the most popular monarchs in English history, especially after the 1588 victory over the Armada, and her reign saw a flourishing of poetry and drama. She was not widely unpopular, did not lose most of her wars, and clearly took an interest in the arts of her age.'},
+{c:'Elizabethan Era',q:'Who was one of the commanders in the defeat of the Spanish Armada and a founder of England’s naval tradition?',o:['Sir Francis Drake','Admiral Nelson','Sir Isaac Newton','Oliver Cromwell'],a:0,e:'Sir Francis Drake was one of the commanders in the Armada’s defeat and a founding figure of England’s naval tradition. Admiral Nelson fought centuries later at Trafalgar, Newton was a scientist, and Cromwell was a later political and military leader.'},
+{c:'Elizabethan Era',q:'What was the name of Sir Francis Drake’s ship, one of the first to sail around the world?',o:['HMS Victory','The Golden Hind','The Mayflower','The Beagle'],a:1,e:'Drake’s ship, the Golden Hind, was one of the first to circumnavigate the world. HMS Victory was Nelson’s flagship at Trafalgar, the Mayflower is linked to American colonisation, and the Beagle is not mentioned in this chapter.'},
+{c:'Mary, Queen of Scots',q:'In 1560, what did the predominantly Protestant Scottish Parliament abolish?',o:['The monarchy of Scotland','The authority of the Pope in Scotland','The Scottish legal system','The Scots language'],a:1,e:'In 1560, the Scottish Parliament abolished the authority of the Pope in Scotland and made Catholic services illegal. It did not abolish the monarchy, the legal system, or the Scots language.'},
+{c:'Mary, Queen of Scots',q:'What religion was Mary, Queen of Scots?',o:['Protestant','Catholic','Presbyterian','Anglican'],a:1,e:'Mary Stuart, ‘Mary, Queen of Scots’, was a Catholic, in contrast to the increasingly Protestant Scotland she ruled. She was not Presbyterian or Anglican, terms associated with Protestant churches in Scotland and England respectively.'},
+{c:'Mary, Queen of Scots',q:'How old was Mary when she became queen of Scotland, after her father’s death?',o:['A week old','Five years old','Sixteen years old','Thirty years old'],a:0,e:'Mary was only a week old when her father died and she became queen. She did not become queen later in childhood or as an adult.'},
+{c:'Mary, Queen of Scots',q:'Where did Mary, Queen of Scots, spend much of her childhood?',o:['England','France','Spain','Ireland'],a:1,e:'Much of Mary’s childhood was spent in France. She did not grow up mainly in England, Spain, or Ireland.'},
+{c:'Mary, Queen of Scots',q:'What was Mary, Queen of Scots’ family relationship to Elizabeth I?',o:['Her cousin','Her sister','Her aunt','No relation'],a:0,e:'Mary was Elizabeth I’s cousin and hoped Elizabeth might help her after fleeing to England. They were not sisters or aunt and niece, and they were certainly related, not strangers.'},
+{c:'Mary, Queen of Scots',q:'What ultimately happened to Mary, Queen of Scots, after being held prisoner by Elizabeth I for 20 years?',o:['She was released and returned to Scotland as queen','She was executed, accused of plotting against Elizabeth I','She escaped permanently to France','She became Elizabeth’s heir'],a:1,e:'Mary was eventually executed, accused of plotting against Elizabeth I, after two decades of imprisonment. She was not released to rule again, did not escape to France, and was not made Elizabeth’s heir.'},
+{c:'Elizabethan Era',q:'What major colonial activity began during Elizabeth I’s reign?',o:['English settlers began to colonise the eastern coast of America','England conquered all of India','England colonised Australia','England took control of the Caribbean'],a:0,e:'In Elizabeth I’s time, English settlers first began to colonise the eastern coast of America. Control of India, Australia and the Caribbean came much later, during the 18th and 19th centuries.'},
+{c:'Elizabethan Era',q:'Where was William Shakespeare born?',o:['London','Stratford-upon-Avon','Canterbury','Edinburgh'],a:1,e:'Shakespeare was born in Stratford-upon-Avon, England. He later worked in London, but that was not his birthplace, and Canterbury and Edinburgh are not connected to his birth.'},
+{c:'Elizabethan Era',q:'Which of these is a play written by William Shakespeare?',o:['Hamlet','The Canterbury Tales','The Bruce','Under Milk Wood'],a:0,e:'Hamlet is one of Shakespeare’s most famous plays. The Canterbury Tales was written by Chaucer, The Bruce by John Barbour, and Under Milk Wood by the 20th-century Welsh writer Dylan Thomas.'},
+{c:'Elizabethan Era',q:'What is notable about how Shakespeare portrayed characters in his plays?',o:['He wrote only about kings and queens','He was one of the first to portray ordinary Englishmen and women','He refused to write about real historical events','He wrote exclusively in Latin'],a:1,e:'Shakespeare dramatised significant historical events but did not focus solely on kings and queens — he was one of the first to portray ordinary English men and women. He did write about historical events, and he wrote in English, not Latin.'},
+{c:'Elizabethan Era',q:'Which modern London theatre is a reconstruction of the kind of venue where Shakespeare’s plays were first performed?',o:['The Globe Theatre','The Royal Opera House','The National Theatre','The Old Vic'],a:0,e:'The Globe Theatre in London is a modern copy of the theatres in which Shakespeare’s plays were originally performed. The Royal Opera House, National Theatre and Old Vic are real London venues but are not reconstructions of Shakespeare’s original theatre.'},
+{c:'Elizabethan Era',q:'The famous line ‘To be or not to be’ comes from which Shakespeare play?',o:['Macbeth','Hamlet','Romeo and Juliet','Henry V'],a:1,e:'‘To be or not to be’ is from Hamlet. The other plays listed contain different famous lines mentioned in the text, such as ‘Once more unto the breach’ from Henry V and ‘A rose by any other name’ from Romeo and Juliet.'},
+{c:'Elizabethan Era',q:'What lasting effect did Shakespeare have on the English language?',o:['He invented many words that are still common today','He removed many words from common use','He standardised English spelling completely','He translated English into Latin'],a:0,e:'Shakespeare had a great influence on the English language and invented many words that are still common today. He did not remove words, fully standardise spelling, or translate English into Latin.'},
+{c:'James I/VI & Ireland',q:'Who became King James I of England, Wales and Ireland in 1603, after the death of Elizabeth I?',o:['James VI of Scotland','Charles I','William of Orange','Henry Tudor'],a:0,e:'James VI of Scotland became King James I of England, Wales and Ireland when Elizabeth I died in 1603, since she had no children of her own. Charles I was James’s son and successor, William of Orange came generations later, and Henry Tudor founded the Tudor line in 1485.'},
+{c:'James I/VI & Ireland',q:'When James VI of Scotland became James I of England in 1603, what happened to Scotland’s status?',o:['Scotland was absorbed entirely into England','Scotland remained a separate country','Scotland became independent of any monarchy','Scotland was given to France'],a:1,e:'Although James now ruled England, Wales, Ireland and Scotland, Scotland remained a separate country at this point; the Act of Union joining them did not happen until 1707. It was not absorbed into England, made monarch-free, or given to France.'},
+{c:'James I/VI & Ireland',q:'What major achievement of King James’s reign is still used by many Protestant churches today?',o:['The Book of Common Prayer','The King James Bible (Authorised Version)','The Magna Carta','The Act of Union'],a:1,e:'A new English translation of the Bible, known as the King James Version or Authorised Version, was completed during his reign and remains in use today. The Book of Common Prayer dates from Edward VI’s reign, the Magna Carta from 1215, and the Act of Union from 1707.'},
+{c:'James I/VI & Ireland',q:'What title did Henry VIII take regarding Ireland, later upheld by his successors?',o:['Lord Protector of Ireland','King of Ireland','Duke of Ireland','Defender of Ireland'],a:1,e:'Henry VIII took the title ‘King of Ireland’ as English authority was extended over the whole country. ‘Lord Protector’ was Oliver Cromwell’s later title, and ‘Duke’ or ‘Defender’ of Ireland are not titles used in the text.'},
+{c:'James I/VI & Ireland',q:'What were the settlements of Scottish and English Protestants in Ulster, encouraged by the English government, known as?',o:['The Pale','Plantations','The Danelaw','Boroughs'],a:1,e:'These settlements, taking over land from Catholic landholders in Ulster, were known as plantations. The Pale was the earlier English-controlled area around Dublin, the Danelaw was a Viking-era term, and boroughs relate to parliamentary constituencies.'},
+{c:'James I/VI & Ireland',q:'Where did many of the new Protestant settlers in the Ulster plantations come from?',o:['South-west Scotland','Northern France','Southern Spain','Central Italy'],a:0,e:'Many new settlers came from south-west Scotland, with other land given to companies based in London. France, Spain and Italy are not given as sources of these settlers.'},
+{c:'Road to Civil War',q:'What political idea did James I and his son Charles I both believe in?',o:['The Divine Right of Kings','Universal suffrage','Parliamentary supremacy','Religious tolerance for all faiths'],a:0,e:'Both believed in the Divine Right of Kings — that the king was appointed by God and should not need Parliament’s approval to act. This is the opposite of universal suffrage or parliamentary supremacy, and neither king is described as championing full religious tolerance.'},
+{c:'Road to Civil War',q:'For about how many years did Charles I rule without recalling Parliament?',o:['3 years','5 years','11 years','20 years'],a:2,e:'Charles I found ways to raise money without Parliament’s approval for 11 years before trouble in Scotland forced him to recall it. The other figures do not match the period described.'},
+{c:'Road to Civil War',q:'What eventually forced Charles I to recall Parliament after years of ruling alone?',o:['A plague outbreak in London','Trouble in Scotland requiring money for an army','A request from the Pope','An invasion by France'],a:1,e:'Trouble in Scotland meant Charles needed money for an army, forcing him to recall Parliament in 1640. Plague, papal requests and French invasion are not the causes given in the text.'},
+{c:'Road to Civil War',q:'What did Charles I try to impose on the Presbyterian Church in Scotland, leading to serious unrest?',o:['A revised Prayer Book','The King James Bible','Catholic mass','The Magna Carta'],a:0,e:'Charles I tried to impose a revised Prayer Book on the Presbyterian Church in Scotland, sparking serious unrest and the formation of a Scottish army. The King James Bible was already established, Catholic mass was not what he imposed on a Presbyterian church, and the Magna Carta is unrelated here.'},
+{c:'Road to Civil War',q:'In 1642, what did Charles I do in the House of Commons that no monarch has done since?',o:['Give a speech of apology','Try to arrest five parliamentary leaders','Dissolve Parliament permanently','Hand power to the army'],a:1,e:'Charles I entered the Commons and tried to arrest five parliamentary leaders, who had been warned and were absent; no monarch has set foot in the Commons since. He did not apologise, permanently dissolve Parliament, or hand power to the army at this point.'},
+{c:'Road to Civil War',q:'What were the two opposing sides in the English Civil War commonly called?',o:['Whigs and Tories','Cavaliers and Roundheads','Jacobites and Hanoverians','Lancastrians and Yorkists'],a:1,e:'Supporters of the king were called Cavaliers, and supporters of Parliament were called Roundheads. Whigs and Tories were later 18th-century political parties, Jacobites and Hanoverians relate to 18th-century succession disputes, and Lancastrians/Yorkists belong to the 15th-century Wars of the Roses.'},
+/*CHUNK_MARKER*/
+];
+
+let order = [];
+let idx = 0;
+let score = 0;
+let answered = false;
+let missed = [];
+
+const card = document.getElementById('card');
+const ribbonFill = document.getElementById('ribbonFill');
+const ribbonEra = document.getElementById('ribbonEra');
+const ribbonCount = document.getElementById('ribbonCount');
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function renderStart(){
+  ribbonFill.style.width = '0%';
+  ribbonEra.textContent = 'Not started';
+  ribbonCount.textContent = `0 / ${QUESTIONS.length}`;
+  const cats = new Set(QUESTIONS.map(q=>q.c)).size;
+  card.innerHTML = `
+    <div class="start-body">
+      <p>This quiz covers the full sweep of British history as set out in the official study material — from the Stone Age hunter-gatherers to Brexit. Each question has four options. After you answer, you'll get an explanation covering the correct answer <em>and</em> why each of the other choices is wrong.</p>
+      <div class="start-stats">
+        <div class="stat-box"><span class="stat-num">${QUESTIONS.length}</span><span class="stat-label">Questions</span></div>
+        <div class="stat-box"><span class="stat-num">${cats}</span><span class="stat-label">Eras &amp; Topics</span></div>
+        <div class="stat-box"><span class="stat-num">4</span><span class="stat-label">Options Each</span></div>
+      </div>
+      <div class="center"><button class="seal-btn" id="beginBtn">Begin the Quiz</button></div>
+    </div>
+  `;
+  document.getElementById('beginBtn').addEventListener('click', startQuiz);
+}
+
+function startQuiz(){
+  order = QUESTIONS.map((_,i)=>i);
+  idx = 0; score = 0; missed = [];
+  renderQuestion();
+}
+
+function renderQuestion(){
+  answered = false;
+  const qi = order[idx];
+  const q = QUESTIONS[qi];
+  const letters = ['A','B','C','D'];
+  ribbonFill.style.width = `${(idx/order.length)*100}%`;
+  ribbonEra.textContent = q.c;
+  ribbonCount.textContent = `${idx+1} / ${order.length}`;
+
+  card.innerHTML = `
+    <div class="q-eyebrow">
+      <span class="q-category">${q.c}</span>
+      <span class="q-count">Question ${idx+1} of ${order.length}</span>
+    </div>
+    <p class="q-text">${q.q}</p>
+    <div class="options" id="optionsWrap">
+      ${q.o.map((opt,i)=>`
+        <button class="opt" data-i="${i}">
+          <span class="opt-letter">${letters[i]}</span>
+          <span>${opt}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div id="feedbackWrap"></div>
+    <div class="controls">
+      <span class="score-pill">Score: ${score} / ${idx}</span>
+      <button class="next-btn" id="nextBtn">${idx+1 < order.length ? 'Next Question →' : 'See Results →'}</button>
+    </div>
+  `;
+
+  document.querySelectorAll('.opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>selectOption(parseInt(btn.dataset.i), q));
+  });
+  document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+}
+
+function selectOption(choice, q){
+  if(answered) return;
+  answered = true;
+  const correct = q.a;
+  const isRight = choice === correct;
+  if(isRight) score++;
+  else missed.push({q: q.q, correctText: q.o[correct]});
+
+  document.querySelectorAll('.opt').forEach((btn,i)=>{
+    btn.classList.add('locked');
+    if(i === correct) btn.classList.add('correct');
+    else if(i === choice) btn.classList.add('incorrect');
+    else btn.classList.add('dim');
+  });
+
+  const fb = document.getElementById('feedbackWrap');
+  fb.innerHTML = `
+    <div class="feedback ${isRight ? 'right' : 'wrong'}">
+      <p class="feedback-head">${isRight ? 'Correct' : 'Not quite'}</p>
+      <p>${q.e}</p>
+    </div>
+  `;
+  document.getElementById('nextBtn').classList.add('show');
+  document.querySelector('.score-pill').textContent = `Score: ${score} / ${idx+1}`;
+}
+
+function nextQuestion(){
+  if(!answered) return;
+  idx++;
+  if(idx >= order.length){ renderResults(); return; }
+  renderQuestion();
+}
+
+function renderResults(){
+  ribbonFill.style.width = '100%';
+  ribbonEra.textContent = 'Complete';
+  ribbonCount.textContent = `${order.length} / ${order.length}`;
+
+  const pct = Math.round((score/order.length)*100);
+  let verdict;
+  if(pct >= 90) verdict = "Excellent — you'd pass the real test comfortably. A little more revision on the topics you missed and you're set.";
+  else if(pct >= 75) verdict = "A solid result. The real test requires 18/24 (75%) correct, so you're on track — tighten up the areas below.";
+  else if(pct >= 50) verdict = "A reasonable start, but you'd want more revision before sitting the real test. Focus on the eras you struggled with.";
+  else verdict = "This chapter needs more work before the real test. Go back through the sections you missed and try again.";
+
+  const byCat = {};
+  QUESTIONS.forEach((q,i)=>{ if(!byCat[q.c]) byCat[q.c] = {right:0,total:0}; });
+  order.forEach((qi)=>{}); // no-op, kept simple
+
+  // recompute category stats by replaying answers isn't tracked per-question; use simple aggregate by category over full set order
+  const catStats = {};
+  QUESTIONS.forEach(q=>{ if(!catStats[q.c]) catStats[q.c] = {total:0}; catStats[q.c].total++; });
+
+  card.innerHTML = `
+    <div class="result-score">
+      <div class="result-num">${pct}%</div>
+      <div class="result-of">${score} of ${order.length} correct</div>
+    </div>
+    <p class="result-verdict">${verdict}</p>
+    <div class="review-toggle">
+      <button class="link-btn" id="toggleMissed">${missed.length ? `Show ${missed.length} missed question${missed.length===1?'':'s'}` : 'You missed nothing — review not needed'}</button>
+    </div>
+    <div id="missedWrap" class="hidden"></div>
+    <div class="center" style="margin-top:10px;">
+      <button class="seal-btn" id="restartBtn">Retake Quiz</button>
+      <div style="margin-top:12px;">
+        <button class="seal-btn secondary" id="restartShuffleBtn">Retake — Shuffled Order</button>
+      </div>
+    </div>
+  `;
+
+  const toggleBtn = document.getElementById('toggleMissed');
+  if(missed.length){
+    toggleBtn.addEventListener('click', ()=>{
+      const wrap = document.getElementById('missedWrap');
+      const showing = !wrap.classList.contains('hidden');
+      if(showing){ wrap.classList.add('hidden'); toggleBtn.textContent = `Show ${missed.length} missed question${missed.length===1?'':'s'}`; }
+      else{
+        wrap.classList.remove('hidden');
+        wrap.innerHTML = missed.map(m=>`<div class="miss-item"><p class="miss-q">${m.q}</p><p class="miss-a">Correct answer: ${m.correctText}</p></div>`).join('');
+        toggleBtn.textContent = 'Hide missed questions';
+      }
+    });
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', ()=>{ order = QUESTIONS.map((_,i)=>i); idx=0; score=0; missed=[]; renderQuestion(); });
+  document.getElementById('restartShuffleBtn').addEventListener('click', ()=>{ order = shuffle(QUESTIONS.map((_,i)=>i)); idx=0; score=0; missed=[]; renderQuestion(); });
+}
+
+renderStart();
+</script>
+</body>
+</html>
